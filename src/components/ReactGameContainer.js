@@ -9,10 +9,10 @@ function ReactGameContainer({
   setGameTime,
 }) {
   useEffect(() => {
-    const height = window.innerHeight;
-    const width = window.innerWidth;
+    const height = 800;
+    const width = 600;
     console.log(height);
-    document.game = new CreateGame(colorChoice, height, width);
+    document.game = new CreateGame(colorChoice, width, height);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
