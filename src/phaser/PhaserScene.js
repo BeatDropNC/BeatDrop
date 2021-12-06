@@ -11,12 +11,14 @@ export default class PhaserScene extends Phaser.Scene {
       playTime: 0,
     };
     this.scrollingBackground = undefined;
+    this.scrollingPlatforms = undefined;
   }
   
 
   preload() {
     // this.load.image('backdrop', 'assets/backdrop.png')
     this.load.image('background', 'assets/Backgrounds/Bg01/Repeated.png');
+    this.load.image('platform', 'assets/Platform/03/skeleton-animation_0.png');
     this.load.spritesheet('dude', 
         'assets/dude.png',
         { frameWidth: 32, frameHeight: 48 }
@@ -24,17 +26,18 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   create() {
-        // this.cameras.main.setViewport(0, 0, 600, 800);
+        this.cameras.main.setViewport(0, 0, 600, 800);
         // this.add.image(0, 0, 'background').setOrigin(0, 0);
 
         //Repeating background
         this.scrollingBackground = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
-        console.log(this.scrollingBackground.tilePositionY);
+        this.physics.add.image(300, 1500, 'platform')
+      
 
+        this.player = this.physics.add.sprite(300, 400, 'dude');
+        this.physics.add.collider(this.player, this.scrollingPlatforms)
 
-        this.player = this.physics.add.sprite(200, 0, 'dude');
-
-        this.player.body.setGravityY(0)
+        this.player.body.setGravityY(200)
 
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
@@ -61,13 +64,13 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.scoreText = this.add.text(50, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-        this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.player).setLerp(0, 0)
+
   }
 
   update(){
     // Set background scrolling position
-    this.scrollingBackground.tilePositionY += 6;
-
+    this.scrollingBackground.tilePositionY += 20;
 
     // Movement controls listener
     if (this.cursors.left.isDown)
@@ -89,10 +92,10 @@ export default class PhaserScene extends Phaser.Scene {
           this.player.anims.play('turn');
         }
 
-        if (this.cursors.up.isDown)
-        {
-          this.player.setVelocityY(-50);
-        }
+        // if (this.cursors.up.isDown)
+        // {
+        //   this.player.setVelocityY(-50);
+        // }
   }
   
 }
