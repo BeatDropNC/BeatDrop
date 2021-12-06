@@ -32,7 +32,7 @@ const LoginPage = () => {
                     Login
                 </button>
                 <div>
-                    {/* <Link to="/reset-password">Forgot Password</Link> */}
+                    <Link to="/reset-password">Forgot Password</Link>
                 </div>
                 <div>
                     Don't have an account? <Link to="/signup">Sign up</Link> here.

@@ -1,34 +1,41 @@
-import firebaseConfig from './firebaseConfig.json';
-import { initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import firebaseConfig from './firebaseConfig.json'
+import { initializeApp } from 'firebase/app'
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+} from 'firebase/auth'
+import { getFirestore, collection, addDoc } from 'firebase/firestore'
 
-
-
-initializeApp(firebaseConfig);
-const auth = getAuth();
-const db = getFirestore();
+initializeApp(firebaseConfig)
+const auth = getAuth()
+const db = getFirestore()
 
 const loginUserByEmail = async (email, password) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
-        console.log(error);
-        alert(error.message);
+        console.log(error)
+        alert(error.message)
     }
 }
 
 const signUpUserByEmail = async (username, email, password) => {
     try {
         // create user authentication
-        const { user } = await createUserWithEmailAndPassword(auth, email, password);
+        const { user } = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        )
         // add to users collection
-        const collectionRef = collection(db, "users");
+        const collectionRef = collection(db, 'users')
         await addDoc(collectionRef, {
             uid: user.uid,
             username,
             email,
-            authProvider: "local",
+            authProvider: 'local',
             friends: [],
             scores: {
                 level1: 0,
@@ -40,14 +47,18 @@ const signUpUserByEmail = async (username, email, password) => {
             },
         })
     } catch (error) {
-        console.log(error);
-        alert(error.message);
+        console.log(error)
+        alert(error.message)
     }
-
 }
 
-export {
-    auth,
-    loginUserByEmail,
-    signUpUserByEmail,
+const resetPasswordByEmail = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email)
+    } catch (error) {
+        console.log(error)
+        alert(error.message)
+    }
 }
+
+export { auth, loginUserByEmail, signUpUserByEmail, resetPasswordByEmail }
