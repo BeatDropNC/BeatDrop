@@ -16,7 +16,6 @@ export default class PhaserScene extends Phaser.Scene {
   
 
   preload() {
-    // this.load.image('backdrop', 'assets/backdrop.png')
     this.load.image('background', 'assets/Backgrounds/Bg01/Repeated.png');
     this.load.image('platform', 'assets/Platform/03/skeleton-animation_0.png');
     this.load.spritesheet('dude', 
@@ -27,21 +26,48 @@ export default class PhaserScene extends Phaser.Scene {
 
   create() {
         this.cameras.main.setViewport(0, 0, 600, 800);
-        // this.add.image(0, 0, 'background').setOrigin(0, 0);
 
         //Repeating background
         this.scrollingBackground = this.add.tileSprite(0, 0, 600, 800, 'background').setOrigin(0, 0);
-        this.physics.add.image(300, 1500, 'platform')
+
+        // Scrolling platforms
+        const platformGroup = this.physics.add.group({
+          key: 'platform',
+          repeat: 200,
+          setXY: {
+            x: 10,
+            y: 20, 
+            stepY: 200,
+            stepX: 30,
+          },
+        })
       
-
+        // Player physics
         this.player = this.physics.add.sprite(300, 400, 'dude');
-        this.physics.add.collider(this.player, this.scrollingPlatforms)
 
+
+        // Platform physics
+
+        this.player.alive = true;
+
+        this.physics.add.collider(this.player, platformGroup, function() {
+          console.log('hello')
+          // if(this.player.alive){
+          //   this.player.kill();
+          // } else {
+          //   this.player.reset(300, 400, 'dude');
+          // }
+        })
+
+        // Player physics
         this.player.body.setGravityY(200)
-
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
+        // this.physics.add.overlap(this.player, platformGroup, function(){
+        //   this.player = this.physics.add.sprite(300, 400, 'dude');
+        // })
 
+        // Player sprite animation
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -62,10 +88,14 @@ export default class PhaserScene extends Phaser.Scene {
             repeat: -1
         });
 
+        // Player input
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.scoreText = this.add.text(50, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-        this.cameras.main.startFollow(this.player).setLerp(0, 0)
 
+        // Player score text
+        this.scoreText = this.add.text(50, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
+        // Camera
+        this.cameras.main.startFollow(this.player).setLerp(0, 0)
   }
 
   update(){
