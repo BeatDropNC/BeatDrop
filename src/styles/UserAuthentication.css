@@ -1,15 +1,15 @@
-.auth-page-header {
-    text-align: center;
-}
-
-.login-page {
+.auth-page {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    place-items: center;
 }
 
+/* .auth-page-header {
+    text-align: center;
+} */
+
 .login-form {
+    width: 200px;
     display: grid;
     grid-template-columns: auto auto;
 }
@@ -22,7 +22,6 @@
     text-align: right;
 }
 
-/* .login__textBox {
-    display: flex;
-    flex-direction: row;
-} */
+.login-form > button {
+    size: min-content min-content;
+}
