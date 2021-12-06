@@ -1,0 +1,20 @@
+1. Create empty repo, do not clone
+
+2. npx create-react-app beatdrop
+
+3. npm start
+
+4. git remote add origin https://github.com/BeatDropNC/BeatDrop
+
+5. git push --set-upstream origin master
+
+6. npm add gh-pages
+
+7. edit scripts, add:
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+
+8. Edit package add homepage:
+    "homepage": "https://BeatDropNC.github.io/BeatDrop/"
+
+9. npm run deploy
