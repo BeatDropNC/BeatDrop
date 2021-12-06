@@ -1,0 +1,28 @@
+.auth-page-header {
+    text-align: center;
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.login-form > * {
+    margin: 0 2px 10px;
+}
+
+.login-form > label {
+    text-align: right;
+}
+
+/* .login__textBox {
+    display: flex;
+    flex-direction: row;
+} */
