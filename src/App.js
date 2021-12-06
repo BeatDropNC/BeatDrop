@@ -7,6 +7,7 @@ function App() {
   const [colorChoice, setColorChoice] = useState('red')
   const [gameTime, setGameTime] = useState(0)
 
+  console.log("Hello")
 
   return (
     <BrowserRouter>
