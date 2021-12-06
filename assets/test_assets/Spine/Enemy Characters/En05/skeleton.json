@@ -1,0 +1,127 @@
+{
+"skeleton": {
+	"hash": "8m0X91rh46pWwyirE60dMSN5364",
+	"spine": "3.8.75",
+	"x": -261.1,
+	"y": -129.99,
+	"width": 500,
+	"height": 500,
+	"images": "./Images/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Body", "parent": "root", "x": 4.25, "y": 123.96 }
+],
+"slots": [
+	{ "name": "Body", "bone": "Body", "attachment": "Body" },
+	{ "name": "Box", "bone": "root", "color": "ffffff00", "attachment": "Box" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Body": {
+				"Body": { "x": -2.25, "y": 4.04, "width": 103, "height": 105 },
+				"Body2": { "x": -1.96, "y": 3.93, "width": 103, "height": 105 }
+			},
+			"Box": {
+				"Box": { "x": -11.1, "y": 120.01, "width": 500, "height": 500 }
+			}
+		}
+	}
+],
+"animations": {
+	"Death": {
+		"slots": {
+			"Body": {
+				"color": [
+					{ "time": 0.5, "color": "ffffffff" },
+					{ "time": 0.6667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Body2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Body": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "angle": 26.59, "curve": "stepped" },
+					{ "time": 0.2667, "angle": 26.59, "curve": "stepped" },
+					{ "time": 0.3333, "angle": 26.59 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.1667, "curve": "stepped" },
+					{ "time": 0.2667, "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.452, "y": 0.452, "curve": "stepped" },
+					{ "time": 0.2667, "x": 0.452, "y": 0.452 },
+					{ "time": 0.3333, "x": 1.125, "y": 1.125 },
+					{ "time": 0.4, "x": 0.951, "y": 0.951 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.1667, "curve": "stepped" },
+					{ "time": 0.2667, "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"MovingAndIdle": {
+		"slots": {
+			"Body": {
+				"attachment": [
+					{ "time": 0.3333, "name": "Body2" },
+					{ "time": 0.4, "name": "Body" }
+				]
+			}
+		},
+		"bones": {
+			"Body": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.3333, "y": -5.54 },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			}
+		}
+	}
+}
+}
