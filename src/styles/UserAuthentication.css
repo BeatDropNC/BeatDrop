@@ -1,27 +1,39 @@
 .auth-page {
     display: flex;
     flex-direction: column;
-    place-items: center;
+    align-items: flex-start;
+    margin-left: 10vw;
 }
 
-/* .auth-page-header {
-    text-align: center;
-} */
-
-.login-form {
-    width: 200px;
-    display: grid;
-    grid-template-columns: auto auto;
+.auth-page-header {
+    align-self: center;
 }
 
-.login-form > * {
-    margin: 0 2px 10px;
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 
-.login-form > label {
-    text-align: right;
+.auth-form-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-bottom: 10px;
 }
 
-.login-form > button {
-    size: min-content min-content;
+.auth-form-field > input {
+    margin-left: 10px;
+}
+
+.auth-submit-btn {
+    align-self: center;
+}
+
+.auth-error-message {
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    width: 300px;
+    align-self: center;
+    color: red;
 }
