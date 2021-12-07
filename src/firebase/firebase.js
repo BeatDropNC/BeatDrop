@@ -10,9 +10,7 @@ import {
     getFirestore,
     collection,
     addDoc,
-    getDoc,
     getDocs,
-    doc,
     where,
     query,
 } from 'firebase/firestore'
@@ -51,6 +49,16 @@ const loginUserByEmail = async (email, password, setErrorMessage) => {
         setErrorMessage(frontendErrorMessage)
     }
 }
+
+const logoutUser = async () => {
+    try {
+        await auth.signOut();
+    } catch (error) {
+        console.log(error);
+        alert(error.message);
+    }
+}
+
 
 const signUpUserByEmail = async (username, email, password) => {
     try {
@@ -111,6 +119,7 @@ const getUserByUid = async (uid) => {
 export {
     auth,
     loginUserByEmail,
+    logoutUser,
     signUpUserByEmail,
     resetPasswordByEmail,
     getUserByUid,
