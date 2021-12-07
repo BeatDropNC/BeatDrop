@@ -93,12 +93,28 @@ export default class PhaserScene extends Phaser.Scene {
 
     const hitPlatform = () => {
       if(this.gameInProgress){
-        console.log(hitPlatform)
         this.gameInProgress = false;
         this.player.body.setVelocity(0);
         this.player.body.position.x = 300;
         this.player.body.position.y = this.player.body.position.y - 100;
         this.physics.pause();
+        this.platformGroup.children.iterate((platform => {
+          if(this.cameras.main.worldView.contains(platform.x, platform.y)){
+              this.platformGroup.killAndHide(platform);
+              const newY = this.lastPlatform + Phaser.Math.RND.between(100, 300);
+              const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
+              this.lastPlatform = newY;
+              if(!newPlatform){
+                return 
+              }
+              newPlatform.setActive(true);
+              newPlatform.setVisible(true);
+          }
+        }))
+        this.time.addEvent({delay: 1500, loop: false, callback: () => {
+          this.gameInProgress = true;
+          this.physics.resume()}
+        })
       }
     }
 
