@@ -1,6 +1,6 @@
-import '../styles/Menu.css'
+import '../../styles/Menu.css'
 import {react, useState} from 'react'
-import ReactGameContainer from './ReactGameContainer'
+import ReactGameContainer from '../ReactGameContainer'
 import { Link } from 'react-router-dom'
 
 

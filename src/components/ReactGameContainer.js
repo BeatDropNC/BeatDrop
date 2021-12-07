@@ -22,7 +22,7 @@ function ReactGameContainer({
 
   return (
     <div className="ReactGameContainer">
-      <Link className="quit-button" to={"/"}>
+      <Link className="quit-button" to={"/level-select"}>
         Quit
       </Link>
     </div>

@@ -27,7 +27,7 @@ const LoginPage = () => {
                 const { uid } = user
                 setUserUid(uid)
                 if (uid !== undefined) {
-                    navigate('/logged-in')
+                    navigate('/welcome-page')
                 }
             } else {
                 setUserUid(null)
