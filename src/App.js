@@ -7,7 +7,8 @@ import LoginPage from './components/UserAuthentication/LoginPage';
 import SignupPage from './components/UserAuthentication/SignupPage';
 import ResetPasswordPage from './components/UserAuthentication/ResetPasswordPage';
 import { UserUidProvider } from './contexts/UserUidContext';
-import Homepage from './components/Homepage';
+import Homepage from './components/Menus/Homepage';
+import LoggedIn from './components/Menus/LoggedIn';
 
 
 
@@ -27,7 +28,11 @@ function App() {
           <Routes>
             <Route
               path='/homepage'
-              element={<Homepage />} 
+              element={<Homepage />}
+            />
+            <Route
+              path='/logged-in'
+              element={<LoggedIn />}
             />
 
             {/* user authentication */}
