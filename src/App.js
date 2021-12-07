@@ -6,6 +6,9 @@ import Menu from './components/Menu';
 import LoginPage from './components/UserAuthentication/LoginPage';
 import SignupPage from './components/UserAuthentication/SignupPage';
 import ResetPasswordPage from './components/UserAuthentication/ResetPasswordPage';
+import { UserUidProvider } from './contexts/UserUidContext';
+import Homepage from './components/Homepage';
+
 
 
 
@@ -15,36 +18,45 @@ function App() {
 
   console.log("Hello")
 
+
+
   return (
     <BrowserRouter>
-      <div className="App">
-        <Routes>
-          {/* user authentication */}
-          <Route
-            path='/login'
-            element={<LoginPage />}
-          />
-          <Route
-            path='/signup'
-            element={<SignupPage />}
-          />
-          <Route
-            path='/reset-password'
-            element={<ResetPasswordPage />}
-          />
+      <UserUidProvider>
+        <div className="App">
+          <Routes>
+            <Route
+              path='/homepage'
+              element={<Homepage />} 
+            />
 
-          <Route
-            path='/'
-            element={<Menu colorChoice={colorChoice} setColorChoice={setColorChoice} gameTime={gameTime} />}
-          />
-          <Route
-            path='/newgame'
-            element={<ReactGameContainer colorChoice={colorChoice} setColorChoice={setColorChoice} setGameTime={setGameTime} colorProp={colorChoice} />}
-          />
+            {/* user authentication */}
+            <Route
+              path='/login'
+              element={<LoginPage />}
+            />
+            <Route
+              path='/signup'
+              element={<SignupPage />}
+            />
+            <Route
+              path='/reset-password'
+              element={<ResetPasswordPage />}
+            />
 
-        </Routes>
+            <Route
+              path='/'
+              element={<Menu colorChoice={colorChoice} setColorChoice={setColorChoice} gameTime={gameTime} />}
+            />
+            <Route
+              path='/newgame'
+              element={<ReactGameContainer colorChoice={colorChoice} setColorChoice={setColorChoice} setGameTime={setGameTime} colorProp={colorChoice} />}
+            />
 
-      </div>
+          </Routes>
+
+        </div>
+      </UserUidProvider>
     </BrowserRouter>
   );
 }

@@ -1,15 +1,22 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { loginUserByEmail, getUserByUid } from '../../firebase/firebase'
 import { onAuthStateChanged } from '@firebase/auth'
-import { auth, db } from '../../firebase/firebase'
+import { auth } from '../../firebase/firebase'
 
 import '../../styles/UserAuthentication.css'
+import { UserUidContext } from '../../contexts/UserUidContext'
+
+
 
 const LoginPage = () => {
+    const { userUid, setUserUid } = useContext(UserUidContext);
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+
+    const navigate = useNavigate();
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault()
@@ -17,9 +24,16 @@ const LoginPage = () => {
     }
     console.log(errorMessage)
     onAuthStateChanged(auth, async (user) => {
-        const { uid } = user
-        const fetchedUser = await getUserByUid(uid)
-        console.log(fetchedUser)
+        if (user) {
+            const { uid } = user
+            setUserUid(uid);
+            if (uid !== undefined) {
+                navigate('/homepage')
+            }
+        } else {
+            console.log("no user")
+        }
+
     })
 
     return (
