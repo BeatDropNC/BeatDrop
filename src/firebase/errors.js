@@ -17,29 +17,26 @@ export const setFrontendErrorMessage = ({ message }, setErrorMessage) => {
             break
 
         case 'Firebase: Error (auth/email-already-in-use).':
-            frontendErrorMessage =
-                'Email Address already in use.'
+            frontendErrorMessage = 'Email Address already in use.'
             break
 
         case 'Firebase: Password should be at least 6 characters (auth/weak-password).':
-            frontendErrorMessage =
-                'Password must be atleast 6 characters.'
+            frontendErrorMessage = 'Password must be atleast 6 characters.'
             break
 
         case 'Firebase: Email quota exceeded (auth/quota-exceeded).':
             frontendErrorMessage =
                 'You have tried to reset your password too many times. Please try again later.'
-
+            break
         case 'Firebase: Error (auth/too-many-requests).':
             frontendErrorMessage =
                 'Your request limit has been exceeded. Please try again later.'
-
+            break
         default:
-            frontendErrorMessage = message;
+            frontendErrorMessage = message
             console.log([message])
             break
     }
-    
-    setErrorMessage(frontendErrorMessage)
 
+    setErrorMessage(frontendErrorMessage)
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { resetPasswordByEmail } from '../../firebase/firebase';
 import { Link } from 'react-router-dom';
 import '../../styles/UserAuthentication.css';
