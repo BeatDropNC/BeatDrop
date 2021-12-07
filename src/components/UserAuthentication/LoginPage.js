@@ -22,7 +22,7 @@ const LoginPage = () => {
     }
 
     useEffect(() => {
-        onAuthStateChanged(auth, async (user) => {
+        return onAuthStateChanged(auth, (user) => {
             if (user) {
                 const { uid } = user
                 setUserUid(uid)
