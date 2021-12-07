@@ -14,6 +14,7 @@ import {
     where,
     query,
 } from 'firebase/firestore'
+import { setFrontendErrorMessage } from './errors'
 
 initializeApp(firebaseConfig)
 const auth = getAuth()
@@ -25,28 +26,7 @@ const loginUserByEmail = async (email, password, setErrorMessage) => {
         setErrorMessage('')
     } catch (error) {
         console.log([error.message])
-        let frontendErrorMessage
-        switch (error.message) {
-            case 'Firebase: Error (auth/wrong-password).':
-                frontendErrorMessage =
-                    'Wrong password was supplied. Please try again.'
-                break
-
-            case 'Firebase: Error (auth/user-not-found).':
-                frontendErrorMessage =
-                    "No user with provided Email Address was found. Don't have an account? Sign up below."
-                break
-
-            case 'Firebase: Error (auth/invalid-email).':
-                frontendErrorMessage =
-                    'Invalid Email Address was provided. Please try again.'
-                break
-
-            default:
-                break
-        }
-
-        setErrorMessage(frontendErrorMessage)
+        setFrontendErrorMessage(error, setErrorMessage)
     }
 }
 
