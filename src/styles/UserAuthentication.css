@@ -37,3 +37,11 @@
     align-self: center;
     color: red;
 }
+
+.auth-user-message {
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    width: 300px;
+    align-self: center;
+    color: green;
+}
