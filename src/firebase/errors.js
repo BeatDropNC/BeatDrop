@@ -26,11 +26,20 @@ export const setFrontendErrorMessage = ({ message }, setErrorMessage) => {
                 'Password must be atleast 6 characters.'
             break
 
+        case 'Firebase: Email quota exceeded (auth/quota-exceeded).':
+            frontendErrorMessage =
+                'You have tried to reset your password too many times. Please try again later.'
+
+        case 'Firebase: Error (auth/too-many-requests).':
+            frontendErrorMessage =
+                'Your request limit has been exceeded. Please try again later.'
+
         default:
-            frontendErrorMessage = 'An error occured';
+            frontendErrorMessage = message;
             console.log([message])
             break
     }
-
+    
     setErrorMessage(frontendErrorMessage)
+
 }

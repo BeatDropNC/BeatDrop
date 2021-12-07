@@ -67,16 +67,16 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
         })
     } catch (error) {
         //console.log([error.message])
-        setFrontendErrorMessage(error, setErrorMessage);        
+        setFrontendErrorMessage(error, setErrorMessage);
     }
 }
 
-const resetPasswordByEmail = async (email) => {
+const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) => {
     try {
         await sendPasswordResetEmail(auth, email)
+        setMessageToUser('Your reset password link has been sent. Please check your emails including your spam folder.')
     } catch (error) {
-        console.log(error)
-        alert(error.message)
+        setFrontendErrorMessage(error, setErrorMessage)
     }
 }
 
