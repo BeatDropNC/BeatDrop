@@ -14,11 +14,9 @@ export default class PhaserGame extends Phaser.Game {
           mode: Phaser.Scale.ScaleModes.HEIGHT_CONTROLS_WIDTH,
       },
         physics: {
+            
             default: 'arcade',
-            arcade: {
-                gravity: { y: -200 },
-                debug: false
-            }
+          
         },
       };
 
