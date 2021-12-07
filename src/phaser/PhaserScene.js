@@ -27,8 +27,6 @@ export default class PhaserScene extends Phaser.Scene {
 
   create() {
 
-    
-    
     this.cameras.main.setViewport(0, 0, 600, 800);
 
     //Sets the size of the whole world, first two are the top corner of the word and then
@@ -43,29 +41,28 @@ export default class PhaserScene extends Phaser.Scene {
     this.scrollingBackground.setScrollFactor(0);
 
     // Scrolling platforms
-    this.platformGroup = this.add.group();
+    this.platformGroup = this.physics.add.group();
 
     //enable physics on all of them
 
-    this.physics.world.enable(this.platformGroup);
+    // this.physics.world.enable(this.platformGroup);
     //create 10 blocks
     let gap = 500
     for (var i = 0; i < 10; i++) {
       
       const platform = this.platformGroup.create(
-        Phaser.Math.RND.between(-100, 750),
+        Phaser.Math.RND.between(0, 700),
         gap + Phaser.Math.RND.between(100, 300),
         "platform"
       );
-    
-      
       gap += 1000
       console.log(platform)
     }
  
-    // const groupPhysics = this.physics.add.group(this.platformGroup)
-    // groupPhysics.setVelocityY(9000)
-
+    //Sets velocity of platforms
+    this.platformGroup.getChildren().forEach(item => {
+      item.body.setVelocityY(-200)
+    })
     
 
     // Create Player
@@ -148,7 +145,6 @@ export default class PhaserScene extends Phaser.Scene {
     this.platformGroup.getChildren().forEach(item => {
 
       if (item.y < this.player.y - 600){
-        
         item.destroy()
         console.log("destroyed")
       }
