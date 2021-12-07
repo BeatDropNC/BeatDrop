@@ -14,6 +14,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.scrollingPlatforms = undefined;
     this.platformGroup = undefined;
     this.cursors = undefined;
+    this.lastPlatform = undefined;
   }
 
   preload() {
@@ -55,8 +56,10 @@ export default class PhaserScene extends Phaser.Scene {
         gap + Phaser.Math.RND.between(100, 300),
         "platform"
       );
-      gap += 1000
-      console.log(platform)
+      this.lastPlatform = platform.y;
+      gap += 1000;
+      console.log(this.lastPlatform);
+
     }
  
     //Sets velocity of platforms
@@ -141,15 +144,29 @@ export default class PhaserScene extends Phaser.Scene {
       this.player.anims.play("turn");
     } 
 
-    this.platformGroup.getChildren().forEach(item => {
+    // this.platformGroup.getChildren().forEach(item => {
 
-      if (item.y < this.player.y - 600){
+    //   if (item.y < this.player.y - 600){
 
-        const lastPlatform = this.platformGroup.getLast(true)
-        item.destroy()
-        console.log("destroyed")
+    //     const lastPlatform = this.platformGroup.getLast(true)
+    //     item.destroy()
+    //     console.log("destroyed")
+    //   }
+
+    // })
+
+    this.platformGroup.children.iterate((platform) =>{
+      if(platform.y < this.player.y - 600){
+        this.platformGroup.killAndHide(platform);
+        const newY = this.lastPlatform + Phaser.Math.RND.between(100, 300);
+        const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 700), newY);
+        this.lastPlatform = newY;
+        if(!newPlatform){
+          return 
+        }
+        newPlatform.setActive(true);
+        newPlatform.setVisible(true);
       }
-
     })
   }
 }
