@@ -52,10 +52,10 @@ export default class PhaserScene extends Phaser.Scene {
     for (var i = 0; i < 10; i++) {
       
       const platform = this.platformGroup.create(
-        Phaser.Math.RND.between(0, 700),
+        Phaser.Math.RND.between(0, 338),
         gap + Phaser.Math.RND.between(100, 300),
         "platform"
-      );
+      ).setOrigin(0, 0)
       this.lastPlatform = platform.y;
       gap += 1000;
       console.log(this.lastPlatform);
@@ -142,24 +142,15 @@ export default class PhaserScene extends Phaser.Scene {
     } else {
       this.player.setVelocityX(0);
       this.player.anims.play("turn");
-    } 
+    }
 
-    // this.platformGroup.getChildren().forEach(item => {
-
-    //   if (item.y < this.player.y - 600){
-
-    //     const lastPlatform = this.platformGroup.getLast(true)
-    //     item.destroy()
-    //     console.log("destroyed")
-    //   }
-
-    // })
+    // Platform random generation
 
     this.platformGroup.children.iterate((platform) =>{
       if(platform.y < this.player.y - 600){
         this.platformGroup.killAndHide(platform);
         const newY = this.lastPlatform + Phaser.Math.RND.between(100, 300);
-        const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 700), newY);
+        const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
         this.lastPlatform = newY;
         if(!newPlatform){
           return 
