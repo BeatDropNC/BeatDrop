@@ -6,7 +6,16 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
 } from 'firebase/auth'
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDoc,
+    getDocs,
+    doc,
+    where,
+    query,
+} from 'firebase/firestore'
 
 initializeApp(firebaseConfig)
 const auth = getAuth()
@@ -15,29 +24,31 @@ const db = getFirestore()
 const loginUserByEmail = async (email, password, setErrorMessage) => {
     try {
         await signInWithEmailAndPassword(auth, email, password)
-        setErrorMessage("");
-
+        setErrorMessage('')
     } catch (error) {
         console.log([error.message])
-        let frontendErrorMessage;
+        let frontendErrorMessage
         switch (error.message) {
-            case "Firebase: Error (auth/wrong-password).":
-                frontendErrorMessage = "Wrong password was supplied. Please try again."
-                break;
-            
-            case "Firebase: Error (auth/user-not-found).":
-                frontendErrorMessage = "No user with provided Email Address was found. Don't have an account? Sign up below."
+            case 'Firebase: Error (auth/wrong-password).':
+                frontendErrorMessage =
+                    'Wrong password was supplied. Please try again.'
                 break
 
-            case "Firebase: Error (auth/invalid-email).":
-                frontendErrorMessage = "Invalid Email Address was provided. Please try again."
+            case 'Firebase: Error (auth/user-not-found).':
+                frontendErrorMessage =
+                    "No user with provided Email Address was found. Don't have an account? Sign up below."
+                break
+
+            case 'Firebase: Error (auth/invalid-email).':
+                frontendErrorMessage =
+                    'Invalid Email Address was provided. Please try again.'
                 break
 
             default:
-                break;
+                break
         }
 
-        setErrorMessage(frontendErrorMessage);
+        setErrorMessage(frontendErrorMessage)
     }
 }
 
@@ -81,4 +92,26 @@ const resetPasswordByEmail = async (email) => {
     }
 }
 
-export { auth, loginUserByEmail, signUpUserByEmail, resetPasswordByEmail }
+const getUserByUid = async (uid) => {
+    try {
+        const collectionRef = collection(db, 'users')
+        const queryToUse = query(collectionRef, where('uid', '==', uid))
+        const querySnapshot = await getDocs(queryToUse)
+        let user
+        querySnapshot.forEach((item) => {
+            user = item.data()
+        })
+        return user
+    } catch (error) {
+        console.log(error)
+        alert(error.message)
+    }
+}
+
+export {
+    auth,
+    loginUserByEmail,
+    signUpUserByEmail,
+    resetPasswordByEmail,
+    getUserByUid,
+}
