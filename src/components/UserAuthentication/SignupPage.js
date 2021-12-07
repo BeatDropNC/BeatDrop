@@ -9,17 +9,18 @@ const SignupPage = () => {
     const [username, setUsername] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmitSignup = () => {
+    const handleSubmitSignup = async (e) => {
+        e.preventDefault();
         if (!username) {
             alert('Please enter a username')
         } else {
-            signUpUserByEmail(username, email, password, setErrorMessage);
+            await signUpUserByEmail(username, email, password, setErrorMessage);
         }
     }
 
     return (
         <main className="auth-page">
-            <div className="auth-form">
+            <form className="auth-form" onSubmit={handleSubmitSignup}>
                 <h1 className="auth-page-header">Sign Up</h1>
                 <div className="auth-form-field">
                     <label htmlFor="username-input">Username:</label>
@@ -31,7 +32,7 @@ const SignupPage = () => {
                         placeholder="Choose a username"
                     />
                 </div>
-                <div className="auth-form-field">
+                <div className="auth-form-field" onSubmit={handleSubmitSignup}>
                     <label htmlFor="email-input">Email address:</label>
                     <input
                         type="text"
@@ -53,8 +54,8 @@ const SignupPage = () => {
                 <div className="auth-error-message">
                     {errorMessage ? errorMessage : null}
                 </div>
-                <button className="auth-submit-btn" onClick={handleSubmitSignup}>Sign Up</button>
-            </div>
+                <button className="auth-submit-btn">Sign Up</button>
+            </form>
             <div>
                 Already signed up? <Link to="/login">Login</Link>.
             </div>

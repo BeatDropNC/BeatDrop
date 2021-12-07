@@ -19,13 +19,15 @@ export const setFrontendErrorMessage = ({ message }, setErrorMessage) => {
         case 'Firebase: Error (auth/email-already-in-use).':
             frontendErrorMessage =
                 'Email Address already in use.'
+            break
 
         case 'Firebase: Password should be at least 6 characters (auth/weak-password).':
             frontendErrorMessage =
                 'Password must be atleast 6 characters.'
+            break
 
         default:
-            frontendErrorMessage('An error occured')
+            frontendErrorMessage = 'An error occured';
             console.log([message])
             break
     }
