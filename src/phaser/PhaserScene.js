@@ -61,7 +61,7 @@ export default class PhaserScene extends Phaser.Scene {
  
     //Sets velocity of platforms
     this.platformGroup.getChildren().forEach(item => {
-      item.body.setVelocityY(-200)
+      item.body.setVelocityY(-400)
     })
     
 
@@ -129,30 +129,27 @@ export default class PhaserScene extends Phaser.Scene {
 
     // Movement controls listener
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-300);
 
       this.player.anims.play("left", true);
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(300);
 
       this.player.anims.play("right", true);
     } else {
       this.player.setVelocityX(0);
-
       this.player.anims.play("turn");
-    }
+    } 
 
     this.platformGroup.getChildren().forEach(item => {
 
       if (item.y < this.player.y - 600){
+
+        const lastPlatform = this.platformGroup.getLast(true)
         item.destroy()
         console.log("destroyed")
       }
 
     })
-
-
-    
-
   }
 }
