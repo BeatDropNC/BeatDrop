@@ -15,6 +15,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.platformGroup = undefined;
     this.cursors = undefined;
     this.lastPlatform = undefined;
+    this.gameInProgress = true;
   }
 
   preload() {
@@ -59,8 +60,9 @@ export default class PhaserScene extends Phaser.Scene {
       this.lastPlatform = platform.y;
       gap += 1000;
       console.log(this.lastPlatform);
-
     }
+
+
  
     //Sets velocity of platforms
     this.platformGroup.getChildren().forEach(item => {
@@ -86,6 +88,22 @@ export default class PhaserScene extends Phaser.Scene {
     this.player.body.setMaxVelocityY(50)
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
+
+    // Platform Collision Detection
+
+    const hitPlatform = () => {
+      if(this.gameInProgress){
+        console.log(hitPlatform)
+        this.gameInProgress = false;
+        this.player.body.setVelocity(0);
+        this.player.body.position.x = 300;
+        this.player.body.position.y = this.player.body.position.y - 100;
+        this.physics.pause();
+      }
+    }
+
+    this.physics.add.collider(this.platformGroup);
+    this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
 
 
     // Player sprite animation
