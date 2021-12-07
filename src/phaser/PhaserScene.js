@@ -51,7 +51,7 @@ export default class PhaserScene extends Phaser.Scene {
         this.player.alive = true;
 
         this.physics.add.collider(this.player, platformGroup, function() {
-          console.log('hello')
+
           // if(this.player.alive){
           //   this.player.kill();
           // } else {

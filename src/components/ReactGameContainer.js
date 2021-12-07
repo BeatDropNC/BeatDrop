@@ -22,6 +22,8 @@ function ReactGameContainer({
 
   return (
     <div className="ReactGameContainer">
+            <div id="phaser-container"></div>
+
       <Link className="quit-button" to={"/"}>
         Quit
       </Link>
