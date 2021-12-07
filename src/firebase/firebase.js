@@ -40,7 +40,7 @@ const logoutUser = async () => {
 }
 
 
-const signUpUserByEmail = async (username, email, password) => {
+const signUpUserByEmail = async (username, email, password, setErrorMessage) => {
     try {
         // create user authentication
         const { user } = await createUserWithEmailAndPassword(
@@ -66,8 +66,8 @@ const signUpUserByEmail = async (username, email, password) => {
             },
         })
     } catch (error) {
-        console.log(error)
-        alert(error.message)
+        //console.log([error.message])
+        setFrontendErrorMessage(error, setErrorMessage);        
     }
 }
 

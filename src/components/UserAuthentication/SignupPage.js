@@ -7,12 +7,16 @@ const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const signup = () => {
+    const handleSubmitSignup = () => {
         if (!username) {
             alert('Please enter a username')
-        } else signUpUserByEmail(username, email, password);
+        } else {
+            signUpUserByEmail(username, email, password, setErrorMessage);
+        }
     }
+
     return (
         <main className="auth-page">
             <div className="auth-form">
@@ -46,7 +50,10 @@ const SignupPage = () => {
                         placeholder="Password"
                     />
                 </div>
-                <button className="auth-submit-btn" onClick={signup}>Sign Up</button>
+                <div className="auth-error-message">
+                    {errorMessage ? errorMessage : null}
+                </div>
+                <button className="auth-submit-btn" onClick={handleSubmitSignup}>Sign Up</button>
             </div>
             <div>
                 Already signed up? <Link to="/login">Login</Link>.

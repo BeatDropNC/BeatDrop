@@ -16,11 +16,19 @@ export const setFrontendErrorMessage = ({ message }, setErrorMessage) => {
                 'Invalid Email Address was provided. Please try again.'
             break
 
+        case 'Firebase: Error (auth/email-already-in-use).':
+            frontendErrorMessage =
+                'Email Address already in use.'
+
+        case 'Firebase: Password should be at least 6 characters (auth/weak-password).':
+            frontendErrorMessage =
+                'Password must be atleast 6 characters.'
+
         default:
+            frontendErrorMessage('An error occured')
+            console.log([message])
             break
     }
-
-
 
     setErrorMessage(frontendErrorMessage)
 }
