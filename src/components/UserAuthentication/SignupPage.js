@@ -22,7 +22,7 @@ const SignupPage = () => {
             alert('Please enter a username')
         } else {
             await signUpUserByEmail(username, email, password, setErrorMessage)
-            navigate('/homepage')
+            navigate('/welcome-page')
         }
     }
 
