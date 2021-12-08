@@ -1,0 +1,19 @@
+.single-leaderboard {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+.single-leaderboard > * {
+    place-items: center;
+}
+
+td {
+    padding: 0.2em;
+    border: 1px solid lightslategray;
+    size: 12em, 1.4em;
+}
+
+button {
+    margin: 2px;
+}
