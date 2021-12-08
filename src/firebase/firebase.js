@@ -46,14 +46,14 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             password
         )
         // add to users collection
-        const documentRef = doc(db, 'users', user.uid)
+        const documentRef = doc(db, 'users', user.uid);
         await setDoc(documentRef, {
             uid: user.uid,
             username,
             email,
             authProvider: 'local',
             friends: [],
-            scores: {
+            highScores: {
                 level1: 0,
                 level2: 0,
                 level3: 0,
@@ -61,6 +61,9 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
                 level5: 0,
                 level6: 0,
             },
+            scoreHistory: [
+
+            ]
         },)
     } catch (error) {
         //console.log([error.message])
