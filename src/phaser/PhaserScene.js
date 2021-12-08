@@ -24,6 +24,9 @@ export default class PhaserScene extends Phaser.Scene {
     this.starsGroup = undefined;
     this.lastStar = undefined;
     this.lastCreatedStar = undefined;
+    this.music = undefined;
+    this.platformImpactSFX = undefined;
+    this.starCollectionSFX = undefined;
   }
 
   preload() {
@@ -35,9 +38,20 @@ export default class PhaserScene extends Phaser.Scene {
       frameHeight: 48,
     });
     this.load.image("floor", "assets/Platform/floor.png" )
+
+    // Music generation
+    this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
+    this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
+    this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav")
   }
 
   create() {
+
+    // Turns on music
+    this.music = this.sound.add("initial_sixty");
+    this.platformImpactSFX = this.sound.add("platform_impact");
+    this.starCollectionSFX = this.sound.add("star_collection");
+    this.music.play();
 
     this.cameras.main.setViewport(0, 0, 600, 800);
 
@@ -118,6 +132,8 @@ export default class PhaserScene extends Phaser.Scene {
 
     const hitPlatform = () => {
       if(this.gameInProgress){
+        this.platformImpactSFX.play();
+        this.cameras.main.shake(1000, 0.004)
         this.gameInProgress = false;
         this.player.body.setVelocity(0);
         this.player.body.position.x = 300;
@@ -191,6 +207,7 @@ export default class PhaserScene extends Phaser.Scene {
     const hitStar = () => {
       this.starsGroup.children.iterate((star => {
         if(this.cameras.main.worldView.contains(star.x, star.y) || this.physics.add.overlap(star, this.platformGroup, null, this)){
+          this.starCollectionSFX.play();
           this.starsGroup.killAndHide(star);
           const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(1000, 1200);
           const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
