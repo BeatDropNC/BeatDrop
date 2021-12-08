@@ -66,8 +66,6 @@ export default class PhaserScene extends Phaser.Scene {
       this.lastCreatedPlatform = platform;
     }
 
-
-
     // Scrolling stars
     this.starsGroup = this.physics.add.group();
     
@@ -83,28 +81,15 @@ export default class PhaserScene extends Phaser.Scene {
       this.lastCreatedStar = star;
     }
 
-
-
-
- 
     //Sets velocity of platforms
     this.platformGroup.getChildren().forEach(item => {
       item.body.setVelocityY(-400)
     })
 
-
-
-
-
-
     // Sets velocity of stars
     this.starsGroup.getChildren().forEach(item => {
       item.body.setVelocityY(-400);
     })
-
-
-
-
 
     // Create Player
     this.player = this.physics.add.sprite(300, 400, "dude");
@@ -159,12 +144,6 @@ export default class PhaserScene extends Phaser.Scene {
     this.physics.add.collider(this.platformGroup);
     this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
 
-
-
-
-
-
-
     // Star Collision detection
 
     const hitStarAddScore = () => {
@@ -194,34 +173,6 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.physics.add.collider(this.starsGroup);
     this.physics.add.overlap(this.player, this.starsGroup, hitStar, null, this);
-    
-
-    // Prevent stars spawning on platforms
-    // this.physics.add.overlap(this.starsGroup, this.platformGroup, null, this);
-    // filterTiles() ? FILTER TILES NOT A FUNCTION
-
-    // const emptySpace = this.platformGroup.filterTiles((platform) => {
-    //   return platform.index === -1;
-    // })
-
-    // let randomSpace = Phaser.Utils.Array.GetRandom(emptySpace);
-    // newStar.setPosition(randomSpace.pixelX, randomSpace.pixelY);
-    // newStar.setOrigin(0,0);
-
-    // const checkOverlap = (star, platform) => {
-    //   let boundsA = star.getBounds();
-    //   let boundB = star.getBounds();
-    //   console.log(Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB))
-    // return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
-    // }
-
-    // Check for overlap? If overlaps, immediately respawn?
-
-    // RESOLVED: using OR for hitstar, checks for overlap, respawns if so
-
-
-
-
 
     // Player sprite animation
     this.anims.create({
@@ -299,17 +250,11 @@ export default class PhaserScene extends Phaser.Scene {
       }
     })
 
-
-
-
-
-
     // Star random generation
     this.starsGroup.children.iterate((star) => {
       
       if(star.y < this.player.y - 600){
         this.starsGroup.killAndHide(star);
-
         // Iterate through, get biggest Y
         const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(900, 1100);
         const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
