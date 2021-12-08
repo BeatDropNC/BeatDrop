@@ -25,5 +25,10 @@ describe("getUserByUid", () => {
                 })
             )
         })
+        test("Test 2: Returns the correct user object", async() => {
+            const uid = "tSrxjGzmnqUC2ouS78h1Qfnp3833";
+            const userObj = await getUserByUid(uid);
+            expect(userObj.username).toBe("user-signup-example");
+        })
     })
 })
