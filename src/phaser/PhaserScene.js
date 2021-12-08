@@ -16,6 +16,8 @@ export default class PhaserScene extends Phaser.Scene {
     this.cursors = undefined;
     this.lastPlatform = undefined;
     this.gameInProgress = true;
+    this.gap = 500;
+    this.lastCreatedPlatform = undefined;
   }
 
   preload() {
@@ -45,21 +47,18 @@ export default class PhaserScene extends Phaser.Scene {
     // Scrolling platforms
     this.platformGroup = this.physics.add.group();
 
-    //enable physics on all of them
+    
+    // Platform creation
 
-    // this.physics.world.enable(this.platformGroup);
-    //create 10 blocks
-    let gap = 500
-    for (var i = 0; i < 10; i++) {
-      
+    for (var i = 0; i < 4; i++) {
       const platform = this.platformGroup.create(
         Phaser.Math.RND.between(0, 338),
-        gap + Phaser.Math.RND.between(100, 300),
+        this.gap + Phaser.Math.RND.between(100, 300),
         "platform"
       ).setOrigin(0, 0)
       this.lastPlatform = platform.y;
-      gap += 1000;
-      console.log(this.lastPlatform);
+      this.gap += 1000;
+      this.lastCreatedPlatform = platform;
     }
 
 
@@ -85,7 +84,7 @@ export default class PhaserScene extends Phaser.Scene {
 
     // Player physics
     this.player.body.setGravityY(50);
-    this.player.body.setMaxVelocityY(50)
+    this.player.body.setMaxVelocityY(70)
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
 
@@ -97,18 +96,20 @@ export default class PhaserScene extends Phaser.Scene {
         this.player.body.setVelocity(0);
         this.player.body.position.x = 300;
         this.player.body.position.y = this.player.body.position.y - 100;
-        this.physics.pause();
+        // this.physics.pause();
         this.platformGroup.children.iterate((platform => {
           if(this.cameras.main.worldView.contains(platform.x, platform.y)){
               this.platformGroup.killAndHide(platform);
-              const newY = this.lastPlatform + Phaser.Math.RND.between(100, 300);
+              const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
               const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
               this.lastPlatform = newY;
               if(!newPlatform){
                 return 
               }
+              this.gap += 1000;
               newPlatform.setActive(true);
               newPlatform.setVisible(true);
+              this.lastCreatedPlatform = newPlatform;
           }
         }))
         this.time.addEvent({delay: 1500, loop: false, callback: () => {
@@ -154,12 +155,12 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.player.body.velocity.y > 10 && this.player.y > 800) {
+    if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
     }
 
     if (this.player.y < 800) {
-      this.player.setGravityY(550);
+      this.player.setGravityY(50);
     } else {
       this.player.setGravityY(50);
     }
@@ -183,7 +184,10 @@ export default class PhaserScene extends Phaser.Scene {
     this.platformGroup.children.iterate((platform) =>{
       if(platform.y < this.player.y - 600){
         this.platformGroup.killAndHide(platform);
-        const newY = this.lastPlatform + Phaser.Math.RND.between(100, 300);
+        
+        // Iterate through, get biggest Y
+        const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(900, 1100);
+        
         const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
         this.lastPlatform = newY;
         if(!newPlatform){
@@ -191,6 +195,7 @@ export default class PhaserScene extends Phaser.Scene {
         }
         newPlatform.setActive(true);
         newPlatform.setVisible(true);
+        this.lastCreatedPlatform = newPlatform;
       }
     })
   }
