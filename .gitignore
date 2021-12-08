@@ -24,4 +24,9 @@ src/firebase/firebaseConfig.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 /public/assets
+=======
+
+/public/assets/
+>>>>>>> scrolling-background
