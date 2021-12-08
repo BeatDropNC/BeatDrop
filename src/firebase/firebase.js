@@ -5,6 +5,7 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
+    signOut,
     // deleteUser,
 } from 'firebase/auth'
 import {
@@ -12,7 +13,6 @@ import {
     doc,
     setDoc,
 } from 'firebase/firestore'
-import { setFrontendErrorMessage } from './errors'
 
 initializeApp(firebaseConfig)
 const auth = getAuth()
@@ -21,7 +21,6 @@ const db = getFirestore()
 const loginUserByEmail = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password)
-        setErrorMessage('')
     } catch (error) {
         console.log([error.message])
         return Promise.reject(error);
@@ -37,7 +36,7 @@ const logoutUser = async () => {
     }
 }
 
-const signUpUserByEmail = async (username, email, password, setErrorMessage) => {
+const signUpUserByEmail = async (username, email, password) => {
     try {
         // create user authentication
         const { user } = await createUserWithEmailAndPassword(
@@ -67,31 +66,17 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
         },)
     } catch (error) {
         //console.log([error.message])
-        setFrontendErrorMessage(error, setErrorMessage);
+        return Promise.reject(error)
     }
 }
 
 const resetPasswordByEmail = async (email) => {
     try {
         await sendPasswordResetEmail(auth, email)
-        setMessageToUser('Your reset password link has been sent. Please check your emails including your spam folder.')
     } catch (error) {
         return Promise.reject(error);
     }
 }
-
-/* const deleteUserFromAuthAndDB = async (user) => {
-    
-    try {
-        // delete from Authorised Users list
-        await deleteUser(auth.currentUser);
-        // delete the user's document from 'users' collection
-    } catch (error) {
-        const documentRef = doc(db, )
-    }
-    
-    
-} */
 
 export {
     auth, db,

@@ -5,6 +5,7 @@ import { onAuthStateChanged } from '@firebase/auth'
 import { auth } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
+import { setFrontendErrorMessage } from '../../firebase/errors'
 
 const SignupPage = () => {
     const { setUserUid } = useContext(UserUidContext)
@@ -21,8 +22,14 @@ const SignupPage = () => {
         if (!username) {
             alert('Please enter a username')
         } else {
-            await signUpUserByEmail(username, email, password, setErrorMessage)
-            navigate('/welcome-page')
+            await signUpUserByEmail(username, email, password)
+                .then(() => {
+                    navigate('/welcome-page')
+                })
+                .catch(error => {
+                    setFrontendErrorMessage(error, setErrorMessage);
+                })
+
         }
     }
 
