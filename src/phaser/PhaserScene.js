@@ -6,7 +6,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.gameOver = false;
     this.player = undefined;
     this.score = 0;
-    let scoreText = undefined;
+    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
@@ -152,11 +152,16 @@ export default class PhaserScene extends Phaser.Scene {
       fontSize: "32px",
       fill: "#000",
     });
+    //Not afffected by scrolling
+    this.scoreText.setScrollFactor(0);
+
   }
 
   update() {
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
+      this.score += 10
+      this.scoreText.setText(`score: ${this.score}`)
     }
 
     if (this.player.y < 800) {
