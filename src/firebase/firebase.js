@@ -18,13 +18,13 @@ initializeApp(firebaseConfig)
 const auth = getAuth()
 const db = getFirestore()
 
-const loginUserByEmail = async (email, password, setErrorMessage) => {
+const loginUserByEmail = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password)
         setErrorMessage('')
     } catch (error) {
         console.log([error.message])
-        setFrontendErrorMessage(error, setErrorMessage)
+        return Promise.reject(error);
     }
 }
 

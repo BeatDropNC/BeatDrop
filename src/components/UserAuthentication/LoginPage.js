@@ -6,6 +6,7 @@ import { auth } from '../../firebase/firebase'
 
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
+import { setFrontendErrorMessage } from '../../firebase/errors'
 
 const LoginPage = () => {
     const { setUserUid } = useContext(UserUidContext)
@@ -18,7 +19,13 @@ const LoginPage = () => {
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault()
-        await loginUserByEmail(email, password, setErrorMessage)
+        await loginUserByEmail(email, password)
+            .catch(error => {
+                setErrorMessage('');
+                setFrontendErrorMessage(error, setErrorMessage);
+            })
+            
+        
     }
 
     useEffect(() => {
