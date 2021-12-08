@@ -5,11 +5,12 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
+    // deleteUser,
 } from 'firebase/auth'
 import {
     getFirestore,
-    collection,
-    addDoc,
+    doc,
+    setDoc,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
@@ -36,7 +37,6 @@ const logoutUser = async () => {
     }
 }
 
-
 const signUpUserByEmail = async (username, email, password, setErrorMessage) => {
     try {
         // create user authentication
@@ -46,8 +46,8 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             password
         )
         // add to users collection
-        const collectionRef = collection(db, 'users')
-        await addDoc(collectionRef, {
+        const documentRef = doc(db, 'users', user.uid)
+        await setDoc(documentRef, {
             uid: user.uid,
             username,
             email,
@@ -61,7 +61,7 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
                 level5: 0,
                 level6: 0,
             },
-        })
+        },)
     } catch (error) {
         //console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage);
@@ -76,6 +76,19 @@ const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) =>
         setFrontendErrorMessage(error, setErrorMessage)
     }
 }
+
+/* const deleteUserFromAuthAndDB = async (user) => {
+    
+    try {
+        // delete from Authorised Users list
+        await deleteUser(auth.currentUser);
+        // delete the user's document from 'users' collection
+    } catch (error) {
+        const documentRef = doc(db, )
+    }
+    
+    
+} */
 
 export {
     auth, db,
