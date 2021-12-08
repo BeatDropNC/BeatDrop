@@ -1,6 +1,5 @@
 import '../../styles/LevelSelect.css'
-import { react, useContext, useEffect, useState } from 'react'
-import ReactGameContainer from '../ReactGameContainer'
+import { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext';
 
