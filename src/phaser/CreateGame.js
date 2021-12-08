@@ -5,16 +5,22 @@ export default class PhaserGame extends Phaser.Game {
     constructor(colorChoice, width, height) {
       const config = {
         type: Phaser.AUTO,
+        parent: "phaser-container",
+
         width: width,
         height: height,
+        scale: {
+          zoom: 2,
+          mode: Phaser.Scale.ScaleModes.HEIGHT_CONTROLS_WIDTH,
+      },
         physics: {
+            
             default: 'arcade',
-            arcade: {
-                gravity: { y: 300 },
-                debug: false
-            }
+          
         },
       };
+
+      
       super(config);
       
 

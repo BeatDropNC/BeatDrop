@@ -5,8 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 800px;
-  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  
+
   
 }
 
