@@ -10,9 +10,6 @@ import {
     getFirestore,
     collection,
     addDoc,
-    getDocs,
-    where,
-    query,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
@@ -80,27 +77,10 @@ const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) =>
     }
 }
 
-const getUserByUid = async (uid) => {
-    try {
-        const collectionRef = collection(db, 'users')
-        const queryToUse = query(collectionRef, where('uid', '==', uid))
-        const querySnapshot = await getDocs(queryToUse)
-        let user
-        querySnapshot.forEach((item) => {
-            user = item.data()
-        })
-        return user
-    } catch (error) {
-        console.log(error)
-        alert(error.message)
-    }
-}
-
 export {
-    auth,
+    auth, db,
     loginUserByEmail,
     logoutUser,
     signUpUserByEmail,
     resetPasswordByEmail,
-    getUserByUid,
 }
