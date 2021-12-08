@@ -71,12 +71,12 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
     }
 }
 
-const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) => {
+const resetPasswordByEmail = async (email) => {
     try {
         await sendPasswordResetEmail(auth, email)
         setMessageToUser('Your reset password link has been sent. Please check your emails including your spam folder.')
     } catch (error) {
-        setFrontendErrorMessage(error, setErrorMessage)
+        return Promise.reject(error);
     }
 }
 
