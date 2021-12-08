@@ -9,7 +9,7 @@ const Leaderboards = () => {
         if(!userUid) {
             navigate('/');
         }
-    }, [userUid]);
+    }, [userUid, navigate]);
 
     return (
         <div>

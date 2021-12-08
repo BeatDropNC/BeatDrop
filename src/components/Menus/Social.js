@@ -9,7 +9,7 @@ const Social = () => {
         if (!userUid) {
             navigate('/');
         }
-    }, [userUid]);
+    }, [userUid, navigate]);
     return (
         <div>
             <h1>Social</h1>

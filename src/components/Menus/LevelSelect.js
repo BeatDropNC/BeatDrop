@@ -12,7 +12,7 @@ function Menu({ colorChoice, setColorChoice, gameTime }) {
     if (!userUid) {
       navigate('/');
     }
-  }, [userUid]);
+  }, [userUid, navigate]);
   const chooseColor = (color) => {
     setColorChoice(color)
   }

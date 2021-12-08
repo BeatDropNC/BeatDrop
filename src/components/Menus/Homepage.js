@@ -11,7 +11,7 @@ const Homepage = () => {
         if (userUid) {
             navigate('/welcome-page');
         }
-    }, [userUid]);
+    }, [userUid, navigate]);
 
     return (
         <main className="main-menu">

@@ -11,7 +11,7 @@ const MainMenu = () => {
         if (!userUid) {
             navigate('/')
         }
-    }, [userUid])
+    }, [userUid, navigate])
 
     const onClickSignOut = () => {
         logoutUser()

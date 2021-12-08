@@ -9,7 +9,7 @@ const Profile = () => {
         if (!userUid) {
             navigate('/');
         }
-    }, [userUid]);
+    }, [userUid, navigate]);
     return (
         <div>
             <h1>Profile</h1>
