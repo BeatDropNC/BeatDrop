@@ -3,20 +3,16 @@ import { react, useContext, useEffect, useState } from 'react'
 import ReactGameContainer from '../ReactGameContainer'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext';
-import { auth } from '../../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 
 
 function Menu({ colorChoice, setColorChoice, gameTime }) {
   const { userUid } = useContext(UserUidContext);
   const navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        navigate('/');
-      }
-    })
-  }, [auth])
+    if (!userUid) {
+      navigate('/');
+    }
+  }, [userUid]);
   const chooseColor = (color) => {
     setColorChoice(color)
   }

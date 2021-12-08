@@ -1,19 +1,15 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
-import { auth } from '../../firebase/firebase';
 
 const Social = () => {
     const { userUid } = useContext(UserUidContext);
     const navigate = useNavigate();
     useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            if (!user) {
-                navigate('/');
-            }
-        })
-    }, [auth])
+        if (!userUid) {
+            navigate('/');
+        }
+    }, [userUid]);
     return (
         <div>
             <h1>Social</h1>
