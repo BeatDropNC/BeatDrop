@@ -26,6 +26,7 @@ function Menu({ colorChoice, setColorChoice, gameTime }) {
         <button className="red button" onClick={() => { chooseColor('red') }} >Red Please</button>
         <button className="yellow button" onClick={() => { chooseColor('yellow') }} >Yellow Thanks</button>
       </div> <Link id={'start-button'} className={"button start-button"} to={"/newgame"}> Start Phaser</Link>
+      <Link to='/main-menu'>Return to Main Menu</Link>
     </div>
   );
 }
