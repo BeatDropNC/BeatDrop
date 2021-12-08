@@ -6,7 +6,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.gameOver = false;
     this.player = undefined;
     this.score = 0;
-    let scoreText = undefined;
+    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
@@ -122,7 +122,8 @@ export default class PhaserScene extends Phaser.Scene {
         this.player.body.setVelocity(0);
         this.player.body.position.x = 300;
         this.player.body.position.y = this.player.body.position.y - 100;
-        // this.physics.pause();
+        this.physics.pause();
+        this.updateScore(-2000)
         this.platformGroup.children.iterate((platform => {
           if(this.cameras.main.worldView.contains(platform.x, platform.y)){
               this.platformGroup.killAndHide(platform);
@@ -234,16 +235,24 @@ export default class PhaserScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Player score text
-    this.scoreText = this.add.text(50, 16, "score: 0", {
+    this.scoreText = this.add.text(50, 16, "Score: 0", {
       fontSize: "32px",
       fill: "#000",
     });
+    //Not affected by scrolling
+    this.scoreText.setScrollFactor(0);
+
+    
+
   }
 
   update() {
 
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
+      // this.score += 10
+      // this.scoreText.setText(`score: ${this.score}`)
+      this.updateScore(10)
     }
 
     if (this.player.y < 800 && !this.gameEndInProgress) {
@@ -304,4 +313,16 @@ export default class PhaserScene extends Phaser.Scene {
       }
     })
   }
+
+
+  updateScore(updateAmount){
+
+    const color = updateAmount < 0 ? '#d40000' : '#000'
+
+    this.score += updateAmount
+    this.scoreText.setText(`Score: ${this.score}`)
+    this.scoreText.setFill(color)
+  }  
+
+
 }
