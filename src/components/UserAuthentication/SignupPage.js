@@ -43,8 +43,8 @@ const SignupPage = () => {
     return (
         <main className="auth-page">
             <form className="auth-form" onSubmit={handleSubmitSignup}>
-                <h1 className="auth-page-header">Sign Up</h1>
-                <div className="auth-form-field">
+                <h1>Sign Up</h1>
+                <div className="auth-form-fields">
                     <label htmlFor="username-input">Username:</label>
                     <input
                         type="text"
@@ -53,8 +53,6 @@ const SignupPage = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder="Choose a username"
                     />
-                </div>
-                <div className="auth-form-field" onSubmit={handleSubmitSignup}>
                     <label htmlFor="email-input">Email address:</label>
                     <input
                         type="text"
@@ -62,8 +60,6 @@ const SignupPage = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="E-mail Address"
                     />
-                </div>
-                <div className="auth-form-field">
                     <label htmlFor="password-input">Password:</label>
                     <input
                         type="password"
@@ -73,14 +69,14 @@ const SignupPage = () => {
                         placeholder="Password"
                     />
                 </div>
-                <div className="auth-error-message">
+                <p className="auth-error-message">
                     {errorMessage ? errorMessage : null}
-                </div>
+                </p>
                 <button className="auth-submit-btn">Sign Up</button>
             </form>
-            <div>
+            <p>
                 Already signed up? <Link to="/login">Login</Link>.
-            </div>
+            </p>
         </main>
     )
 }

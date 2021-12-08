@@ -11,7 +11,7 @@ export const UserUidProvider = ({ children }) => {
         onAuthStateChanged(auth, user => {
             setUserUid(user?.uid);
         })
-    }, [auth]);
+    }, []);
 
     return (
         <UserUidContext.Provider value={{ userUid, setUserUid }}>

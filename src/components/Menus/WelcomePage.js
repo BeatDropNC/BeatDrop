@@ -10,7 +10,7 @@ const WelcomePage = () => {
         if (!userUid) {
             navigate('/');
         }
-    }, [userUid]);
+    }, [userUid, navigate]);
 
     return (
         <div>

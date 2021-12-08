@@ -1,6 +1,5 @@
-import '../../styles/Menu.css'
-import { react, useContext, useEffect, useState } from 'react'
-import ReactGameContainer from '../ReactGameContainer'
+import '../../styles/LevelSelect.css'
+import { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext';
 
@@ -12,7 +11,7 @@ function Menu({ colorChoice, setColorChoice, gameTime }) {
     if (!userUid) {
       navigate('/');
     }
-  }, [userUid]);
+  }, [userUid, navigate]);
   const chooseColor = (color) => {
     setColorChoice(color)
   }

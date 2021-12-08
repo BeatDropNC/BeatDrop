@@ -1,4 +1,4 @@
-import { react, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
