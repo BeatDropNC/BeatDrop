@@ -30,7 +30,7 @@ const loginUserByEmail = async (email, password, setErrorMessage) => {
 
 const logoutUser = async () => {
     try {
-        await auth.signOut();
+        await signOut(auth);
     } catch (error) {
         console.log(error);
         alert(error.message);
