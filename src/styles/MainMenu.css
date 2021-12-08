@@ -1,0 +1,13 @@
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+.main-menu > a {
+    margin: 0.1em;
+}
+
+.main-menu > button {
+    margin: 4px;
+}
