@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import '../../styles/SingleLeaderboard.css'
 
 const SingleLeaderboard = () => {
     const [levelToShow, setLevelToShow] = useState(0)
-    const [dummyLevelData, setDummyLevelData] = useState({
+    const [dummyLevelData] = useState({
         level1: { 1: 5500, 2: 1400, 3: 300, 4: 250, 5: 100 },
         level2: { 1: 500, 2: 400, 3: 300, 4: 200, 5: 100 },
         level3: { 1: 500, 2: 400, 3: 200, 4: 200, 5: 100 },
@@ -22,6 +23,7 @@ const SingleLeaderboard = () => {
                 {Object.keys(dummyLevelData).map((level, index) => {
                     return (
                         <button
+                            key={'buttons' + level + index}
                             onClick={() => {
                                 setLevelToShow(index)
                             }}
@@ -32,18 +34,20 @@ const SingleLeaderboard = () => {
                 })}
             </p>
             <table className="leaderboard-table">
-                {Object.values(dummyLevelData).map((level, index) => {
-                    if (index === levelToShow) {
-                        return Object.values(level).map((score, index) => {
-                            return (
-                                <tr>
-                                        <td>Level {index + 1}</td>
+                <tbody>
+                    {Object.values(dummyLevelData).map((level, index) => {
+                        if (index === levelToShow) {
+                            return Object.values(level).map((score, index) => {
+                                return (
+                                    <tr key={'rows' + score + index}>
+                                        <td>{index + 1}</td>
                                         <td>{score}</td>
-                                </tr>
-                            )
-                        })
-                    }
-                })}
+                                    </tr>
+                                )
+                            })
+                        } else return null
+                    })}
+                </tbody>
             </table>
         </section>
     )
