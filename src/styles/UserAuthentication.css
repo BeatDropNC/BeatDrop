@@ -15,15 +15,14 @@
     margin-bottom: 10px;
 }
 
-.auth-form-field {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    margin-bottom: 10px;
+.auth-form-fields {
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
-.auth-form-field > input {
-    margin-left: 10px;
+.auth-form-fields > input {
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .auth-submit-btn {
