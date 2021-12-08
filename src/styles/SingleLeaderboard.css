@@ -1,0 +1,16 @@
+.leaderboard-table {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 30% auto;
+}
+
+
+td {
+    padding: 0.2em;
+    border: 1px solid lightslategray;
+    size: 12em, 1.4em;
+}
+
+button {
+    margin: 2px;
+}
