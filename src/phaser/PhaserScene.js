@@ -6,7 +6,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.gameOver = false;
     this.player = undefined;
     this.score = 0;
-    let scoreText = undefined;
+    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
@@ -17,16 +17,24 @@ export default class PhaserScene extends Phaser.Scene {
     this.lastPlatform = undefined;
     this.gameInProgress = true;
     this.gap = 500;
+    this.starGap = 500;
     this.lastCreatedPlatform = undefined;
+    this.floor = undefined
+    this.gameEndInProgress = false;
+    this.starsGroup = undefined;
+    this.lastStar = undefined;
+    this.lastCreatedStar = undefined;
   }
 
   preload() {
     this.load.image("background", "assets/Backgrounds/Bg01/Repeated.png");
     this.load.image("platform", "assets/Platform/35.png");
+    this.load.image("star", "assets/star.png")
     this.load.spritesheet("dude", "assets/dude.png", {
       frameWidth: 32,
       frameHeight: 48,
     });
+    this.load.image("floor", "assets/Platform/floor.png" )
   }
 
   create() {
@@ -61,13 +69,30 @@ export default class PhaserScene extends Phaser.Scene {
       this.lastCreatedPlatform = platform;
     }
 
+    // Scrolling stars
+    this.starsGroup = this.physics.add.group();
+    
+    // Star creation
+    for(let i = 0; i < 2; i++){
+      const star = this.starsGroup.create(
+        Phaser.Math.RND.between(0, 338),
+        this.starGap + Phaser.Math.RND.between(100, 300),
+        "star"
+      ).setOrigin(0, 0)
+      this.lastStar = star.y;
+      this.starGap += 1000;
+      this.lastCreatedStar = star;
+    }
 
- 
     //Sets velocity of platforms
     this.platformGroup.getChildren().forEach(item => {
       item.body.setVelocityY(-400)
     })
-    
+
+    // Sets velocity of stars
+    this.starsGroup.getChildren().forEach(item => {
+      item.body.setVelocityY(-400);
+    })
 
     // Create Player
     this.player = this.physics.add.sprite(300, 400, "dude");
@@ -87,6 +112,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.player.body.setMaxVelocityY(70)
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
+    this.physics.collide(this.player, )
 
     // Platform Collision Detection
 
@@ -96,20 +122,24 @@ export default class PhaserScene extends Phaser.Scene {
         this.player.body.setVelocity(0);
         this.player.body.position.x = 300;
         this.player.body.position.y = this.player.body.position.y - 100;
-        // this.physics.pause();
+        this.physics.pause();
+        this.updateScore(-2000)
         this.platformGroup.children.iterate((platform => {
           if(this.cameras.main.worldView.contains(platform.x, platform.y)){
               this.platformGroup.killAndHide(platform);
-              const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
-              const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
-              this.lastPlatform = newY;
-              if(!newPlatform){
-                return 
-              }
+              if(!this.gameEndInProgress) {
+                const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
+                const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
+                this.lastPlatform = newY;
+                if(!newPlatform){
+                  return 
+                 }
               this.gap += 1000;
               newPlatform.setActive(true);
               newPlatform.setVisible(true);
               this.lastCreatedPlatform = newPlatform;
+              }
+              
           }
         }))
         this.time.addEvent({delay: 1500, loop: false, callback: () => {
@@ -119,9 +149,66 @@ export default class PhaserScene extends Phaser.Scene {
       }
     }
 
+    //Floor
+    this.time.addEvent({delay: 10000, loop: false, callback: () => {
+        this.gameEndInProgress = true
+
+        const playerPosition = this.player.body.y
+        this.player.setGravityY(300)
+        this.player.setMaxVelocity(300)
+        this.player.setVelocityY(300)
+        console.log(this.player.body)
+        this.gameInProgress = false
+
+        this.physics.world.setBounds(0, 0, 600, playerPosition + 1000);
+
+        this.platformGroup.children.iterate((platform)=>{
+          if(!this.cameras.main.worldView.contains(platform.x, platform.y)) {
+            this.platformGroup.killAndHide(platform)
+          } 
+        })
+
+        this.cameras.main.setBounds(0, 0, 600, playerPosition + 1000);
+        this.floor = this.physics.add.image(300 , playerPosition + 971.5, 'floor').setImmovable()
+        this.physics.add.collider(this.player, this.floor, endLevel, null, this)
+      }})
+    
+    const endLevel = () => {
+      console.log("End of game")
+    }
+
     this.physics.add.collider(this.platformGroup);
     this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
 
+    // Star Collision detection
+
+    const hitStarAddScore = () => {
+      // Increment score
+    }
+
+    // || resolves the issue of stars spawning inside platforms
+    // if star inside platform, killandHide, respawn star
+    const hitStar = () => {
+      this.starsGroup.children.iterate((star => {
+        if(this.cameras.main.worldView.contains(star.x, star.y) || this.physics.add.overlap(star, this.platformGroup, null, this)){
+          this.starsGroup.killAndHide(star);
+          const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(1000, 1200);
+          const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
+          this.lastStar = newStarY;
+          hitStarAddScore();
+          if(!newStar){
+            return
+          }
+          this.starGap += 1000;
+          newStar.setActive(true);
+          newStar.setVisible(true);
+          this.lastCreatedStar = newStar;
+        }
+      }))
+    }
+
+    this.physics.add.collider(this.starsGroup);
+    this.physics.add.overlap(this.player, this.starsGroup, hitStar, null, this);
 
     // Player sprite animation
     this.anims.create({
@@ -148,20 +235,29 @@ export default class PhaserScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Player score text
-    this.scoreText = this.add.text(50, 16, "score: 0", {
+    this.scoreText = this.add.text(50, 16, "Score: 0", {
       fontSize: "32px",
       fill: "#000",
     });
+    //Not affected by scrolling
+    this.scoreText.setScrollFactor(0);
+
+    
+
   }
 
   update() {
+
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
+      // this.score += 10
+      // this.scoreText.setText(`score: ${this.score}`)
+      this.updateScore(10)
     }
 
-    if (this.player.y < 800) {
+    if (this.player.y < 800 && !this.gameEndInProgress) {
       this.player.setGravityY(50);
-    } else {
+    } else if(this.player.y > 800 && !this.gameEndInProgress) {
       this.player.setGravityY(50);
     }
 
@@ -182,7 +278,7 @@ export default class PhaserScene extends Phaser.Scene {
     // Platform random generation
 
     this.platformGroup.children.iterate((platform) =>{
-      if(platform.y < this.player.y - 600){
+      if(platform.y < this.player.y - 600 && !this.gameEndInProgress){
         this.platformGroup.killAndHide(platform);
         
         // Iterate through, get biggest Y
@@ -198,5 +294,35 @@ export default class PhaserScene extends Phaser.Scene {
         this.lastCreatedPlatform = newPlatform;
       }
     })
+
+    // Star random generation
+    this.starsGroup.children.iterate((star) => {
+      
+      if(star.y < this.player.y - 600){
+        this.starsGroup.killAndHide(star);
+        // Iterate through, get biggest Y
+        const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(900, 1100);
+        const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
+        this.lastCreatedStar = newStarY;
+        if(!newStar){
+          return
+        }
+        newStar.setActive(true);
+        newStar.setVisible(true);
+        this.lastCreatedStar = newStar;
+      }
+    })
   }
+
+
+  updateScore(updateAmount){
+
+    const color = updateAmount < 0 ? '#d40000' : '#000'
+
+    this.score += updateAmount
+    this.scoreText.setText(`Score: ${this.score}`)
+    this.scoreText.setFill(color)
+  }  
+
+
 }
