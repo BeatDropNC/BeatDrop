@@ -130,12 +130,9 @@ export default class PhaserScene extends Phaser.Scene {
     this.physics.collide(this.player, )
 
     // Platform Collision Detection
-    
-
     const hitPlatform = () => {
       if(this.gameInProgress){
         this.gameMusic.platformImpactSFX.play();
-
         this.tweens.add({
           targets: this.player,
           alpha: 0,
@@ -144,7 +141,6 @@ export default class PhaserScene extends Phaser.Scene {
           repeat: 2,
           yoyo: true,
         })
-
         this.cameras.main.shake(500, 0.004)
         this.gameInProgress = false;
         this.player.body.setVelocity(0);
