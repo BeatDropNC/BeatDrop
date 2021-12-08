@@ -1,4 +1,4 @@
-import '../../styles/Menu.css'
+import '../../styles/LevelSelect.css'
 import { react, useContext, useEffect, useState } from 'react'
 import ReactGameContainer from '../ReactGameContainer'
 import { Link, useNavigate } from 'react-router-dom'
