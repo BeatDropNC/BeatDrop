@@ -1,7 +1,6 @@
 import { getUserByUid } from "../firebase/firestore.utils";
 
 
-
 describe("getUserByUid", () => {
     describe("Successful requests", () => {
         test("Test 1: Returns a user object in the correct form", async () => {
@@ -25,10 +24,19 @@ describe("getUserByUid", () => {
                 })
             )
         })
-        test("Test 2: Returns the correct user object", async() => {
+        test("Test 2: Returns the correct user object", async () => {
             const uid = "tSrxjGzmnqUC2ouS78h1Qfnp3833";
             const userObj = await getUserByUid(uid);
             expect(userObj.username).toBe("user-signup-example");
+        })
+    })
+    describe('Errors', () => {
+        test('Test 3: Unique ID supplied not found in database', async () => {
+            const uid = "notExistentId";
+            await expect(getUserByUid(uid)).rejects.toEqual({
+                status: 404,
+                msg: "404 Error: User not found"
+            });
         })
     })
 })
