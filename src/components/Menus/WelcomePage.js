@@ -4,7 +4,6 @@ import { UserUidContext } from '../../contexts/UserUidContext'
 
 const WelcomePage = () => {
     const { userUid } = useContext(UserUidContext);
-    console.log(userUid);
     const navigate = useNavigate();
     useEffect(() => {
         if (!userUid) {
