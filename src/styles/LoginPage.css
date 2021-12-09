@@ -1,0 +1,56 @@
+.LoginPage{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+}
+
+.login-page-title{
+
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 5rem;
+    line-height: 2;
+    gap: 20px;
+    text-align: center;
+}
+
+.login-page-form{
+display: flex;
+flex-direction: column;
+}
+
+.login-page-fields-container{
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.login-page-input{
+
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+    height: 50px;
+}
+
+
+.login-page-submit-button{
+
+    height: 100px;
+    background-color: #fff;
+    border-radius: 6px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+
+}
+
+.login-page-submit-button:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+
+}

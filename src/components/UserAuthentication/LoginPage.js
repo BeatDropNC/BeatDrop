@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { loginUserByEmail } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
+import '../../styles/LoginPage.css'
 
 const LoginPage = () => {
     const { userUid } = useContext(UserUidContext)
@@ -31,39 +32,42 @@ const LoginPage = () => {
 
 
     return (
-        <main className="auth-page">
-            <form className="auth-form" onSubmit={handleSubmitLogin}>
-                <h1>Login</h1>
-                <div className="auth-form-fields">
-                    <label htmlFor="email-input">Email address:</label>
+        <main className="LoginPage">
+               <h1 className="login-page-title">LOGIN</h1>
+            <form className="login-page-form" onSubmit={handleSubmitLogin}>
+             
+                <div className="login-page-fields-container">
+                    <label htmlFor="login-page-email-label">E-mail address:</label>
                     <input
+                    className="login-page-input"
                         type="text"
                         id="email-input"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="E-mail Address"
+                        placeholder=""
                     />
-                    <label htmlFor="password-input">Password:</label>
+                    <label className="login-page-password-label" htmlFor="password-input">Password:</label>
                     <input
+                    className="login-page-input"
                         id="password-input"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
+                        placeholder=""
                     />
                 </div>
-                <p className="auth-error-message">
+                <p className="auth-error-message login-page-error-message">
                     {errorMessage ? errorMessage : null}
                 </p>
-                <button type="submit" className="auth-submit-btn">
+                <button type="submit" className="login-page-submit-button">
                     Login
                 </button>
             </form>
             <p>
-                <Link to="/reset-password">Forgot Password</Link>
+                <Link className="login-page-reset-password-link" to="/reset-password">Forgot Password</Link>
             </p>
             <p>
-                Don't have an account? <Link to="/signup">Sign up</Link> here.
+                Don't have an account? <Link className="login-page-signup-link" to="/signup">Sign up</Link> here.
             </p>
         </main>
     )
