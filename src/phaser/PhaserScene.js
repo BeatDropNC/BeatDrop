@@ -16,17 +16,22 @@ export default class PhaserScene extends Phaser.Scene {
     this.cursors = undefined;
     this.lastPlatform = undefined;
     this.gameInProgress = true;
-    this.gap = 500;
+    this.gap = 1000;
     this.starGap = 500;
     this.lastCreatedPlatform = undefined;
     this.floor = undefined
     this.gameEndInProgress = false;
+    this.gameOver = false
     this.starsGroup = undefined;
     this.lastStar = undefined;
     this.lastCreatedStar = undefined;
+<<<<<<< HEAD
     this.music = undefined;
     this.platformImpactSFX = undefined;
     this.starCollectionSFX = undefined;
+=======
+    this.gameTimer = undefined
+>>>>>>> fix-endgame-platforms
     this.gameMusic = {};
   }
 
@@ -40,19 +45,34 @@ export default class PhaserScene extends Phaser.Scene {
     });
     this.load.image("floor", "assets/Platform/floor.png" )
 
+<<<<<<< HEAD
     // Music generation
     this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
     this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
     this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav");
+=======
+        // Music generation
+        this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
+        this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
+        this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav");
+>>>>>>> fix-endgame-platforms
   }
 
   create() {
 
+<<<<<<< HEAD
     // Turns on music
     this.gameMusic.music = this.sound.add("initial_sixty");
     this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
     this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
     this.gameMusic.music.play();
+=======
+        // Turns on music
+        this.gameMusic.music = this.sound.add("initial_sixty");
+        this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
+        this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
+        this.gameMusic.music.play();
+>>>>>>> fix-endgame-platforms
 
     this.cameras.main.setViewport(0, 0, 600, 800);
 
@@ -88,7 +108,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.starsGroup = this.physics.add.group();
     
     // Star creation
-    for(let i = 0; i < 2; i++){
+    for(let i = 0; i < 4; i++){
       const star = this.starsGroup.create(
         Phaser.Math.RND.between(0, 338),
         this.starGap + Phaser.Math.RND.between(100, 300),
@@ -99,14 +119,25 @@ export default class PhaserScene extends Phaser.Scene {
       this.lastCreatedStar = star;
     }
 
+
+  //   Move overlapping stars
+  this.physics.world.step(0);
+  this.physics.world.overlap(this.starsGroup, this.platformGroup, function (star, platform) {
+    star.body.reset(star.body.x, star.body.y + 300);
+  });
+
+
+
+
+
     //Sets velocity of platforms
     this.platformGroup.getChildren().forEach(item => {
-      item.body.setVelocityY(-400)
+      item.setVelocityY(-400)
     })
 
     // Sets velocity of stars
     this.starsGroup.getChildren().forEach(item => {
-      item.body.setVelocityY(-400);
+      item.setVelocityY(-400);
     })
 
     // Create Player
@@ -114,7 +145,7 @@ export default class PhaserScene extends Phaser.Scene {
 
     //Allows player to stop when reaches the end of the 'world'
     this.player.setCollideWorldBounds(true);
-    this.player.body.setBounceY(0.01);
+    this.player.body.setBounceY(0.1);
 
     //Set how much of the screen the camera sees
     this.cameras.main.setBounds(0, 0, 600, 100000);
@@ -130,7 +161,15 @@ export default class PhaserScene extends Phaser.Scene {
     this.physics.collide(this.player, )
 
     // Platform Collision Detection
+<<<<<<< HEAD
     const hitPlatform = () => {
+=======
+
+    const hitPlatform = (player, platform) => {
+
+     
+
+>>>>>>> fix-endgame-platforms
       if(this.gameInProgress){
         this.gameMusic.platformImpactSFX.play();
         this.tweens.add({
@@ -148,75 +187,106 @@ export default class PhaserScene extends Phaser.Scene {
         this.player.body.position.y = this.player.body.position.y - 100;
         this.physics.pause();
         this.updateScore(-2000)
-        this.platformGroup.children.iterate((platform => {
-          if(this.cameras.main.worldView.contains(platform.x, platform.y)){
-              this.platformGroup.killAndHide(platform);
-              if(!this.gameEndInProgress) {
-                const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
-                const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
-                this.lastPlatform = newY;
-                if(!newPlatform){
-                  return 
-                 }
-              this.gap += 1000;
-              newPlatform.setActive(true);
-              newPlatform.setVisible(true);
-              this.lastCreatedPlatform = newPlatform;
-              }
-              
-          }
-        }))
+        this.platformGroup.killAndHide(platform);
+
+
+        this.gameMusic.platformImpactSFX.play();
+        this.tweens.add({
+          targets: this.player,
+          alpha: 0,
+          ease: 'Cubic.easeOut',
+          duration: 100,
+          repeat: 2,
+          yoyo: true,
+        })
+        this.cameras.main.shake(500, 0.004)
+
+
+
+        if(!this.gameEndInProgress) {
+
+          const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
+          const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
+          this.lastPlatform = newY;
+          if(!newPlatform){
+            return 
+           }
+        this.gap += 1000;
+        newPlatform.setActive(true);
+        newPlatform.setVisible(true);
+        this.lastCreatedPlatform = newPlatform;
+        } else {
+          this.platformGroup.killAndHide(platform)
+
+          platform.destroy()
+        }
+
+
         this.time.addEvent({delay: 1500, loop: false, callback: () => {
           this.player.clearTint();
           this.gameInProgress = true;
           this.physics.resume()}
+
         })
+      } 
+    }
+
+
+
+   // this.physics.add.collider(this.platformGroup);
+    this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
+
+
+    const endGame = () => {
+      this.gameEndInProgress = true
+      const playerPosition = this.player.body.y
+      const newWorldBounds = playerPosition + 1000
+      
+      this.physics.world.setBounds(0, 0, 600, newWorldBounds);
+      this.cameras.main.setBounds(0, 0, 600, newWorldBounds);
+      this.floor = this.physics.add.image(300 , newWorldBounds - 28.5, 'floor').setImmovable()
+      this.physics.add.collider(this.player, this.floor, endLevel, null, this)
+
+      this.player.setGravityY(300)
+      this.player.setMaxVelocity(300)
+      this.player.setVelocityY(300)
+    }
+  
+
+
+
+    //Start End Game
+    this.gameTimer = this.time.addEvent({delay: 50000, callbackScope:this, loop: false, callback: endGame})
+    
+    const endLevel = () => {
+      if(!this.gameOver){
+      console.log("End of game")
+        this.gameOver = true
+       this.physics.pause()
       }
     }
 
-    //Floor
-    this.time.addEvent({delay: 10000, loop: false, callback: () => {
-        this.gameEndInProgress = true
 
-        const playerPosition = this.player.body.y
-        this.player.setGravityY(300)
-        this.player.setMaxVelocity(300)
-        this.player.setVelocityY(300)
-        console.log(this.player.body)
-        this.gameInProgress = false
-
-        this.physics.world.setBounds(0, 0, 600, playerPosition + 1000);
-
-        this.platformGroup.children.iterate((platform)=>{
-          if(!this.cameras.main.worldView.contains(platform.x, platform.y)) {
-            this.platformGroup.killAndHide(platform)
-          } 
-        })
-
-        this.cameras.main.setBounds(0, 0, 600, playerPosition + 1000);
-        this.floor = this.physics.add.image(300 , playerPosition + 971.5, 'floor').setImmovable()
-        this.physics.add.collider(this.player, this.floor, endLevel, null, this)
-      }})
-    
-    const endLevel = () => {
-      console.log("End of game")
-    }
-
-    this.physics.add.collider(this.platformGroup);
-    this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
 
     // Star Collision detection
 
     const hitStarAddScore = () => {
       // Increment score
+      this.updateScore(5000)
+      this.gameMusic.starCollectionSFX.play();
     }
 
     // || resolves the issue of stars spawning inside platforms
     // if star inside platform, killandHide, respawn star
+<<<<<<< HEAD
     const hitStar = () => {
       this.starsGroup.children.iterate((star => {
         if(this.cameras.main.worldView.contains(star.x, star.y) || this.physics.add.overlap(star, this.platformGroup, null, this)){
           this.gameMusic.starCollectionSFX.play();
+=======
+    const hitStar = (player, star) => {
+
+>>>>>>> fix-endgame-platforms
           this.starsGroup.killAndHide(star);
           const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(1000, 1200);
           const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
@@ -229,8 +299,8 @@ export default class PhaserScene extends Phaser.Scene {
           newStar.setActive(true);
           newStar.setVisible(true);
           this.lastCreatedStar = newStar;
-        }
-      }))
+   
+    
     }
 
     this.physics.add.collider(this.starsGroup);
@@ -274,6 +344,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   update() {
 
+
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
       // this.score += 10
@@ -281,11 +352,6 @@ export default class PhaserScene extends Phaser.Scene {
       this.updateScore(10)
     }
 
-    if (this.player.y < 800 && !this.gameEndInProgress) {
-      this.player.setGravityY(50);
-    } else if(this.player.y > 800 && !this.gameEndInProgress) {
-      this.player.setGravityY(50);
-    }
 
     // Movement controls listener
     if (this.cursors.left.isDown) {
@@ -303,13 +369,16 @@ export default class PhaserScene extends Phaser.Scene {
 
     // Platform random generation
 
+    if (!this.gameEndInProgress){
+
     this.platformGroup.children.iterate((platform) =>{
-      if(platform.y < this.player.y - 600 && !this.gameEndInProgress){
+
+      if(platform !== undefined && platform.y < this.player.y - 800){
+
         this.platformGroup.killAndHide(platform);
-        
-        // Iterate through, get biggest Y
+
+        if (!this.gameEndInProgress){
         const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(900, 1100);
-        
         const newPlatform = this.platformGroup.get(Phaser.Math.RND.between(0, 338), newY);
         this.lastPlatform = newY;
         if(!newPlatform){
@@ -319,16 +388,36 @@ export default class PhaserScene extends Phaser.Scene {
         newPlatform.setVisible(true);
         this.lastCreatedPlatform = newPlatform;
       }
+      }
     })
-
-    // Star random generation
-    this.starsGroup.children.iterate((star) => {
+  } else {
+    this.platformGroup.children.iterate((platform) =>{
+      if (!platform){
+        return
+      }
       
-      if(star.y < this.player.y - 600){
+      if (platform.y > this.player.body.y + 400 || platform.y < this.player.body.y - 800){
+        
+        platform.destroy()
+      }
+
+    })
+  }
+
+
+  if (!this.gameEndInProgress){
+
+    this.starsGroup.children.iterate((star) =>{
+
+      if(star !== undefined && star.y < this.player.y - 800){
+
         this.starsGroup.killAndHide(star);
+
+        if (!this.gameEndInProgress){
         // Iterate through, get biggest Y
         const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(900, 1100);
-        const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
+        const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);        
+
         this.lastCreatedStar = newStarY;
         if(!newStar){
           return
@@ -337,7 +426,24 @@ export default class PhaserScene extends Phaser.Scene {
         newStar.setVisible(true);
         this.lastCreatedStar = newStar;
       }
+      }
     })
+  } else {
+    this.starsGroup.children.iterate((star) =>{
+      if (!star){
+        return
+      }
+      if (star.y > this.player.body.y + 400 || star.y < this.player.body.y - 800){
+        
+        star.destroy()
+      }
+
+    })
+  }
+
+
+
+
   }
 
 
