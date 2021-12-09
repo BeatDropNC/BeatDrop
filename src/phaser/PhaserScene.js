@@ -25,13 +25,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.starsGroup = undefined;
     this.lastStar = undefined;
     this.lastCreatedStar = undefined;
-<<<<<<< HEAD
-    this.music = undefined;
-    this.platformImpactSFX = undefined;
-    this.starCollectionSFX = undefined;
-=======
     this.gameTimer = undefined
->>>>>>> fix-endgame-platforms
     this.gameMusic = {};
   }
 
@@ -45,34 +39,19 @@ export default class PhaserScene extends Phaser.Scene {
     });
     this.load.image("floor", "assets/Platform/floor.png" )
 
-<<<<<<< HEAD
-    // Music generation
-    this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
-    this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
-    this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav");
-=======
         // Music generation
         this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
         this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
         this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav");
->>>>>>> fix-endgame-platforms
   }
 
   create() {
 
-<<<<<<< HEAD
-    // Turns on music
-    this.gameMusic.music = this.sound.add("initial_sixty");
-    this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
-    this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
-    this.gameMusic.music.play();
-=======
         // Turns on music
         this.gameMusic.music = this.sound.add("initial_sixty");
         this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
         this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
         this.gameMusic.music.play();
->>>>>>> fix-endgame-platforms
 
     this.cameras.main.setViewport(0, 0, 600, 800);
 
@@ -161,15 +140,11 @@ export default class PhaserScene extends Phaser.Scene {
     this.physics.collide(this.player, )
 
     // Platform Collision Detection
-<<<<<<< HEAD
-    const hitPlatform = () => {
-=======
 
     const hitPlatform = (player, platform) => {
 
      
 
->>>>>>> fix-endgame-platforms
       if(this.gameInProgress){
         this.gameMusic.platformImpactSFX.play();
         this.tweens.add({
@@ -278,15 +253,8 @@ export default class PhaserScene extends Phaser.Scene {
 
     // || resolves the issue of stars spawning inside platforms
     // if star inside platform, killandHide, respawn star
-<<<<<<< HEAD
-    const hitStar = () => {
-      this.starsGroup.children.iterate((star => {
-        if(this.cameras.main.worldView.contains(star.x, star.y) || this.physics.add.overlap(star, this.platformGroup, null, this)){
-          this.gameMusic.starCollectionSFX.play();
-=======
     const hitStar = (player, star) => {
 
->>>>>>> fix-endgame-platforms
           this.starsGroup.killAndHide(star);
           const newStarY = this.lastCreatedStar.y + Phaser.Math.RND.between(1000, 1200);
           const newStar = this.starsGroup.get(Phaser.Math.RND.between(0, 338), newStarY);
