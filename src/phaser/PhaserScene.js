@@ -26,6 +26,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.lastStar = undefined;
     this.lastCreatedStar = undefined;
     this.gameTimer = undefined
+    this.gameMusic = {};
   }
 
   preload() {
@@ -37,9 +38,20 @@ export default class PhaserScene extends Phaser.Scene {
       frameHeight: 48,
     });
     this.load.image("floor", "assets/Platform/floor.png" )
+
+        // Music generation
+        this.load.audio("initial_sixty", "assets/music/funny_bit_60_sec.mp3");
+        this.load.audio("platform_impact", "assets/music/sfx_sounds_falling3.wav");
+        this.load.audio("star_collection", "assets/music/sfx_sounds_fanfare3.wav");
   }
 
   create() {
+
+        // Turns on music
+        this.gameMusic.music = this.sound.add("initial_sixty");
+        this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
+        this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
+        this.gameMusic.music.play();
 
     this.cameras.main.setViewport(0, 0, 600, 800);
 
@@ -143,6 +155,19 @@ export default class PhaserScene extends Phaser.Scene {
         this.platformGroup.killAndHide(platform);
 
 
+        this.gameMusic.platformImpactSFX.play();
+        this.tweens.add({
+          targets: this.player,
+          alpha: 0,
+          ease: 'Cubic.easeOut',
+          duration: 100,
+          repeat: 2,
+          yoyo: true,
+        })
+        this.cameras.main.shake(500, 0.004)
+
+
+
         if(!this.gameEndInProgress) {
 
           const newY = this.lastCreatedPlatform.y + Phaser.Math.RND.between(1000, 1200);
@@ -163,7 +188,7 @@ export default class PhaserScene extends Phaser.Scene {
 
 
         this.time.addEvent({delay: 1500, loop: false, callback: () => {
-
+          this.player.clearTint();
           this.gameInProgress = true;
           this.physics.resume()}
 
@@ -196,7 +221,7 @@ export default class PhaserScene extends Phaser.Scene {
 
 
     //Start End Game
-    this.gameTimer = this.time.addEvent({delay: 10000, callbackScope:this, loop: false, callback: endGame})
+    this.gameTimer = this.time.addEvent({delay: 50000, callbackScope:this, loop: false, callback: endGame})
     
     const endLevel = () => {
       if(!this.gameOver){
@@ -213,6 +238,7 @@ export default class PhaserScene extends Phaser.Scene {
     const hitStarAddScore = () => {
       // Increment score
       this.updateScore(5000)
+      this.gameMusic.starCollectionSFX.play();
     }
 
     // || resolves the issue of stars spawning inside platforms
