@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signUpUserByEmail } from '../../firebase/firebase'
-import { onAuthStateChanged } from '@firebase/auth'
-import { auth } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
 
 const SignupPage = () => {
-    const { setUserUid } = useContext(UserUidContext)
+    const { userUid } = useContext(UserUidContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -21,24 +19,22 @@ const SignupPage = () => {
         if (!username) {
             alert('Please enter a username')
         } else {
-            await signUpUserByEmail(username, email, password, setErrorMessage)
-            navigate('/welcome-page')
+            await signUpUserByEmail(username, email, password, setErrorMessage).then((result) => {
+            })
+
         }
     }
 
     useEffect(() => {
-        return onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const { uid } = user
-                setUserUid(uid)
-                if (uid !== undefined) {
-                    navigate('/homepage')
-                }
-            } else {
-                setUserUid(null)
-            }
-        })
-    }, [setUserUid, navigate])
+
+        if (userUid !== undefined && userUid !== null){
+             //The user has logged in
+            navigate('/welcome-page')
+        } else {
+            //The user is not logged in
+        }
+        
+    }, [userUid, navigate])
 
     return (
         <main className="auth-page">

@@ -5,6 +5,7 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
+    
 } from 'firebase/auth'
 import {
     getFirestore,
@@ -16,14 +17,19 @@ import {
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
+
 initializeApp(firebaseConfig)
 const auth = getAuth()
 const db = getFirestore()
 
+
+
+
 const loginUserByEmail = async (email, password, setErrorMessage) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password)
-        setErrorMessage('')
+        const signInResult = await signInWithEmailAndPassword(auth, email, password)
+        return signInResult
+    
     } catch (error) {
         console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage)

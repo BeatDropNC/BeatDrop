@@ -1,15 +1,11 @@
 import { useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginUserByEmail } from '../../firebase/firebase'
-import { onAuthStateChanged } from '@firebase/auth'
-import { auth } from '../../firebase/firebase'
-
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
 
 const LoginPage = () => {
-    const { setUserUid } = useContext(UserUidContext)
-
+    const { userUid } = useContext(UserUidContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
@@ -18,22 +14,21 @@ const LoginPage = () => {
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault()
-        await loginUserByEmail(email, password, setErrorMessage)
+        await loginUserByEmail(email, password, setErrorMessage).then((result) => {
+        })
     }
 
     useEffect(() => {
-        return onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const { uid } = user
-                setUserUid(uid)
-                if (uid !== undefined) {
-                    navigate('/welcome-page')
-                }
-            } else {
-                setUserUid(null)
-            }
-        })
-    }, [setUserUid, navigate])
+        if (userUid !== undefined && userUid !== null){
+            //The user is logged in
+            navigate('/welcome-page')
+
+        } else {
+            //The user is not logged in
+        }
+        
+    }, [userUid, navigate])
+
 
     return (
         <main className="auth-page">
