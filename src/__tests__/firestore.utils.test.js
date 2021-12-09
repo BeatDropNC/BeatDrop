@@ -53,7 +53,7 @@ describe("getUserByUid", () => {
             expect(userObj.username).toBe("user-signup-example");
         })
     })
-    describe('Errors', () => {
+    describe('Unsuccessful requests', () => {
         test('Test 3: Unique ID supplied not found in database', async () => {
             const uid = "notAUniqueId";
             await expect(getUserByUid(uid)).rejects.toEqual({
