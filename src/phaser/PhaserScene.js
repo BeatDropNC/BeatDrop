@@ -46,8 +46,9 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   create() {
-
-        // Turns on music
+   
+    
+    // Turns on music
         this.gameMusic.music = this.sound.add("initial_sixty");
         this.gameMusic.platformImpactSFX = this.sound.add("platform_impact");
         this.gameMusic.starCollectionSFX = this.sound.add("star_collection");
@@ -72,7 +73,7 @@ export default class PhaserScene extends Phaser.Scene {
     
     // Platform creation
 
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
       const platform = this.platformGroup.create(
         Phaser.Math.RND.between(0, 338),
         this.gap + Phaser.Math.RND.between(100, 300),
@@ -89,7 +90,7 @@ export default class PhaserScene extends Phaser.Scene {
     // Star creation
     for(let i = 0; i < 4; i++){
       const star = this.starsGroup.create(
-        Phaser.Math.RND.between(0, 338),
+        Phaser.Math.RND.between(0, 570),
         this.starGap + Phaser.Math.RND.between(100, 300),
         "star"
       ).setOrigin(0, 0)
@@ -136,14 +137,11 @@ export default class PhaserScene extends Phaser.Scene {
     this.player.body.setGravityY(50);
     this.player.body.setMaxVelocityY(70)
     this.player.setBounce(0.1);
-    this.player.setCollideWorldBounds(true);
-    this.physics.collide(this.player, )
+   
 
     // Platform Collision Detection
 
     const hitPlatform = (player, platform) => {
-
-     
 
       if(this.gameInProgress){
         this.gameMusic.platformImpactSFX.play();
@@ -158,25 +156,9 @@ export default class PhaserScene extends Phaser.Scene {
         this.cameras.main.shake(500, 0.004)
         this.gameInProgress = false;
         this.player.body.setVelocity(0);
-        this.player.body.position.x = 300;
-        this.player.body.position.y = this.player.body.position.y - 100;
         this.physics.pause();
         this.updateScore(-2000)
         this.platformGroup.killAndHide(platform);
-
-
-        this.gameMusic.platformImpactSFX.play();
-        this.tweens.add({
-          targets: this.player,
-          alpha: 0,
-          ease: 'Cubic.easeOut',
-          duration: 100,
-          repeat: 2,
-          yoyo: true,
-        })
-        this.cameras.main.shake(500, 0.004)
-
-
 
         if(!this.gameEndInProgress) {
 
@@ -198,7 +180,6 @@ export default class PhaserScene extends Phaser.Scene {
 
 
         this.time.addEvent({delay: 1500, loop: false, callback: () => {
-          this.player.clearTint();
           this.gameInProgress = true;
           this.physics.resume()}
 
@@ -208,7 +189,6 @@ export default class PhaserScene extends Phaser.Scene {
 
 
 
-   // this.physics.add.collider(this.platformGroup);
     this.physics.add.overlap(this.player, this.platformGroup, hitPlatform, null, this);
 
 
@@ -227,8 +207,6 @@ export default class PhaserScene extends Phaser.Scene {
       this.player.setVelocityY(300)
     }
   
-
-
 
     //Start End Game
     this.gameTimer = this.time.addEvent({delay: 50000, callbackScope:this, loop: false, callback: endGame})
