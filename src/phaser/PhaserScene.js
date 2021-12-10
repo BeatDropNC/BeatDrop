@@ -145,7 +145,7 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.powerupsGroup = this.physics.add.group()
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 10; i++) {
             const powerup = this.powerupsGroup
                 .create(
                     Phaser.Math.RND.between(0, 570),
@@ -275,7 +275,7 @@ export default class PhaserScene extends Phaser.Scene {
         }
     }
 
-    preventBadStarSpawns = () => {
+    setupUserStarInteraction = () => {
         // || resolves the issue of stars spawning inside platforms
         // if star inside platform, killandHide, respawn star
 
@@ -391,6 +391,46 @@ export default class PhaserScene extends Phaser.Scene {
         this.scoreText.setScrollFactor(0)
     }
 
+    recyclePowerups = () => {
+        if (!this.gameEndInProgress) {
+            this.powerupsGroup.children.iterate((powerup) => {
+                if (powerup !== undefined && powerup.y < this.player.y - 800) {
+                    this.powerupsGroup.killAndHide(powerup)
+
+                    if (!this.gameEndInProgress) {
+                        // Iterate through, get biggest Y
+                        const newPowerupY =
+                            this.lastCreatedPowerup.y +
+                            Phaser.Math.RND.between(900, 1100)
+                        const newPowerup = this.powerupsGroup.get(
+                            Phaser.Math.RND.between(0, 338),
+                            newPowerupY
+                        )
+
+                        this.lastCreatedPowerup = newPowerupY
+                        if (!newPowerup) {
+                            return
+                        }
+                        newPowerup.setActive(true)
+                        newPowerup.setVisible(true)
+                        this.lastCreatedPowerup = newPowerup
+                    }
+                }
+            })
+        } else {
+            this.powerupsGroup.children.iterate((powerup) => {
+                if (!powerup) {
+                    return
+                }
+                if (
+                    powerup.y > this.player.body.y + 400 ||
+                    powerup.y < this.player.body.y - 800
+                ) {
+                    powerup.destroy()
+                }
+            })
+        }
+    }
     preload() {
         this.loadImages()
         this.loadAudio()
@@ -421,7 +461,7 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.startEndGame()
 
-        this.preventBadStarSpawns()
+        this.setupUserStarInteraction()
 
         this.setPlayerAnimation()
 
@@ -532,5 +572,6 @@ export default class PhaserScene extends Phaser.Scene {
                 }
             })
         }
+        this.recyclePowerups()
     }
 }
