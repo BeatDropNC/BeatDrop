@@ -2,10 +2,16 @@
     font-family: 'Press Start 2P', cursive;
     font-size: 1rem;
     display: grid;
+    text-align: center;
 }
 
-/* .character_select_container {
-} */
+.current_avatar, .user_badges {
+    margin: 0 auto;
+}
+
+.user_badges {
+    margin-bottom: 20px;
+}
 
 .character_select {
     display: grid;
@@ -17,13 +23,26 @@ img {
     width: 200px;
 }
 
+.character_select_title_mobile {
+    display: none;
+}
 
+.main_menu_link {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 @media only screen and (max-width: 500px) {
     h1, h2 {
         text-align: center;
     }
+
     .character_select_title {
         text-align: center;
+    }
+    
+    img {
+        height: 80px;
+        width: 100px;
     }
 }

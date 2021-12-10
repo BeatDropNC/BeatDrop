@@ -37,9 +37,11 @@ const Profile = () => {
         <div className='Profile'>
             <h1>{data.users.userDocument1.username}</h1>
             <h2>Avatar</h2>
-            <div className='current_avatar'></div>
-            <img src={currentAvatar}></img>
+            <div className='current_avatar'>
+                <img src={currentAvatar}></img>
+            </div>
             <h2 className='character_select_title'>Character Select</h2>
+            <h2 className='character_select_title_mobile'>Character Select</h2>
             <div className='character_select_container'>
                 <div className='character_select'>
                     {spriteLinks.map((sprite) => {
@@ -62,7 +64,10 @@ const Profile = () => {
                     )
                 })}
             </div>
-            <Link to='/main-menu'>Return to Main Menu</Link>
+            <div className='main_menu_link'>
+                <Link to='/main-menu'>Return to Main Menu</Link>
+            </div>
+            
         </div>
     )
 }
