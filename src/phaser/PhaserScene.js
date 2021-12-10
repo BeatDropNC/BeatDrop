@@ -28,7 +28,13 @@ export default class PhaserScene extends Phaser.Scene {
         this.gameTimer = undefined
         this.gameMusic = {}
 
+        this.powerupGap = 1500
+        this.powerupsGroup = undefined
+        this.lastPowerup = undefined
+        this.lastCreatedPowerup = undefined
+
         this.menuButton = undefined
+        this.playerVelocityX = 300
     }
 
     loadAudio = () => {
@@ -47,6 +53,13 @@ export default class PhaserScene extends Phaser.Scene {
         this.load.image('background', 'assets/Backgrounds/Bg01/Repeated.png')
         this.load.image('platform', 'assets/Platform/35.png')
         this.load.image('star', 'assets/star.png')
+
+        this.load.image('powerup1', 'assets/Items/no animations/01.png')
+        this.load.image('powerup2', 'assets/Items/no animations/02.png')
+        this.load.image('powerup3', 'assets/Items/no animations/03.png')
+        this.load.image('powerup4', 'assets/Items/no animations/04.png')
+        this.load.image('powerup5', 'assets/Items/no animations/05.png')
+
         this.load.spritesheet('dude', 'assets/dude.png', {
             frameWidth: 32,
             frameHeight: 48,
@@ -105,17 +118,58 @@ export default class PhaserScene extends Phaser.Scene {
             this.lastStar = star.y
             this.starGap += 1000
             this.lastCreatedStar = star
-
-            //   Move overlapping stars
-            this.physics.world.step(0)
-            this.physics.world.overlap(
-                this.starsGroup,
-                this.platformGroup,
-                star.body.reset(star.body.x, star.body.y + 300)
-            )
         }
 
+        //   Move overlapping stars
+        this.physics.world.step(0)
+        this.physics.world.overlap(
+            this.starsGroup,
+            this.platformGroup,
+            (star, platform) => {
+                star.body.reset(star.body.x, star.body.y + 300)
+            }
+        )
+
         this.starsGroup.getChildren().forEach((item) => {
+            item.setVelocityY(-400)
+        })
+    }
+
+    createPowerups = () => {
+        const powerups = [
+            'powerup1',
+            'powerup2',
+            'powerup3',
+            'powerup4',
+            'powerup5',
+        ]
+
+        this.powerupsGroup = this.physics.add.group()
+
+        for (let i = 0; i < 10; i++) {
+            const powerup = this.powerupsGroup
+                .create(
+                    Phaser.Math.RND.between(0, 550),
+                    this.powerupGap + Phaser.Math.RND.between(300, 600),
+                    powerups[Math.floor(Math.random() * 5)]
+                )
+                .setOrigin(0, 0)
+            this.lastPowerup = powerup.y
+            this.powerupGap += 1000
+            this.lastCreatedPowerup = powerup
+        }
+
+        //   Move overlapping powerups
+        this.physics.world.step(0)
+        this.physics.world.overlap(
+            this.powerupsGroup,
+            this.platformGroup,
+            (powerup, platform) => {
+                powerup.body.reset(powerup.body.x, powerup.body.y + 300)
+            }
+        )
+
+        this.powerupsGroup.getChildren().forEach((item) => {
             item.setVelocityY(-400)
         })
     }
@@ -222,15 +276,23 @@ export default class PhaserScene extends Phaser.Scene {
         }
     }
 
-    preventBadStarSpawns = () => {
-        // || resolves the issue of stars spawning inside platforms
-        // if star inside platform, killandHide, respawn star
-
+    setupUserStarInteraction = () => {
         this.physics.add.collider(this.starsGroup)
         this.physics.add.overlap(
             this.player,
             this.starsGroup,
             this.detectStarCollisions,
+            null,
+            this
+        )
+    }
+
+    setupUserPowerupInteraction = () => {
+        this.physics.add.collider(this.powerupsGroup)
+        this.physics.add.overlap(
+            this.player,
+            this.powerupsGroup,
+            this.detectPowerupCollisions,
             null,
             this
         )
@@ -255,6 +317,69 @@ export default class PhaserScene extends Phaser.Scene {
         this.lastCreatedStar = newStar
     }
 
+    detectPowerupCollisions = (player, powerup) => {
+        this.powerupsGroup.killAndHide(powerup)
+        const newPowerupY =
+            this.lastCreatedPowerup.y + Phaser.Math.RND.between(1000, 1200)
+        const newPowerup = this.powerupsGroup.get(
+            Phaser.Math.RND.between(0, 338),
+            newPowerupY
+        )
+        this.lastPowerup = newPowerupY
+        this.applyPowerupEffect(powerup.texture.key)
+        if (!newPowerup) {
+            return
+        }
+        this.powerupGap += 1000
+        newPowerup.setActive(true)
+        newPowerup.setVisible(true)
+        this.lastCreatedPowerup = newPowerup
+    }
+
+    applyPowerupEffect = (powerupName) => {
+        if (powerupName === 'powerup1') {
+            this.powerupGrow()
+        } else if (powerupName === 'powerup2') {
+            this.powerupSlow()
+        }else if (powerupName === 'powerup3') {
+            this.powerupFast()
+        }
+    }
+
+    powerupGrow = () => {
+        this.player.setScale(2)
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.player.setScale(1)
+            },
+        })
+    }
+
+
+    powerupSlow = () => {
+        this.playerVelocityX -= 200
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.playerVelocityX += 200
+            },
+        })
+    }
+
+    powerupFast = () => {
+        this.playerVelocityX += 200
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.playerVelocityX -= 200
+            },
+        })
+    }
+
     startEndGame = () => {
         this.gameTimer = this.time.addEvent({
             delay: 50000,
@@ -266,21 +391,21 @@ export default class PhaserScene extends Phaser.Scene {
 
     pauseMenu = () => {
         this.button = this.add
-        .text(470, 40, 'Pause', {
-            fontSize: '26px',
-            fill: '#000',
-            backgroundColor: 'green',
-        })
-        .setOrigin(0, 0)
-    this.button.setScrollFactor(0)
-    this.button.setInteractive()
-    this.button.on('pointerdown', () => {
-        console.log('CLICKED PAUSE')
+            .text(470, 40, 'Pause', {
+                fontSize: '26px',
+                fill: '#000',
+                backgroundColor: 'green',
+            })
+            .setOrigin(0, 0)
+        this.button.setScrollFactor(0)
+        this.button.setInteractive()
+        this.button.on('pointerdown', () => {
+            console.log('CLICKED PAUSE')
 
-        this.sound.pauseAll()
-        this.scene.pause('PhaserScene')
-        this.scene.launch('PauseMenu')
-    })
+            this.sound.pauseAll()
+            this.scene.pause('PhaserScene')
+            this.scene.launch('PauseMenu')
+        })
     }
 
     endGame = () => {
@@ -338,6 +463,46 @@ export default class PhaserScene extends Phaser.Scene {
         this.scoreText.setScrollFactor(0)
     }
 
+    recyclePowerups = () => {
+        if (!this.gameEndInProgress) {
+            this.powerupsGroup.children.iterate((powerup) => {
+                if (powerup !== undefined && powerup.y < this.player.y - 800) {
+                    this.powerupsGroup.killAndHide(powerup)
+
+                    if (!this.gameEndInProgress) {
+                        // Iterate through, get biggest Y
+                        const newPowerupY =
+                            this.lastCreatedPowerup.y +
+                            Phaser.Math.RND.between(900, 1100)
+                        const newPowerup = this.powerupsGroup.get(
+                            Phaser.Math.RND.between(0, 550),
+                            newPowerupY
+                        )
+
+                        this.lastCreatedPowerup = newPowerupY
+                        if (!newPowerup) {
+                            return
+                        }
+                        newPowerup.setActive(true)
+                        newPowerup.setVisible(true)
+                        this.lastCreatedPowerup = newPowerup
+                    }
+                }
+            })
+        } else {
+            this.powerupsGroup.children.iterate((powerup) => {
+                if (!powerup) {
+                    return
+                }
+                if (
+                    powerup.y > this.player.body.y + 400 ||
+                    powerup.y < this.player.body.y - 800
+                ) {
+                    powerup.destroy()
+                }
+            })
+        }
+    }
     preload() {
         this.loadImages()
         this.loadAudio()
@@ -355,6 +520,7 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.createPlatforms()
         this.createStars()
+        this.createPowerups()
         this.createPlayer()
 
         //Set how much of the screen the camera sees
@@ -367,16 +533,13 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.startEndGame()
 
-        this.preventBadStarSpawns()
+        this.setupUserStarInteraction()
+        this.setupUserPowerupInteraction()
 
         this.setPlayerAnimation()
 
-
-
-
         this.pauseMenu()
         this.playerScore()
-       
     }
 
     update() {
@@ -389,11 +552,14 @@ export default class PhaserScene extends Phaser.Scene {
 
         // Movement controls listener
         if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-300)
+        
+                this.player.setVelocityX(0 - this.playerVelocityX)
+
+    
 
             this.player.anims.play('left', true)
         } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(300)
+            this.player.setVelocityX(this.playerVelocityX)
 
             this.player.anims.play('right', true)
         } else {
@@ -455,7 +621,7 @@ export default class PhaserScene extends Phaser.Scene {
                             this.lastCreatedStar.y +
                             Phaser.Math.RND.between(900, 1100)
                         const newStar = this.starsGroup.get(
-                            Phaser.Math.RND.between(0, 338),
+                            Phaser.Math.RND.between(0, 570),
                             newStarY
                         )
 
@@ -482,5 +648,6 @@ export default class PhaserScene extends Phaser.Scene {
                 }
             })
         }
+        this.recyclePowerups()
     }
 }
