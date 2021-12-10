@@ -5,7 +5,7 @@
     border-radius: 20px;
     padding: 20px;
     font-family: 'Roboto Mono', monospace;
-
+    width: 80%;
 }
 
 .social-card-container{
@@ -21,8 +21,8 @@
 
 .social-card-image{
     grid-area: social-card-image ;
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     margin: 20px;
 }
 
@@ -43,14 +43,13 @@
     
 }
 .social-card-timestamp{
-    margin: 10px;
 
 }
 
 .social-card-description{
     grid-area: social-card-description;
-    font-size: 1.2rem;
-
+    font-size: 1.4rem;
+    padding: 20px;
 
 }
 .social-card-show-comments{

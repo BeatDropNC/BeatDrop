@@ -4,6 +4,8 @@ import { UserUidContext } from '../../contexts/UserUidContext';
 import '../../styles/SocialFeed.css'
 import data from '../../dummy-data.json'
 import SocialFeedCard from '../sub-components/SocialFeedCard';
+import { auth } from '../../firebase/firebase';
+import { onAuthStateChanged } from '@firebase/auth';
 
 const SocialFeed = () => {
     const { userUid } = useContext(UserUidContext);
@@ -23,16 +25,26 @@ const SocialFeed = () => {
 
     useEffect(() => {
 
-        if (!userUid) {
+        const unsubscribe = onAuthStateChanged(auth, user => {
+
+            if (!user.uid) {
             navigate('/');
         }
-    }, [userUid, navigate]);
+        })
+
+        //When the context is released, we unsubscribe to auth changes
+        return () => {
+            unsubscribe()
+        }
+
+
+    }, [navigate]);
 
 
 
     return (
         <div className="SocialFeed">
-            <h1>Social</h1>
+            <h1 className="social-feed-title">Social</h1>
             <div className="social-feed-container">
             {Object.keys(socialData).map((key) => {
                 const postData = socialData[key]
