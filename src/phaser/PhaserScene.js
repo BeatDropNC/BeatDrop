@@ -105,15 +105,17 @@ export default class PhaserScene extends Phaser.Scene {
             this.lastStar = star.y
             this.starGap += 1000
             this.lastCreatedStar = star
-
-            //   Move overlapping stars
-            this.physics.world.step(0)
-            this.physics.world.overlap(
-                this.starsGroup,
-                this.platformGroup,
-                star.body.reset(star.body.x, star.body.y + 300)
-            )
         }
+
+        //   Move overlapping stars
+        this.physics.world.step(0)
+        this.physics.world.overlap(
+            this.starsGroup,
+            this.platformGroup,
+            (star, platform) => {
+                star.body.reset(star.body.x, star.body.y + 300)
+            }
+        )
 
         this.starsGroup.getChildren().forEach((item) => {
             item.setVelocityY(-400)
@@ -266,21 +268,21 @@ export default class PhaserScene extends Phaser.Scene {
 
     pauseMenu = () => {
         this.button = this.add
-        .text(470, 40, 'Pause', {
-            fontSize: '26px',
-            fill: '#000',
-            backgroundColor: 'green',
-        })
-        .setOrigin(0, 0)
-    this.button.setScrollFactor(0)
-    this.button.setInteractive()
-    this.button.on('pointerdown', () => {
-        console.log('CLICKED PAUSE')
+            .text(470, 40, 'Pause', {
+                fontSize: '26px',
+                fill: '#000',
+                backgroundColor: 'green',
+            })
+            .setOrigin(0, 0)
+        this.button.setScrollFactor(0)
+        this.button.setInteractive()
+        this.button.on('pointerdown', () => {
+            console.log('CLICKED PAUSE')
 
-        this.sound.pauseAll()
-        this.scene.pause('PhaserScene')
-        this.scene.launch('PauseMenu')
-    })
+            this.sound.pauseAll()
+            this.scene.pause('PhaserScene')
+            this.scene.launch('PauseMenu')
+        })
     }
 
     endGame = () => {
@@ -371,12 +373,8 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.setPlayerAnimation()
 
-
-
-
         this.pauseMenu()
         this.playerScore()
-       
     }
 
     update() {
