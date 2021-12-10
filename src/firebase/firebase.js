@@ -17,7 +17,6 @@ import {
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
-
 initializeApp(firebaseConfig)
 const auth = getAuth()
 const db = getFirestore()

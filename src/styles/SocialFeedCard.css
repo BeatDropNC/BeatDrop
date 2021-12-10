@@ -1,0 +1,59 @@
+.SocialFeedCard{
+    display: flex;
+
+    border: 1px #000 solid;
+    border-radius: 20px;
+    padding: 20px;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+.social-card-container{
+    display: grid;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-columns: min-content 1fr;
+    grid-template-areas: "social-card-image social-card-user-info-container"
+    "social-card-description social-card-description"
+    "social-card-show-comments social-card-show-comments";
+    flex-grow: 1;
+    
+}
+
+.social-card-image{
+    grid-area: social-card-image ;
+    height: 100px;
+    width: 100px;
+    margin: 20px;
+}
+
+.social-card-user-info-container{
+    grid-area: social-card-user-info-container ;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-items: start;
+
+}
+
+.social-card-username{
+    margin: 0;
+    font-size: 3rem;
+
+    
+}
+.social-card-timestamp{
+    margin: 10px;
+
+}
+
+.social-card-description{
+    grid-area: social-card-description;
+    font-size: 1.2rem;
+
+
+}
+.social-card-show-comments{
+    grid-area: social-card-show-comments;
+    justify-self: right;
+}
