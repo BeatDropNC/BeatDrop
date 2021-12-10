@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
 function ReactGameContainer({
@@ -8,11 +8,19 @@ function ReactGameContainer({
   colorChoice,
   setGameTime,
 }) {
+  const [gameEnd, setGameEnd] = useState(false);
+
+  const navigate = useNavigate();
+  const destroyPhaserGame = () => {
+    document.game.destroy(true);
+    navigate('/main-menu');
+  }
+
   useEffect(() => {
     const height = 800;
     const width = 600;
     console.log(height);
-    document.game = new CreateGame(colorChoice, width, height);
+    document.game = new CreateGame(colorChoice, width, height, destroyPhaserGame);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
