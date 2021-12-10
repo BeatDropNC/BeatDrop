@@ -148,7 +148,7 @@ export default class PhaserScene extends Phaser.Scene {
         for (let i = 0; i < 10; i++) {
             const powerup = this.powerupsGroup
                 .create(
-                    Phaser.Math.RND.between(0, 570),
+                    Phaser.Math.RND.between(0, 550),
                     this.powerupGap + Phaser.Math.RND.between(300, 600),
                     powerups[Math.floor(Math.random() * 5)]
                 )
@@ -276,14 +276,22 @@ export default class PhaserScene extends Phaser.Scene {
     }
 
     setupUserStarInteraction = () => {
-        // || resolves the issue of stars spawning inside platforms
-        // if star inside platform, killandHide, respawn star
-
         this.physics.add.collider(this.starsGroup)
         this.physics.add.overlap(
             this.player,
             this.starsGroup,
             this.detectStarCollisions,
+            null,
+            this
+        )
+    }
+
+    setupUserPowerupInteraction = () => {
+        this.physics.add.collider(this.powerupsGroup)
+        this.physics.add.overlap(
+            this.player,
+            this.powerupsGroup,
+            this.detectPowerupCollisions,
             null,
             this
         )
@@ -306,6 +314,42 @@ export default class PhaserScene extends Phaser.Scene {
         newStar.setActive(true)
         newStar.setVisible(true)
         this.lastCreatedStar = newStar
+    }
+
+    detectPowerupCollisions = (player, powerup) => {
+        this.powerupsGroup.killAndHide(powerup)
+        const newPowerupY =
+            this.lastCreatedPowerup.y + Phaser.Math.RND.between(1000, 1200)
+        const newPowerup = this.powerupsGroup.get(
+            Phaser.Math.RND.between(0, 338),
+            newPowerupY
+        )
+        this.lastPowerup = newPowerupY
+        this.applyPowerupEffect(powerup.texture.key)
+        if (!newPowerup) {
+            return
+        }
+        this.powerupGap += 1000
+        newPowerup.setActive(true)
+        newPowerup.setVisible(true)
+        this.lastCreatedPowerup = newPowerup
+    }
+
+    applyPowerupEffect = (powerupName) => {
+        if (powerupName === 'powerup1') {
+            this.powerupGrow()
+        }
+    }
+
+    powerupGrow = () => {
+        this.player.setScale(2)
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.player.setScale(1)
+            },
+        })
     }
 
     startEndGame = () => {
@@ -403,7 +447,7 @@ export default class PhaserScene extends Phaser.Scene {
                             this.lastCreatedPowerup.y +
                             Phaser.Math.RND.between(900, 1100)
                         const newPowerup = this.powerupsGroup.get(
-                            Phaser.Math.RND.between(0, 338),
+                            Phaser.Math.RND.between(0, 550),
                             newPowerupY
                         )
 
@@ -462,6 +506,7 @@ export default class PhaserScene extends Phaser.Scene {
         this.startEndGame()
 
         this.setupUserStarInteraction()
+        this.setupUserPowerupInteraction()
 
         this.setPlayerAnimation()
 
@@ -545,7 +590,7 @@ export default class PhaserScene extends Phaser.Scene {
                             this.lastCreatedStar.y +
                             Phaser.Math.RND.between(900, 1100)
                         const newStar = this.starsGroup.get(
-                            Phaser.Math.RND.between(0, 338),
+                            Phaser.Math.RND.between(0, 570),
                             newStarY
                         )
 
