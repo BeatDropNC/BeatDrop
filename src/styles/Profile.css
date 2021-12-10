@@ -3,6 +3,7 @@
     font-size: 1rem;
     display: grid;
     text-align: center;
+    background-color: #00baff50;
 }
 
 .current_avatar, .user_badges {
@@ -46,3 +47,18 @@ img {
         width: 100px;
     }
 }
+@media only screen and (max-width: 475px) {
+    h1, h2 {
+        text-align: center;
+    }
+
+    .character_select_title {
+        text-align: center;
+    }
+    
+    img {
+        height: 60px;
+        width: 80px;
+    }
+}
+
