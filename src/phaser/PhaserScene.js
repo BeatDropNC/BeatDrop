@@ -34,6 +34,7 @@ export default class PhaserScene extends Phaser.Scene {
         this.lastCreatedPowerup = undefined
 
         this.menuButton = undefined
+        this.playerVelocityX = 300
     }
 
     loadAudio = () => {
@@ -338,6 +339,10 @@ export default class PhaserScene extends Phaser.Scene {
     applyPowerupEffect = (powerupName) => {
         if (powerupName === 'powerup1') {
             this.powerupGrow()
+        } else if (powerupName === 'powerup2') {
+            this.powerupSlow()
+        }else if (powerupName === 'powerup3') {
+            this.powerupFast()
         }
     }
 
@@ -348,6 +353,29 @@ export default class PhaserScene extends Phaser.Scene {
             loop: false,
             callback: () => {
                 this.player.setScale(1)
+            },
+        })
+    }
+
+
+    powerupSlow = () => {
+        this.playerVelocityX -= 200
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.playerVelocityX += 200
+            },
+        })
+    }
+
+    powerupFast = () => {
+        this.playerVelocityX += 200
+        this.time.addEvent({
+            delay: 5000,
+            loop: false,
+            callback: () => {
+                this.playerVelocityX -= 200
             },
         })
     }
@@ -524,11 +552,14 @@ export default class PhaserScene extends Phaser.Scene {
 
         // Movement controls listener
         if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-300)
+        
+                this.player.setVelocityX(0 - this.playerVelocityX)
+
+    
 
             this.player.anims.play('left', true)
         } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(300)
+            this.player.setVelocityX(this.playerVelocityX)
 
             this.player.anims.play('right', true)
         } else {
