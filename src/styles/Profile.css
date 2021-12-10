@@ -1,0 +1,29 @@
+.Profile{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    display: grid;
+}
+
+/* .character_select_container {
+} */
+
+.character_select {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+img {
+    height: 160px;
+    width: 200px;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+    h1, h2 {
+        text-align: center;
+    }
+    .character_select_title {
+        text-align: center;
+    }
+}
