@@ -28,6 +28,11 @@ export default class PhaserScene extends Phaser.Scene {
         this.gameTimer = undefined
         this.gameMusic = {}
 
+        this.powerupGap = 1500
+        this.powerupsGroup = undefined
+        this.lastPowerup = undefined
+        this.lastCreatedPowerup = undefined
+
         this.menuButton = undefined
     }
 
@@ -47,6 +52,13 @@ export default class PhaserScene extends Phaser.Scene {
         this.load.image('background', 'assets/Backgrounds/Bg01/Repeated.png')
         this.load.image('platform', 'assets/Platform/35.png')
         this.load.image('star', 'assets/star.png')
+
+        this.load.image('powerup1', 'assets/Items/no animations/01.png')
+        this.load.image('powerup2', 'assets/Items/no animations/02.png')
+        this.load.image('powerup3', 'assets/Items/no animations/03.png')
+        this.load.image('powerup4', 'assets/Items/no animations/04.png')
+        this.load.image('powerup5', 'assets/Items/no animations/05.png')
+
         this.load.spritesheet('dude', 'assets/dude.png', {
             frameWidth: 32,
             frameHeight: 48,
@@ -118,6 +130,45 @@ export default class PhaserScene extends Phaser.Scene {
         )
 
         this.starsGroup.getChildren().forEach((item) => {
+            item.setVelocityY(-400)
+        })
+    }
+
+    createPowerups = () => {
+        const powerups = [
+            'powerup1',
+            'powerup2',
+            'powerup3',
+            'powerup4',
+            'powerup5',
+        ]
+
+        this.powerupsGroup = this.physics.add.group()
+
+        for (let i = 0; i < 4; i++) {
+            const powerup = this.powerupsGroup
+                .create(
+                    Phaser.Math.RND.between(0, 570),
+                    this.powerupGap + Phaser.Math.RND.between(300, 600),
+                    powerups[Math.floor(Math.random() * 5)]
+                )
+                .setOrigin(0, 0)
+            this.lastPowerup = powerup.y
+            this.powerupGap += 1000
+            this.lastCreatedPowerup = powerup
+        }
+
+        //   Move overlapping powerups
+        this.physics.world.step(0)
+        this.physics.world.overlap(
+            this.powerupsGroup,
+            this.platformGroup,
+            (powerup, platform) => {
+                powerup.body.reset(powerup.body.x, powerup.body.y + 300)
+            }
+        )
+
+        this.powerupsGroup.getChildren().forEach((item) => {
             item.setVelocityY(-400)
         })
     }
@@ -357,6 +408,7 @@ export default class PhaserScene extends Phaser.Scene {
 
         this.createPlatforms()
         this.createStars()
+        this.createPowerups()
         this.createPlayer()
 
         //Set how much of the screen the camera sees
