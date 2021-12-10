@@ -11,7 +11,7 @@ import Homepage from './components/Menus/Homepage';
 import WelcomePage from './components/Menus/WelcomePage';
 import Leaderboards from './components/Menus/Leaderboards';
 import MainMenu from './components/Menus/MainMenu';
-import Social from './components/Menus/Social';
+import SocialFeed from './components/Menus/SocialFeed';
 import Profile from './components/Menus/Profile';
 
 
@@ -57,7 +57,7 @@ function App() {
 
             <Route 
             path='/social'
-            element={<Social />}
+            element={<SocialFeed />}
             />
 
             {/* user authentication */}
