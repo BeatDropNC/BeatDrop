@@ -19,7 +19,7 @@ const seedGlobalLeaderboardCollection = async () => {
         try {
             await setDoc(leaderboardDoc.ref,
                 {
-                    [leaderboardDoc.level]:
+                    scoresList:
                         [
                             { "score": 0, "username": "", "timeCompletedAt": "" },
                             { "score": 0, "username": "", "timeCompletedAt": "" },
