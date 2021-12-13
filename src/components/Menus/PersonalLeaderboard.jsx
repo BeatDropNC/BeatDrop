@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 const data = require('../../dummy-data.json');
 
 const PersonalLeaderboard = () => {
 
     const [levelToShow, setLevelToShow] = useState(0)
+
+    const { userUid, setUserUid } = useContext(UserUidContext)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!userUid) {
+            navigate('/')
+        }
+    }, [userUid, navigate])
 
     //waiting on firebase data
     const [dummyLevelData] = useState({

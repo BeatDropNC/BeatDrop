@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserUidContext } from '../../contexts/UserUidContext';
 const { globalLeaderboard: dummyData } = require('../../dummy-data.json');
 
 const GlobalLeaderboard = () => {
 
     const [levelToShow, setLevelToShow] = useState(0)
+
+    const { userUid, setUserUid } = useContext(UserUidContext)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!userUid) {
+            navigate('/')
+        }
+    }, [userUid, navigate])
 
     const sortedData = dummyData.globalLeaderboardDocument[`level${levelToShow + 1}`].sort(function(a, b) {
         return b.score - a.score
@@ -48,6 +58,7 @@ const GlobalLeaderboard = () => {
                     })}
             </div>
             </div>
+            <Link to='/main-menu'>Return to Main Menu</Link>
         </main>
     );
 };
