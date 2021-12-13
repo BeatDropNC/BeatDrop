@@ -21,6 +21,7 @@ const MainMenu = () => {
     return (
         <main className="main-menu">
             <h1>Main Menu</h1>
+            <p>Replace w pixel buttons</p>
             <Link to="/level-select">Play</Link>
             <Link to="/social">Social</Link>
             <Link to="/profile">Profile</Link>

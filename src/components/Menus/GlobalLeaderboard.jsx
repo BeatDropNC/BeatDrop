@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
+import '../../styles/GlobalLeaderboard.css'
 const { globalLeaderboard: dummyData } = require('../../dummy-data.json');
 
 const GlobalLeaderboard = () => {
@@ -28,8 +29,8 @@ const GlobalLeaderboard = () => {
                 <Link to='/leaderboards/global'><button>Global</button></Link>
             </div>
             <div>
-                <h2> Level {levelToShow + 1} </h2>
-                <p>
+                <h2>Level {levelToShow + 1}</h2>
+                <div className='levelButtons'>
                 {Object.keys(dummyData.globalLeaderboardDocument).map((level, index) => {
                     return (
                         <button
@@ -42,7 +43,7 @@ const GlobalLeaderboard = () => {
                         </button>
                     )
                 })}
-            </p>
+            </div>
             <div className="leaderboard-div">       
                     {sortedData.map((data)=>{
                         return (
@@ -58,7 +59,10 @@ const GlobalLeaderboard = () => {
                     })}
             </div>
             </div>
-            <Link to='/main-menu'>Return to Main Menu</Link>
+            <div className='main_menu'>
+                <Link to='/main-menu'>Return to Main Menu</Link>
+            </div>
+            
         </main>
     );
 };

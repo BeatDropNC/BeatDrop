@@ -3,7 +3,6 @@
     font-size: 1rem;
     display: grid;
     text-align: center;
-    background-color: #00baff50;
 }
 
 .current_avatar, .user_badges {
@@ -17,6 +16,8 @@
 .character_select {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 img {
