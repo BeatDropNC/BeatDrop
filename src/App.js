@@ -13,6 +13,9 @@ import Leaderboards from './components/Menus/Leaderboards';
 import MainMenu from './components/Menus/MainMenu';
 import Social from './components/Menus/Social';
 import Profile from './components/Menus/Profile';
+import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
+import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
+import FriendsLeaderboard from './components/Menus/FriendsLeaderboard';
 
 
 
@@ -51,7 +54,22 @@ function App() {
             />
 
             <Route
-             path='/leaderboards'
+             path='/leaderboards/personal'
+             element={<PersonalLeaderboard />}
+            />
+
+            <Route
+             path='/leaderboards/global'
+             element={<GlobalLeaderboard />}
+            />
+
+            <Route
+             path='/leaderboards/friends'
+             element={<FriendsLeaderboard />}
+            />
+
+            <Route
+             path='/example'
              element={<Leaderboards />}
             />
 
