@@ -1,6 +1,6 @@
 .SocialFeedCard{
     display: flex;
-
+    flex-direction: column;
     border: 1px #000 solid;
     border-radius: 20px;
     padding: 20px;
@@ -55,4 +55,9 @@
 .social-card-show-comments{
     grid-area: social-card-show-comments;
     justify-self: right;
+    height: 60px;
+    width: 60px;
+    margin: 20px;
+
 }
+
