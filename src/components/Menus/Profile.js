@@ -38,7 +38,7 @@ const Profile = () => {
             <h1>{data.users.userDocument1.username}</h1>
             <h2>Avatar</h2>
             <div className='current_avatar'>
-                <img src={currentAvatar}></img>
+                <img src={currentAvatar} alt={data.users.userDocument1.username}></img>
             </div>
             <h2 className='character_select_title'>Character Select</h2>
             <h2 className='character_select_title_mobile'>Character Select</h2>
@@ -50,7 +50,7 @@ const Profile = () => {
                                 setCurrentAvatar(sprite);
                                 // Patch user with new sprite
                             }}>
-                                <img className={sprite} key={sprite} src={sprite}></img>
+                                <img className={sprite} key={sprite} src={sprite} alt={sprite}></img>
                             </button>
                         )
                     })}
@@ -60,7 +60,7 @@ const Profile = () => {
             <div className='user_badges'>
                 {badgesLink.map((badge) => {
                     return (
-                        <img className={badge} key={badge} src={badge}></img>
+                        <img className={badge} key={badge} src={badge} alt={badge}></img>
                     )
                 })}
             </div>
