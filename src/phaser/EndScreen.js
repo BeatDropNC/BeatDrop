@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 export default class EndScreen extends Phaser.Scene {
   constructor(destroyPhaserGame) {
-    super("PauseMenu");
+    super("EndScreen");
     this.destroyPhaserGame = destroyPhaserGame;
     this.scoreCounter = 0;
     this.playerName = "Player";
