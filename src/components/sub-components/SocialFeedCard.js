@@ -8,6 +8,7 @@ const SocialFeedCard = ({postData}) => {
   const [commentsVisibility, setCommentsVisibility] = useState(false)
   const [commentsForPost, setCommentsForPost] = useState(postData.comments)
 
+
   let postDescription = `${postData.username} has `
 
   if (postData.highscore === null){

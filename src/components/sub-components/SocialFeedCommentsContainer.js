@@ -12,6 +12,19 @@ const SocialFeedCommentsContainer = ({
   const [loadMoreVisibility, setLoadMoreVisibility] = useState(false);
   const totalCommentsDisplayed = useRef(0);
   const [userAddedComments, setUserAddedComments] = useState([]);
+  const [newCommentText, setNewCommentText] = useState("")
+
+
+
+  const submitNewComment = () => {
+    //Make call to firebase here!
+    setUserAddedComments((previousComments) => {
+      //Need username from firebase to create object to add to the displayed comments
+      return [...previousComments, ...newCommentText]
+    })
+  
+  }
+
 
   //Loads comments 3 at a time until there are none left - triggered by the user
   const loadMoreComments = () => {
@@ -19,6 +32,7 @@ const SocialFeedCommentsContainer = ({
       if (commentsForPost.length - totalCommentsDisplayed.current > 3) {
         setCommentsDisplayed((previousComments) => {
           const newComments = [
+          
             ...previousComments,
             ...commentsForPost.slice(
               totalCommentsDisplayed.current,
@@ -34,6 +48,7 @@ const SocialFeedCommentsContainer = ({
           setLoadMoreVisibility(false);
 
           const newComments = [
+    
             ...previousComments,
             ...commentsForPost.slice(totalCommentsDisplayed.current),
           ];
@@ -46,6 +61,9 @@ const SocialFeedCommentsContainer = ({
       }
     }
   };
+
+
+
   //Load initial comments
   useEffect(() => {
     if (totalCommentsDisplayed.current === 0) {
@@ -64,7 +82,6 @@ const SocialFeedCommentsContainer = ({
     }
   }, [commentsForPost, setCommentsDisplayed, setLoadMoreVisibility]);
 
-  const [newCommentText, setNewCommentText] = useState("");
 
   return (
     <div className="SocialFeedCommentsContainer">
@@ -78,7 +95,9 @@ const SocialFeedCommentsContainer = ({
                 setNewCommentText(e.target.value);
               }}
             ></input>
-            <button className="social-comments-container-submit-new-comment-button">
+            <button className="social-comments-container-submit-new-comment-button" onClick={() => {
+              submitNewComment()
+            }}>
               Submit
             </button>
           </div>
@@ -94,6 +113,7 @@ const SocialFeedCommentsContainer = ({
         );
       })}
       <HiddenContainer isVisible={loadMoreVisibility}>
+        <div className={`hidden-comments-container`}>
         <button
           className="social-comments-container-load-more-comments-button"
           onClick={() => {
@@ -102,6 +122,7 @@ const SocialFeedCommentsContainer = ({
         >
           Load More Comments
         </button>
+        </div>
       </HiddenContainer>
     </div>
   );

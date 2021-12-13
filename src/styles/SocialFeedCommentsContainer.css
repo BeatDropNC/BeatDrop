@@ -35,3 +35,28 @@
     border-radius: 6px;
 
 }
+
+.hidden-comments-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+.social-comments-container-load-more-comments-button{
+    margin: 20px;
+    height: 100px;  
+    background-color: #fff;
+    border-radius: 6px;
+    font-size: 1.2rem;
+}
+
+.social-comments-container-load-more-comments-button:hover, .social-comments-container-submit-new-comment-button:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+}
+
+.social-comments-container-load-more-comments-button:active, .social-comments-container-submit-new-comment-button:active{
+    color: #fff;
+    background: #acb1ff;
+    box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
+}
