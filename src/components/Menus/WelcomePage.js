@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext'
+import '../../styles/WelcomePage.css'
 
 const WelcomePage = () => {
     const { userUid } = useContext(UserUidContext);

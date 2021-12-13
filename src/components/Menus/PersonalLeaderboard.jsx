@@ -1,8 +1,22 @@
-import { useState } from 'react'
-import '../../styles/SingleLeaderboard.css'
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserUidContext } from '../../contexts/UserUidContext';
+const data = require('../../dummy-data.json');
 
-const SingleLeaderboard = () => {
+const PersonalLeaderboard = () => {
+
     const [levelToShow, setLevelToShow] = useState(0)
+
+    const { userUid } = useContext(UserUidContext)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!userUid) {
+            navigate('/')
+        }
+    }, [userUid, navigate])
+
+    //waiting on firebase data
     const [dummyLevelData] = useState({
         level1: { 1: 5500, 2: 1400, 3: 300, 4: 250, 5: 100 },
         level2: { 1: 500, 2: 400, 3: 300, 4: 200, 5: 100 },
@@ -11,14 +25,16 @@ const SingleLeaderboard = () => {
         level5: { 1: 500, 2: 400, 3: 300, 4: 200, 5: 100 },
         level6: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     })
-
+    
     return (
-        <section className="single-leaderboard">
-            <div className="leaderboard-chooser">
-                <button>Personal</button>
-                <button>Global</button>
-                <button>Friends</button>
-            </div>
+        <main className='personalLeaderboard'>
+            
+            <h1> {data.users.userDocument1.username}'s Leaderboard </h1>
+                <div className="leaderboard-chooser">
+                    <Link to='/leaderboards/personal'><button>Personal</button></Link>
+                    <Link to='/leaderboards/global'><button>Global</button></Link>
+                </div>
+            <div>
             <p>
                 {Object.keys(dummyLevelData).map((level, index) => {
                     return (
@@ -49,8 +65,10 @@ const SingleLeaderboard = () => {
                     })}
                 </tbody>
             </table>
-        </section>
-    )
-}
+            </div>
+            <Link to='/main-menu'>Return to Main Menu</Link>
+        </main>
+    );
+};
 
-export default SingleLeaderboard
+export default PersonalLeaderboard;
