@@ -1,0 +1,28 @@
+.globalLeaderboard {
+    text-align: center;
+}
+
+.leaderboard-chooser {
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+
+.levelButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.leaderboard-table {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.main_menu {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 40px;
+}

@@ -30,7 +30,7 @@ const PersonalLeaderboard = () => {
     return (
         <main className='personalLeaderboard'>
             
-            <h1> {data.users.userDocument1.username}'s Scores </h1>
+            <h1> {data.users.userDocument1.username}'s <br></br>Scores </h1>
                 <div className="leaderboard-chooser">
                     <div className='personal_leaderboard'>
                         <Link to='/leaderboards/personal'><button>Personal</button></Link>
