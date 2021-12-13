@@ -6,7 +6,7 @@ export default class PhaserScene extends Phaser.Scene {
         super('PhaserScene')
         this.gameOver = false
         this.player = undefined
-        this.score = -10000
+        this.score = 0
         this.scoreText = undefined
         this.gameInfo = {
             playTime: 0,
@@ -443,7 +443,7 @@ export default class PhaserScene extends Phaser.Scene {
 
     startEndGame = () => {
         this.gameTimer = this.time.addEvent({
-            delay: 0,
+            delay: 54000,
             callbackScope: this,
             loop: false,
             callback: this.endGame,

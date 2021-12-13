@@ -78,11 +78,12 @@ export default class EndScreen extends Phaser.Scene {
 
   update = () => {
     if (this.scoreText?.text < this.score) {
-      this.scoreCounter += 10;
+      if (this.score > 10000) this.scoreCounter += 100;
+      else this.scoreCounter += 10;
       this.scoreText.setText(this.scoreCounter);
     } else if (this.scoreText) {
-        this.scoreCounter = this.score
-        this.scoreText.setText(this.scoreCounter)
+      this.scoreCounter = this.score;
+      this.scoreText.setText(this.scoreCounter);
     }
 
     if (this.scoreCounter === this.score) {
