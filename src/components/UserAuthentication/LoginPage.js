@@ -60,15 +60,16 @@ const LoginPage = () => {
                     {errorMessage ? errorMessage : null}
                 </p>
                 <button type="submit" className="login-page-submit-button">
-                    Login
+                    REPLACE W LOGIN PIXEL
                 </button>
             </form>
             <p>
                 <Link className="login-page-reset-password-link" to="/reset-password">Forgot Password</Link>
             </p>
-            <p>
-                Don't have an account? <Link className="login-page-signup-link" to="/signup">Sign up</Link> here.
-            </p>
+            <p>Don't have<br></br>an account?</p>
+            <div className="login-page-signup-link">
+                <Link  to="/signup">Sign up</Link>
+            </div>
         </main>
     )
 }
