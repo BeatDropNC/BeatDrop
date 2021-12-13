@@ -37,15 +37,12 @@ const GlobalLeaderboard = () => {
         }
     }, []);
 
-    console.log(globalLeaderboardData)
-
     if (loading) {
         return <p>Loading...</p>
     } else {
         const sortedData = globalLeaderboardData[`level${levelToShow + 1}`]["scoresList"].sort(function (a, b) {
             return b.score - a.score
         })
-        console.log(sortedData)
         return (
             <main className='globalLeaderboard'>
                 <h1> Global Leaderboard </h1>
