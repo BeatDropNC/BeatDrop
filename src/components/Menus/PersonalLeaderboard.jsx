@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
+import '../../styles/PersonalLeaderboard.css'
 const data = require('../../dummy-data.json');
 
 const PersonalLeaderboard = () => {
@@ -29,13 +30,17 @@ const PersonalLeaderboard = () => {
     return (
         <main className='personalLeaderboard'>
             
-            <h1> {data.users.userDocument1.username}'s Leaderboard </h1>
+            <h1> {data.users.userDocument1.username}'s Scores </h1>
                 <div className="leaderboard-chooser">
-                    <Link to='/leaderboards/personal'><button>Personal</button></Link>
-                    <Link to='/leaderboards/global'><button>Global</button></Link>
+                    <div className='personal_leaderboard'>
+                        <Link to='/leaderboards/personal'><button>Personal</button></Link>
+                    </div>
+                    <div className='global_leaderboard'> 
+                        <Link to='/leaderboards/global'><button>Global</button></Link>
+                    </div>
                 </div>
             <div>
-            <p>
+            <div className='levelButtons'>
                 {Object.keys(dummyLevelData).map((level, index) => {
                     return (
                         <button
@@ -48,7 +53,7 @@ const PersonalLeaderboard = () => {
                         </button>
                     )
                 })}
-            </p>
+            </div>
             <table className="leaderboard-table">
                 <tbody>
                     {Object.values(dummyLevelData).map((level, index) => {

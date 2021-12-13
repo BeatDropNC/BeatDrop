@@ -3,7 +3,6 @@
     font-size: 1rem;
     display: grid;
     text-align: center;
-    background-color: #00baff50;
 }
 
 .current_avatar, .user_badges {
