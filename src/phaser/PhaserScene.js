@@ -555,7 +555,7 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.sound.pauseAll();
     this.scene.pause("PhaserScene");
-    this.scene.launch("PauseMenu", { score: this.score });
+    this.scene.launch("EndScreen", { score: this.score });
   };
 
   hitStarAddScore = () => {
@@ -681,10 +681,10 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.setPlayerAnimation();
 
+    this.addOnscreenControls();
     this.pauseMenu();
     this.playerScore();
 
-    this.addOnscreenControls();
   }
 
   recyclePlatforms() {
