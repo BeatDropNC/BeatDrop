@@ -28,7 +28,7 @@ const PersonalLeaderboard = () => {
             <h1> {userInformation.username}'s <br></br>Scores </h1>
                 <div className="leaderboard-chooser">
                     <div className='personal_leaderboard'>
-                        <Link to='/leaderboards/personal'><button>Personal</button></Link>
+                        <Link to='/personal-leaderboard'><button>Personal</button></Link>
                     </div>
                     <div className='global_leaderboard'> 
                         <Link to='/global-leaderboard'><button>Global</button></Link>
