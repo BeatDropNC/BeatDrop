@@ -32,6 +32,11 @@ flex-direction: column;
     border-radius: 6px;
 }
 
+.login-page-reset-password-link {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 .login-page-submit-button:hover{
     color: #fff;
     background: #6a74ff;

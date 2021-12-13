@@ -63,8 +63,8 @@ const LoginPage = () => {
                     REPLACE W LOGIN PIXEL
                 </button>
             </form>
-            <p>
-                <Link className="login-page-reset-password-link" to="/reset-password">Forgot Password</Link>
+            <p className="login-page-reset-password-link">
+                <Link to="/reset-password">Forgot Password</Link>
             </p>
             <p>Don't have<br></br>an account?</p>
             <div className="login-page-signup-link">
