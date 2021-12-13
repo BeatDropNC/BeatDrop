@@ -32,12 +32,16 @@ const patchUserScores = async (userUid, sortedScores, levelChoice) => {
 
 const getGlobalLeaderboard = async () => {
     const globalLeaderboardRef = collection(db, "globalLeaderboard");
-    const querySnapshot = await getDocs(globalLeaderboardRef);
-    let currentGlobalLeaderboard = {};
-    querySnapshot.forEach(doc => {
-        currentGlobalLeaderboard[doc.id] = doc.data();
-    })
-    return currentGlobalLeaderboard;
+    try {
+        const querySnapshot = await getDocs(globalLeaderboardRef);
+        let currentGlobalLeaderboard = {};
+        querySnapshot.forEach(doc => {
+            currentGlobalLeaderboard[doc.id] = doc.data();
+        })
+        return currentGlobalLeaderboard;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export {
