@@ -15,10 +15,14 @@ const Homepage = () => {
 
     return (
         <main className="Homepage">
-            <h1>BEAT<br/>DROP</h1>
+            <div>
+                <h1 className='beat'>BEAT</h1>
+                <h1 className='drop'>DROP</h1>
+            </div>
             <button className={`signup-button homepage-button`} onClick={() => navigate('/signup')}>SIGN UP</button>
             <button className={`login-button homepage-button`} onClick={() => navigate('/login')}>LOGIN</button>
         </main>
+        // Replace buttons with pixel buttons images 
     )
 }
 

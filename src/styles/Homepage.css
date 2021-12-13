@@ -1,30 +1,36 @@
 
 
 .Homepage{
-
     font-family: 'Press Start 2P', cursive;
-    font-size: 4rem;
     line-height: 2;
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    
+    text-align: center;
 }
 
-.homepage-button{
+.beat {
+    margin-top: 80px;
+    font-size: 3.7rem;
+}
 
+.drop {
+    font-size: 4rem;
+    color: #fc1681;
+    margin-top: -108px;
+}
+
+
+.homepage-button{
     height: 100px;
     background-color: #fff;
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
-
 }
 
 .homepage-button:hover{
     color: #fff;
-    background: #6a74ff;
-    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
-
+    background: #fc1681;
+    box-shadow: 0 0 10px #fc1681, 0 0 40px #fc1681, 0 0 80px;
 }
