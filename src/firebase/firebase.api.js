@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -30,7 +30,18 @@ const patchUserScores = async (userUid, sortedScores, levelChoice) => {
     }
 }
 
+const getGlobalLeaderboard = async () => {
+    const globalLeaderboardRef = collection(db, "globalLeaderboard");
+    const querySnapshot = await getDocs(globalLeaderboardRef);
+    let currentGlobalLeaderboard = {};
+    querySnapshot.forEach(doc => {
+        currentGlobalLeaderboard[doc.id] = doc.data();
+    })
+    return currentGlobalLeaderboard;
+}
+
 export {
     getUserDoc,
     patchUserScores,
+    getGlobalLeaderboard,
 }
