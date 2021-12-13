@@ -9,13 +9,11 @@ import ResetPasswordPage from './components/UserAuthentication/ResetPasswordPage
 import { UserUidProvider } from './contexts/UserUidContext';
 import Homepage from './components/Menus/Homepage';
 import WelcomePage from './components/Menus/WelcomePage';
-import Leaderboards from './components/Menus/Leaderboards';
 import MainMenu from './components/Menus/MainMenu';
 import Social from './components/Menus/Social';
 import Profile from './components/Menus/Profile';
 import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
 import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
-import FriendsLeaderboard from './components/Menus/FriendsLeaderboard';
 
 
 
@@ -61,16 +59,6 @@ function App() {
             <Route
              path='/leaderboards/global'
              element={<GlobalLeaderboard />}
-            />
-
-            <Route
-             path='/leaderboards/friends'
-             element={<FriendsLeaderboard />}
-            />
-
-            <Route
-             path='/example'
-             element={<Leaderboards />}
             />
 
             <Route 

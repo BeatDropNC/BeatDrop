@@ -23,7 +23,6 @@ const PersonalLeaderboard = () => {
             <h1> {data.users.userDocument1.username}'s Leaderboard </h1>
                 <div className="leaderboard-chooser">
                     <Link to='/leaderboards/personal'><button>Personal</button></Link>
-                    <Link to='/leaderboards/friends'><button>Friends</button></Link>
                     <Link to='/leaderboards/global'><button>Global</button></Link>
                 </div>
             <div>

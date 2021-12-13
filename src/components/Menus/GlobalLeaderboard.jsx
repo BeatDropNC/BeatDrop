@@ -4,26 +4,17 @@ const { globalLeaderboard: dummyData } = require('../../dummy-data.json');
 
 const GlobalLeaderboard = () => {
 
-    const [levelToShow, setLevelToShow] = useState(1)
+    const [levelToShow, setLevelToShow] = useState(0)
 
     const sortedData = dummyData.globalLeaderboardDocument[`level${levelToShow + 1}`].sort(function(a, b) {
         return b.score - a.score
     })
-
-    console.log("SORTED",sortedData)
-
-    // var numArray = [140000, 104, 99];
-    // numArray.sort(function(a, b) {
-    // return a - b;
-    // });
-
 
     return (
         <main className='globalLeaderboard'>
             <h1> Global Leaderboard </h1>
             <div className="leaderboard-chooser">
                 <Link to='/leaderboards/personal'><button>Personal</button></Link>
-                <Link to='/leaderboards/friends'><button>Friends</button></Link>
                 <Link to='/leaderboards/global'><button>Global</button></Link>
             </div>
             <div>
