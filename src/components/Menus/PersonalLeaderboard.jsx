@@ -8,7 +8,7 @@ const PersonalLeaderboard = () => {
 
     const [levelToShow, setLevelToShow] = useState(0)
 
-    const { userUid } = useContext(UserUidContext)
+    const { userUid, userInformation } = useContext(UserUidContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -17,20 +17,15 @@ const PersonalLeaderboard = () => {
         }
     }, [userUid, navigate])
 
-    //waiting on firebase data
-    const [dummyLevelData] = useState({
-        level1: { 1: 5500, 2: 1400, 3: 300, 4: 250, 5: 100 },
-        level2: { 1: 500, 2: 400, 3: 300, 4: 200, 5: 100 },
-        level3: { 1: 500, 2: 400, 3: 200, 4: 200, 5: 100 },
-        level4: { 1: 500, 2: 400, 3: 300, 4: 0, 5: 0 },
-        level5: { 1: 500, 2: 400, 3: 300, 4: 200, 5: 100 },
-        level6: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-    })
+
+    const personalHighScores = userInformation.userScores;
+
+    const allLevels = Object.keys(userInformation.userScores);
     
     return (
         <main className='personalLeaderboard'>
             
-            <h1> {data.users.userDocument1.username}'s <br></br>Scores </h1>
+            <h1> {userInformation.username}'s <br></br>Scores </h1>
                 <div className="leaderboard-chooser">
                     <div className='personal_leaderboard'>
                         <Link to='/leaderboards/personal'><button>Personal</button></Link>
@@ -41,7 +36,7 @@ const PersonalLeaderboard = () => {
                 </div>
             <div>
             <div className='levelButtons'>
-                {Object.keys(dummyLevelData).map((level, index) => {
+                {allLevels.map((level, index) => {
                     return (
                         <button
                             key={'buttons' + level + index}
@@ -56,13 +51,13 @@ const PersonalLeaderboard = () => {
             </div>
             <table className="leaderboard-table">
                 <tbody>
-                    {Object.values(dummyLevelData).map((level, index) => {
+                    {allLevels.map((level, index) => {
                         if (index === levelToShow) {
-                            return Object.values(level).map((score, index) => {
+                            return personalHighScores[level].map((scoreObj, index) => {
                                 return (
-                                    <tr key={'rows' + score + index}>
+                                    <tr key={'rows' + scoreObj.score + index}>
                                         <td>{index + 1}</td>
-                                        <td>{score}</td>
+                                        <td>{scoreObj.score}</td>
                                     </tr>
                                 )
                             })
