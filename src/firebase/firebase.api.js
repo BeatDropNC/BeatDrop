@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -19,6 +19,18 @@ const getUserDoc = async (uid) => {
     }
 }
 
+const patchUserScores = async (userUid, sortedScores, levelChoice) => {
+    const userDocRef = doc(db, "users", userUid);
+    try {
+        updateDoc(userDocRef, {
+            userScores: { [levelChoice]: sortedScores }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     getUserDoc,
+    patchUserScores,
 }
