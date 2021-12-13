@@ -31,7 +31,7 @@ const PersonalLeaderboard = () => {
                         <Link to='/leaderboards/personal'><button>Personal</button></Link>
                     </div>
                     <div className='global_leaderboard'> 
-                        <Link to='/leaderboards/global'><button>Global</button></Link>
+                        <Link to='/global-leaderboard'><button>Global</button></Link>
                     </div>
                 </div>
             <div>
