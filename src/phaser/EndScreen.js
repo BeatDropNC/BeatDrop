@@ -16,6 +16,7 @@ export default class EndScreen extends Phaser.Scene {
         this.load.image('badge1', 'assets/Items/no animations/18.png')
         this.load.image('badge2', 'assets/Items/no animations/19.png')
         this.load.image('badge3', 'assets/Items/no animations/20.png')
+        this.load.image('menu-button', 'assets/menu-button.png')
     }
 
     createText = (xPosition, yPosition, propName, value, fontSize = '72px') => {
@@ -25,6 +26,32 @@ export default class EndScreen extends Phaser.Scene {
                 align: 'center',
             })
             .setOrigin(0.5, 0.5)
+    }
+
+    createBadges = () => {
+        if (this.score > 1000) this.add.sprite(150, 500, 'badge1')
+        if (this.score > 5000) this.add.sprite(300, 500, 'badge2')
+        if (this.score > 6000) this.add.sprite(450, 500, 'badge3')
+
+        this.badgesCreated = true
+    }
+
+    createButtons = () => {
+        this.retryButton = this.add
+            .image(150, 620, 'menu-button')
+            .setInteractive()
+            .on('pointerdown', () => {
+                console.log('retry clicked')
+            })
+        this.createText(150, 620, 'retryButtonText', 'Retry', '32px')
+
+        this.retryButton = this.add
+            .image(450, 620, 'menu-button')
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.game.destroyPhaserGame()
+            })
+        this.createText(450, 620, 'exitButtonText', 'Exit', '32px')
     }
 
     preload = () => {
@@ -55,14 +82,12 @@ export default class EndScreen extends Phaser.Scene {
             this.scoreText.setText(this.scoreCounter)
         }
 
-        if (!this.congratsCreated && this.scoreCounter === this.score) {
-            this.time.delayedCall(
-                1000,
-                this.createText,
-                [300, 500, 'congratsText', 'Congratulations!', '48px'],
-                this
-            )
-            this.congratsCreated = true
+        if (this.scoreCounter === this.score) {
+            this.time.delayedCall(1000, this.createBadges, [], this)
+        }
+
+        if (this.badgesCreated) {
+            this.time.delayedCall(1000, this.createButtons, [], this)
         }
     }
 }

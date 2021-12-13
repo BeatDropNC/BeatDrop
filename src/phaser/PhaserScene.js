@@ -443,7 +443,7 @@ export default class PhaserScene extends Phaser.Scene {
 
     startEndGame = () => {
         this.gameTimer = this.time.addEvent({
-            delay: 0,
+            delay: 54000,
             callbackScope: this,
             loop: false,
             callback: this.endGame,
@@ -717,7 +717,7 @@ export default class PhaserScene extends Phaser.Scene {
                     }
                 }
             })
-        } else {
+} else {
             this.starsGroup.children.iterate((star) => {
                 if (!star) {
                     return
