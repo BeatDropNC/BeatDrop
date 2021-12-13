@@ -70,9 +70,9 @@ const GlobalLeaderboard = () => {
                         })}
                     </div>
                     <div className="leaderboard-div">
-                        {sortedData.map((data) => {
+                        {sortedData.map((data, index) => {
                             return (
-                                <div key={data.score}>
+                                <div key={data.score + index}>
                                     <p>
                                         {data.score}
                                     </p>
