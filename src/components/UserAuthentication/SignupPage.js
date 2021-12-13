@@ -70,9 +70,11 @@ const SignupPage = () => {
                 </p>
                 <button className="auth-submit-btn">Sign Up</button>
             </form>
-            <p>
-                Already signed up? <Link to="/login">Login</Link>.
-            </p>
+            <p>Already <br></br>signed up?</p>
+            <div className='login_link'>
+                <Link to="/login">login</Link>
+            </div>
+
         </main>
     )
 }

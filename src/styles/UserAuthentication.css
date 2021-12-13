@@ -1,22 +1,22 @@
 .auth-page {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+h1{
+    margin-top: 80px;
 }
 
 .auth-form-fields {
     display: grid;
-    grid-template-columns: auto auto;
-}
-
-.auth-form-fields > * {
-    margin-left: 5px;
-    margin-bottom: 5px;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding-top: 20px;
+    row-gap: 15px;
 }
 
 .auth-submit-btn {
     align-self: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .auth-error-message {
@@ -26,4 +26,3 @@
 .auth-user-message {
     color: green;
 }
-
