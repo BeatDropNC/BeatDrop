@@ -25,7 +25,6 @@ const MainMenu = () => {
             <Link to="/social">Social</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/leaderboards/personal">Leaderboards</Link>
-            <Link to="/example">example</Link>
             <button onClick={onClickSignOut}>Sign Out</button>
         </main>
     )
