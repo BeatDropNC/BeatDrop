@@ -4,6 +4,10 @@
     place-items: center;
 }
 
+h1 {
+    margin-top: 80px;
+}
+
 .main-menu > a {
     margin: 0.1em;
 }
