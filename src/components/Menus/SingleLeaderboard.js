@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../../styles/SingleLeaderboard.css'
 
 const SingleLeaderboard = () => {
@@ -15,6 +16,7 @@ const SingleLeaderboard = () => {
     return (
         <section className="single-leaderboard">
             <div className="leaderboard-chooser">
+            <Link to='/main-menu'>Return to Main Menu</Link>
                 <button>Personal</button>
                 <button>Global</button>
                 <button>Friends</button>
@@ -50,6 +52,7 @@ const SingleLeaderboard = () => {
                 </tbody>
             </table>
         </section>
+        
     )
 }
 
