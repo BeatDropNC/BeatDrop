@@ -11,6 +11,7 @@ import {
     getFirestore,
     setDoc,
     doc,
+    Timestamp,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
@@ -58,46 +59,46 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             email,
             authProvider: 'local',
             friends: [],
+            avatar_url: "https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg",
             userScores: {
                 "level1": [
-                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 0, "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
                 ],   
                 "level2": [
-                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 0, "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
                 ],
                 "level3": [
-                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 0, "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
                 ],
                 "level4": [
-                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 0, "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
                 ],
                 "level5": [
-                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
-                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
-                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 0, "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
+                    {"score": 0,  "timeCompletedAt": ""},
                 ]
             },
         })
     } catch (error) {
-        //console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage);
     }
 }
