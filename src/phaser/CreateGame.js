@@ -3,7 +3,7 @@ import PauseMenu from "./PauseMenu";
 import PhaserScene from "./PhaserScene";
 
 export default class PhaserGame extends Phaser.Game {
-    constructor(colorChoice, width, height, destroyPhaserGame) {
+    constructor(levelChoice, width, height, destroyPhaserGame) {
       const config = {
         type: Phaser.AUTO,
         parent: "phaser-container",
@@ -27,9 +27,9 @@ export default class PhaserGame extends Phaser.Game {
 
       this.globals = {  };
       this.destroyPhaserGame = destroyPhaserGame;
-      this.colorChoice = colorChoice;
       this.pauseScene = new PauseMenu(destroyPhaserGame);
-      this.scene.add("PhaserScene", PhaserScene);
+      this.phaserScene = new PhaserScene(levelChoice)
+      this.scene.add("PhaserScene", this.phaserScene);
       this.scene.add("PauseMenu", this.pauseScene);
       this.scene.start("PhaserScene");
     }

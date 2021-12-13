@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getLevelConfig } from "./levelConfigs";
 
 export default class PhaserScene extends Phaser.Scene {
-  constructor() {
+  constructor(levelChoice) {
     super("PhaserScene");
     this.gameOver = false;
     this.player = undefined;
@@ -40,7 +40,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.objectVelocityY = -400;
 
     //This sets the key level details such as assets, platform distance and powerups
-    this.levelConfig = getLevelConfig('level2')
+    this.levelConfig = getLevelConfig(levelChoice)
 
 
    
