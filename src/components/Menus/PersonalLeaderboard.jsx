@@ -7,7 +7,7 @@ const PersonalLeaderboard = () => {
 
     const [levelToShow, setLevelToShow] = useState(0)
 
-    const { userUid, setUserUid } = useContext(UserUidContext)
+    const { userUid } = useContext(UserUidContext)
     const navigate = useNavigate()
 
     useEffect(() => {
