@@ -14,13 +14,11 @@ import Social from './components/Menus/Social';
 import Profile from './components/Menus/Profile';
 import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
 import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
-
-
+import LevelSelect from './components/Menus/LevelSelect';
 
 function App() {
-  const [colorChoice, setColorChoice] = useState('red')
   const [gameTime, setGameTime] = useState(0)
-
+  const [levelChoice, setLevelChoice] = useState('level1')
 
   return (
     <BrowserRouter>
@@ -43,7 +41,7 @@ function App() {
 
             <Route
               path='/level-select'
-              element={<Menu colorChoice={colorChoice} setColorChoice={setColorChoice} gameTime={gameTime} />}
+              element={<LevelSelect setLevelChoice={setLevelChoice} gameTime={gameTime} />}
             />
             
             <Route 
@@ -83,7 +81,7 @@ function App() {
             
             <Route
               path='/newgame'
-              element={<ReactGameContainer colorChoice={colorChoice} setColorChoice={setColorChoice} setGameTime={setGameTime} colorProp={colorChoice} />}
+              element={<ReactGameContainer levelChoice={levelChoice} setGameTime={setGameTime} />}
             />
 
           </Routes>

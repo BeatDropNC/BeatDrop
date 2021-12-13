@@ -3,9 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
 function ReactGameContainer({
-  colorProp,
-  setColorChoice,
-  colorChoice,
+  levelChoice,
   setGameTime,
 }) {
   const [gameEnd, setGameEnd] = useState(false);
@@ -20,7 +18,7 @@ function ReactGameContainer({
     const height = 800;
     const width = 600;
     console.log(height);
-    document.game = new CreateGame(colorChoice, width, height, destroyPhaserGame);
+    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
