@@ -142,12 +142,6 @@ export default class PhaserScene extends Phaser.Scene {
         },
         this
       );
-
-    this.debug = this.add
-      .graphics({ x: 0, y: 0 })
-      .fillStyle("0x000000", 0.5)
-      .fillRect(0, 0, 300, 800)
-      .setScrollFactor(0);
   };
 
   animateBackground = () => {
