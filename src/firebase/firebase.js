@@ -9,11 +9,8 @@ import {
 } from 'firebase/auth'
 import {
     getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    where,
-    query,
+    setDoc,
+    doc,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
@@ -21,8 +18,6 @@ import { setFrontendErrorMessage } from './errors'
 initializeApp(firebaseConfig)
 const auth = getAuth()
 const db = getFirestore()
-
-
 
 
 const loginUserByEmail = async (email, password, setErrorMessage) => {
@@ -55,20 +50,50 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             password
         )
         // add to users collection
-        const collectionRef = collection(db, 'users')
-        await addDoc(collectionRef, {
+        //const collectionRef = collection(db, 'users')
+        const userDocRef = doc(db, 'users', user.uid)
+        await setDoc(userDocRef, {
             uid: user.uid,
             username,
             email,
             authProvider: 'local',
             friends: [],
-            scores: {
-                level1: 0,
-                level2: 0,
-                level3: 0,
-                level4: 0,
-                level5: 0,
-                level6: 0,
+            userScores: {
+                "level1": [
+                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                ],   
+                "level2": [
+                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                ],
+                "level3": [
+                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                ],
+                "level4": [
+                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                ],
+                "level5": [
+                    {"score": 376700, "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 269500,  "timeCompletedAt": "23 July 2021 at 17:00:00 UTC"},
+                    {"score": 197700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 187700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                    {"score": 173700,  "timeCompletedAt": "15 March 2021 at 8:00:00 UTC"},
+                ]
             },
         })
     } catch (error) {
@@ -86,27 +111,11 @@ const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) =>
     }
 }
 
-const getUserByUid = async (uid) => {
-    try {
-        const collectionRef = collection(db, 'users')
-        const queryToUse = query(collectionRef, where('uid', '==', uid))
-        const querySnapshot = await getDocs(queryToUse)
-        let user
-        querySnapshot.forEach((item) => {
-            user = item.data()
-        })
-        return user
-    } catch (error) {
-        console.log(error)
-        alert(error.message)
-    }
-}
 
 export {
-    auth,
+    auth, db,
     loginUserByEmail,
     logoutUser,
     signUpUserByEmail,
     resetPasswordByEmail,
-    getUserByUid,
 }
