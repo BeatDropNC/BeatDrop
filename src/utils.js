@@ -1,12 +1,6 @@
 import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 
-const currentDateTimeString = () => {
-    const today = new Date();
-    const datetimeString = `${today.getDate()}-${today.getMonth()}-${today.getFullYear()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
-    return datetimeString
-}
-
 const seedGlobalLeaderboardCollection = async () => {
     const leaderboardDocRefs = [
         { ref: doc(db, 'globalLeaderboard', "level1"), level: "level1" },
@@ -81,7 +75,6 @@ const seedActivitiesCollection = async () => {
 }
 
 export {
-    currentDateTimeString,
     seedGlobalLeaderboardCollection,
     seedActivitiesCollection,
 }
