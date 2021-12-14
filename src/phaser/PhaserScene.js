@@ -528,12 +528,12 @@ export default class PhaserScene extends Phaser.Scene {
     this.button = this.add
       .image(560, 36, "pause-button")
       .setScrollFactor(0)
-      .setScale(0.5);
-
-    this.button.setInteractive().on("pointerdown", () => {
-      this.sound.pauseAll();
-      this.scene.pause("PhaserScene").launch("PauseMenu");
-    });
+      .setScale(0.5)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.sound.pauseAll();
+        this.scene.pause("PhaserScene").launch("PauseMenu");
+      });
   };
 
   endGame = () => {
