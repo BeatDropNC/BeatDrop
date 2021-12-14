@@ -29,7 +29,6 @@ const Leaderboard = ({scoreObjects, levelToShow, setLevelToShow, leaderboardToSh
         <p className="leaderboard-title">Date</p>
         </div>
    {scoreObjects.map((scoreInformation, index) => {
-     console.log(scoreInformation, "score info")
       return <LeaderboardScoreCard key={index} rank={index + 1} scoreInformation={scoreInformation} leaderboardToShow={leaderboardToShow}></LeaderboardScoreCard>
     })}
     </div>
