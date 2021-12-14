@@ -2,6 +2,7 @@ import '../../styles/LevelSelect.css'
 import { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext';
+import { getActivities } from '../../firebase/firebase.api';
 
 
 function LevelSelect({ setLevelChoice, gameTime }) {
@@ -12,6 +13,8 @@ function LevelSelect({ setLevelChoice, gameTime }) {
       navigate('/');
     }
   }, [userUid, navigate]);
+
+
 
 
   return (

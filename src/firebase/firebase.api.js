@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, query, orderBy, limit } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -68,10 +68,29 @@ const patchUserAvatar = async (uid, avatar_url) => {
     }
 }
 
+
+const getActivities = async () => {
+    const activitiesRef = collection(db,"activities");
+    const q = query(activitiesRef, orderBy('timestamp'), limit(2));
+    const activityDocuments = []
+    try {
+     const querySnapshot = await getDocs(q)
+     querySnapshot.forEach((doc) => {
+         console.log(doc.id, " => ", doc.data(), "This is an activity doc")
+         activityDocuments.push({[doc.id]: doc.data()})
+     })
+
+    return activityDocuments        
+    } catch (error) {
+        console.log("there was an error getting activities")
+    }
+}
+
 export {
     getUserDoc,
     patchUserScores,
     getGlobalLeaderboard,
     patchGlobalLeaderboardScore,
     patchUserAvatar,
+    getActivities
 }

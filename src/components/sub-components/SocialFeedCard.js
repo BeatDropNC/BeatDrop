@@ -3,11 +3,15 @@ import { UserUidContext } from "../../contexts/UserUidContext";
 import commentImage from '../../assets/comment.png'
 import '../../styles/SocialFeedCard.css'
 import SocialFeedCommentsContainer from "./SocialFeedCommentsContainer";
-const SocialFeedCard = ({postData}) => {
+const SocialFeedCard = ({postData, postKey}) => {
   const { userUid } = useContext(UserUidContext);
   const [commentsVisibility, setCommentsVisibility] = useState(false)
   const [commentsForPost, setCommentsForPost] = useState(postData.comments)
 
+  console.log("received post data ", postData)
+
+  console.log("username ", postData.username)
+  console.log("time ", postData.timestamp.seconds)
 
   let postDescription = `${postData.username} has `
 
@@ -24,7 +28,7 @@ const SocialFeedCard = ({postData}) => {
         <img className="social-card-image"></img>
         <div className="social-card-user-info-container">
           <h3 className="social-card-username">{postData.username}</h3>
-          <h4 className="social-card-timestamp">{postData.timestamp}</h4>
+          <h4 className="social-card-timestamp">{postData.timestamp.seconds}</h4>
         </div>
         <h2 className="social-card-description">{postDescription}</h2>
         <img onClick={() => {setCommentsVisibility((previousState) => {
