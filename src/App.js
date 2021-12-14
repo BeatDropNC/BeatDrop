@@ -10,7 +10,7 @@ import { UserUidProvider } from './contexts/UserUidContext';
 import Homepage from './components/Menus/Homepage';
 import WelcomePage from './components/Menus/WelcomePage';
 import MainMenu from './components/Menus/MainMenu';
-import Social from './components/Menus/Social';
+import SocialFeed from './components/Menus/SocialFeed';
 import Profile from './components/Menus/Profile';
 import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
 import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
@@ -50,18 +50,18 @@ function App() {
             />
 
             <Route
-             path='/leaderboards/personal'
+             path='/personal-leaderboard'
              element={<PersonalLeaderboard />}
             />
 
             <Route
-             path='/leaderboards/global'
+             path='/global-leaderboard'
              element={<GlobalLeaderboard />}
             />
 
             <Route 
             path='/social'
-            element={<Social />}
+            element={<SocialFeed />}
             />
 
             {/* user authentication */}

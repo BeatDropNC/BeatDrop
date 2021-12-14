@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getLevelConfig } from "./levelConfigs";
 
 export default class PhaserScene extends Phaser.Scene {
-  constructor(levelChoice) {
+  constructor(levelChoice, submitScore) {
     super("PhaserScene");
     this.gameOver = false;
     this.player = undefined;
@@ -40,11 +40,9 @@ export default class PhaserScene extends Phaser.Scene {
     this.objectVelocityY = -400;
 
     //This sets the key level details such as assets, platform distance and powerups
-    this.levelConfig = getLevelConfig(levelChoice)
+    this.levelConfig = getLevelConfig(levelChoice);
 
-
-   
-
+    this.submitScore = submitScore;
   }
 
   loadAudio = () => {
@@ -73,7 +71,7 @@ export default class PhaserScene extends Phaser.Scene {
     );
 
     for (let key in this.levelConfig.platformInformation) {
-      const platformToLoad = this.levelConfig.platformInformation[key]
+      const platformToLoad = this.levelConfig.platformInformation[key];
       this.load.image(key, platformToLoad.path);
     }
     // this.load.image('platform', 'assets/Platform/34.png')
@@ -92,6 +90,62 @@ export default class PhaserScene extends Phaser.Scene {
     this.gameMusic.music.play();
   };
 
+  addOnscreenControls = () => {
+    this.zone_left = this.add
+      .zone(0, 0, 300, 800)
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setInteractive()
+      .on(
+        "pointerdown",
+        () => {
+          this.mouseLeft = true;
+        },
+        this
+      )
+      .on(
+        "pointerup",
+        () => {
+          this.mouseLeft = false;
+        },
+        this
+      )
+      .on(
+        "pointerout",
+        () => {
+          this.mouseLeft = false;
+        },
+        this
+      );
+
+    this.zone_right = this.add
+      .zone(300, 0, 600, 800)
+      .setOrigin(0, 0)
+      .setScrollFactor(0)
+      .setInteractive()
+      .on(
+        "pointerdown",
+        () => {
+          this.mouseRight = true;
+        },
+        this
+      )
+      .on(
+        "pointerup",
+        () => {
+          this.mouseRight = false;
+        },
+        this
+      )
+      .on(
+        "pointerout",
+        () => {
+          this.mouseRight = false;
+        },
+        this
+      );
+  };
+
   animateBackground = () => {
     //Repeating background
     this.scrollingBackground = this.add
@@ -101,18 +155,20 @@ export default class PhaserScene extends Phaser.Scene {
     this.scrollingBackground.setScrollFactor(0);
   };
 
-
-
   createPlatforms = () => {
     this.platformGroup = this.physics.add.group();
 
     for (let i = 0; i < 20; i++) {
-
       //Get the randomised platform information from the config
-      const numberOfPlatformsAvailable = Object.keys(this.levelConfig.platformInformation).length
-      const randomPlatformName = Object.keys(this.levelConfig.platformInformation)[ Phaser.Math.RND.between(0, numberOfPlatformsAvailable - 1)]
-      const platformToAddName = randomPlatformName
-      const platformToAdd = this.levelConfig.platformInformation[platformToAddName]
+      const numberOfPlatformsAvailable = Object.keys(
+        this.levelConfig.platformInformation
+      ).length;
+      const randomPlatformName = Object.keys(
+        this.levelConfig.platformInformation
+      )[Phaser.Math.RND.between(0, numberOfPlatformsAvailable - 1)];
+      const platformToAddName = randomPlatformName;
+      const platformToAdd =
+        this.levelConfig.platformInformation[platformToAddName];
 
       //Get the position of the last platform we created so we can place the new one below it.
       const lastPlatformY =
@@ -120,18 +176,18 @@ export default class PhaserScene extends Phaser.Scene {
           ? this.lastCreatedPlatform.y
           : 800;
 
-      //Set the position of the platform based on the last platform and the platform data from the config    
+      //Set the position of the platform based on the last platform and the platform data from the config
       const platform = this.platformGroup
         .create(
           Phaser.Math.RND.between(0, 600 - platformToAdd.size),
           lastPlatformY +
             platformToAdd.distance +
             Phaser.Math.RND.between(0, platformToAdd.randomY),
-            platformToAddName
+          platformToAddName
         )
         .setOrigin(0, 0);
 
-        //Keep a reference to the platform so we can place the next one below it.
+      //Keep a reference to the platform so we can place the next one below it.
       this.lastCreatedPlatform = platform;
     }
 
@@ -139,30 +195,26 @@ export default class PhaserScene extends Phaser.Scene {
     this.platformGroup.getChildren().forEach((item) => {
       item.setVelocityY(this.objectVelocityY);
     });
-
   };
-
 
   createStars = () => {
     this.starsGroup = this.physics.add.group();
 
-
     for (let i = 0; i < 10; i++) {
-
       const lastStarY =
-      this.lastCreatedStar !== undefined
-        ? this.lastCreatedStar.y
-        : 1000;
-   
+        this.lastCreatedStar !== undefined ? this.lastCreatedStar.y : 1000;
+
       const star = this.starsGroup
         .create(
           Phaser.Math.RND.between(0, 576),
-          lastStarY + this.levelConfig.starDistance + Phaser.Math.RND.between(0, 100),
+          lastStarY +
+            this.levelConfig.starDistance +
+            Phaser.Math.RND.between(0, 100),
           "star"
         )
         .setOrigin(0, 0);
 
-        this.lastCreatedStar = star;
+      this.lastCreatedStar = star;
     }
 
     //   Move overlapping stars
@@ -181,24 +233,21 @@ export default class PhaserScene extends Phaser.Scene {
     });
   };
 
-
   createPowerups = () => {
-
     this.powerupsGroup = this.physics.add.group();
 
     for (let i = 0; i < 10; i++) {
-
       const lastPowerupY =
-      this.lastCreatedPowerup !== undefined
-        ? this.lastCreatedPowerup.y
-        : 2000;
-   
-
+        this.lastCreatedPowerup !== undefined
+          ? this.lastCreatedPowerup.y
+          : 2000;
 
       const powerup = this.powerupsGroup
         .create(
           Phaser.Math.RND.between(0, 550),
-          lastPowerupY + this.levelConfig.powerupDistance + Phaser.Math.RND.between(0, 100),
+          lastPowerupY +
+            this.levelConfig.powerupDistance +
+            Phaser.Math.RND.between(0, 100),
           this.levelConfig.powerups[Math.floor(Math.random() * 3)]
         )
         .setOrigin(0, 0);
@@ -226,6 +275,29 @@ export default class PhaserScene extends Phaser.Scene {
 
     // Player input
     this.cursors = this.input.keyboard.createCursorKeys();
+  };
+
+  createText = (
+    xPosition,
+    yPosition,
+    propName,
+    value,
+    fontSize = "48px",
+    color = "#5dc416",
+    strokeText = true
+  ) => {
+    this[propName] = this.add
+      .text(xPosition, yPosition, value, {
+        fontSize: fontSize,
+        align: "center",
+        fontFamily: "'Press Start 2P'",
+        color: color,
+      })
+      .setOrigin(0.5, 0.5)
+      .setShadow(4, 4, "#333333", 4, false, true)
+      .setScrollFactor(0);
+
+    if (strokeText) this[propName].setStroke("black", 4);
   };
 
   setPlayerPhysics = () => {
@@ -288,36 +360,36 @@ export default class PhaserScene extends Phaser.Scene {
       this.updateScore(-2000);
 
       if (!this.gameEndInProgress) {
+        //Get the asset name so we can load the correct distances from the level config
+        const platformName = platform.texture.key;
+        const platformObject =
+          this.levelConfig.platformInformation[platformName];
 
-     //Get the asset name so we can load the correct distances from the level config
-     const platformName = platform.texture.key
-     const platformObject = this.levelConfig.platformInformation[platformName]
+        this.platformGroup.killAndHide(platform);
 
-     this.platformGroup.killAndHide(platform);
+        //Work out the new Y position for the new platform based on the distance and random Y provided
+        //in the levelConfig.
+        const newY =
+          this.lastCreatedPlatform.y +
+          platformObject["distance"] +
+          Phaser.Math.RND.between(0, platformObject["randomY"]);
 
-     //Work out the new Y position for the new platform based on the distance and random Y provided
-     //in the levelConfig.
-     const newY =
-       this.lastCreatedPlatform.y + platformObject['distance'] + Phaser.Math.RND.between(0, platformObject['randomY']);
-    
-       //Create the new platform placed anywhere on the X (minus its width) and at the Y position worked
-       //out above.
-       const newPlatform = this.platformGroup.get(
-       Phaser.Math.RND.between(0, 600 - platformObject['size']),
-       newY
-     );
+        //Create the new platform placed anywhere on the X (minus its width) and at the Y position worked
+        //out above.
+        const newPlatform = this.platformGroup.get(
+          Phaser.Math.RND.between(0, 600 - platformObject["size"]),
+          newY
+        );
 
-     if (!newPlatform) {
-       return;
-     }
-     //Activate and store reference to the last platform so we can place the next on below
-     //it.
+        if (!newPlatform) {
+          return;
+        }
+        //Activate and store reference to the last platform so we can place the next on below
+        //it.
 
-     newPlatform.setActive(true);
-     newPlatform.setVisible(true);
-     this.lastCreatedPlatform = newPlatform;
-
-
+        newPlatform.setActive(true);
+        newPlatform.setVisible(true);
+        this.lastCreatedPlatform = newPlatform;
       } else {
         this.platformGroup.killAndHide(platform);
 
@@ -336,7 +408,6 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   setupUserStarInteraction = () => {
-
     this.physics.add.collider(this.starsGroup);
     this.physics.add.overlap(
       this.player,
@@ -361,9 +432,11 @@ export default class PhaserScene extends Phaser.Scene {
   detectStarCollisions = (player, star) => {
     this.starsGroup.killAndHide(star);
     const newStarY =
-      this.lastCreatedStar.y + + this.levelConfig.starDistance + Phaser.Math.RND.between(0, 100);
-    
-      const newStar = this.starsGroup.get(
+      this.lastCreatedStar.y +
+      +this.levelConfig.starDistance +
+      Phaser.Math.RND.between(0, 100);
+
+    const newStar = this.starsGroup.get(
       Phaser.Math.RND.between(0, 576),
       newStarY
     );
@@ -381,7 +454,9 @@ export default class PhaserScene extends Phaser.Scene {
   detectPowerupCollisions = (player, powerup) => {
     this.powerupsGroup.killAndHide(powerup);
     const newPowerupY =
-      this.lastCreatedPowerup.y + this.levelConfig.powerupDistance + Phaser.Math.RND.between(0, 100);
+      this.lastCreatedPowerup.y +
+      this.levelConfig.powerupDistance +
+      Phaser.Math.RND.between(0, 100);
     const newPowerup = this.powerupsGroup.get(
       Phaser.Math.RND.between(0, 550),
       newPowerupY
@@ -448,22 +523,13 @@ export default class PhaserScene extends Phaser.Scene {
     });
   };
 
-  pauseMenu = () => {
-    this.button = this.add
-      .text(470, 40, "Pause", {
-        fontSize: "26px",
-        fill: "#000",
-        backgroundColor: "green",
-      })
-      .setOrigin(0, 0);
-    this.button.setScrollFactor(0);
-    this.button.setInteractive();
-    this.button.on("pointerdown", () => {
-      console.log("CLICKED PAUSE");
+  createPauseMenu = () => {
+    this.createText(560, 24, "button", "⏸");
 
+    this.button.setInteractive().on("pointerdown", () => {
+      this.button.setFill("#c4b243");
       this.sound.pauseAll();
-      this.scene.pause("PhaserScene");
-      this.scene.launch("PauseMenu");
+      this.scene.pause("PhaserScene").launch("PauseMenu");
     });
   };
 
@@ -496,6 +562,13 @@ export default class PhaserScene extends Phaser.Scene {
       this.gameOver = true;
       this.physics.pause();
     }
+
+    this.sound.pauseAll();
+    this.scene.pause("PhaserScene");
+    this.submitScore(this.score);
+    this.scene.launch("EndScreen", { score: this.score });
+
+    
   };
 
   hitStarAddScore = () => {
@@ -505,21 +578,15 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   updateScore(updateAmount) {
-    const color = updateAmount < 0 ? "#d40000" : "#000";
+    const color = updateAmount < 0 ? "#d40000" : "#5dc416";
 
     this.score += updateAmount;
     this.scoreText.setText(`Score: ${this.score}`);
     this.scoreText.setFill(color);
   }
 
-  playerScore = () => {
-    this.scoreText = this.add.text(50, 16, "Score: 0", {
-      fontSize: "32px",
-      fill: "#000",
-    });
-
-    //Not affected by scrolling
-    this.scoreText.setScrollFactor(0);
+  createScoreText = () => {
+    this.createText(300, 24, "scoreText", "Score: 0", "28px");
   };
 
   recyclePowerups = () => {
@@ -528,20 +595,21 @@ export default class PhaserScene extends Phaser.Scene {
         if (powerup !== undefined && powerup.y < this.player.y - 800) {
           this.powerupsGroup.killAndHide(powerup);
 
-            const newPowerupY =
-              this.lastCreatedPowerup.y + this.levelConfig.powerupDistance +  Phaser.Math.RND.between(0, 100);
-            const newPowerup = this.powerupsGroup.get(
-              Phaser.Math.RND.between(0, 550),
-              newPowerupY
-            );
+          const newPowerupY =
+            this.lastCreatedPowerup.y +
+            this.levelConfig.powerupDistance +
+            Phaser.Math.RND.between(0, 100);
+          const newPowerup = this.powerupsGroup.get(
+            Phaser.Math.RND.between(0, 550),
+            newPowerupY
+          );
 
-            if (!newPowerup) {
-              return;
-            }
-            newPowerup.setActive(true);
-            newPowerup.setVisible(true);
-            this.lastCreatedPowerup = newPowerup;
-
+          if (!newPowerup) {
+            return;
+          }
+          newPowerup.setActive(true);
+          newPowerup.setVisible(true);
+          this.lastCreatedPowerup = newPowerup;
         }
       });
     } else {
@@ -558,6 +626,38 @@ export default class PhaserScene extends Phaser.Scene {
       });
     }
   };
+
+  listenForInput = () => {
+    if (this.cursors.left.isDown || this.mouseLeft) {
+      this.movePlayerLeft();
+    } else if (this.cursors.right.isDown || this.mouseRight) {
+      this.movePlayerRight();
+    } else {
+      this.stopMovingPlayer();
+    }
+  };
+
+  movePlayerLeft = () => {
+    this.player.setVelocityX(0 - this.playerVelocityX);
+    this.player.anims.play("left", true);
+  };
+
+  movePlayerRight = () => {
+    this.player.setVelocityX(this.playerVelocityX);
+    this.player.anims.play("right", true);
+  };
+
+  stopMovingPlayer = () => {
+    this.player.setVelocityX(0);
+    this.player.anims.play("turn");
+  };
+
+  listenForResume = () => {
+    this.events.on("resume", () => {
+      this.button.setFill("#5dc416");
+    });
+  };
+
   preload() {
     this.loadImages();
     this.loadAudio();
@@ -594,8 +694,9 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.setPlayerAnimation();
 
-    this.pauseMenu();
-    this.playerScore();
+    this.addOnscreenControls();
+    this.createPauseMenu();
+    this.createScoreText();
   }
 
   recyclePlatforms() {
@@ -603,42 +704,43 @@ export default class PhaserScene extends Phaser.Scene {
 
     if (!this.gameEndInProgress) {
       this.platformGroup.children.iterate((platform) => {
-          //Check if the platform is 800px above the player (off the screen)
+        //Check if the platform is 800px above the player (off the screen)
         if (platform !== undefined && platform.y < this.player.y - 800) {
-          
-            //Get the asset name so we can load the correct distances from the level config
-            const platformName = platform.texture.key
-            const platformObject = this.levelConfig.platformInformation[platformName]
+          //Get the asset name so we can load the correct distances from the level config
+          const platformName = platform.texture.key;
+          const platformObject =
+            this.levelConfig.platformInformation[platformName];
 
-            this.platformGroup.killAndHide(platform);
+          this.platformGroup.killAndHide(platform);
 
-            //Work out the new Y position for the new platform based on the distance and random Y provided
-            //in the levelConfig.
-            const newY =
-              this.lastCreatedPlatform.y + platformObject['distance'] + Phaser.Math.RND.between(0, platformObject['randomY']);
-           
-              //Create the new platform placed anywhere on the X (minus its width) and at the Y position worked
-              //out above.
-              const newPlatform = this.platformGroup.get(
-              Phaser.Math.RND.between(0, 600 - platformObject['size']),
-              newY
-            );
+          //Work out the new Y position for the new platform based on the distance and random Y provided
+          //in the levelConfig.
+          const newY =
+            this.lastCreatedPlatform.y +
+            platformObject["distance"] +
+            Phaser.Math.RND.between(0, platformObject["randomY"]);
 
-            if (!newPlatform) {
-              return;
-            }
-            //Activate and store reference to the last platform so we can place the next on below
-            //it.
+          //Create the new platform placed anywhere on the X (minus its width) and at the Y position worked
+          //out above.
+          const newPlatform = this.platformGroup.get(
+            Phaser.Math.RND.between(0, 600 - platformObject["size"]),
+            newY
+          );
 
-            newPlatform.setActive(true);
-            newPlatform.setVisible(true);
-            this.lastCreatedPlatform = newPlatform;
+          if (!newPlatform) {
+            return;
+          }
+          //Activate and store reference to the last platform so we can place the next on below
+          //it.
 
+          newPlatform.setActive(true);
+          newPlatform.setVisible(true);
+          this.lastCreatedPlatform = newPlatform;
         }
       });
     } else {
-        //If we are ending the game, destroy all platforms that are 'off screen'
-        //above and below the player.
+      //If we are ending the game, destroy all platforms that are 'off screen'
+      //above and below the player.
       this.platformGroup.children.iterate((platform) => {
         if (!platform) {
           return;
@@ -654,6 +756,8 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   update() {
+    this.listenForResume();
+
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
       // this.score += 10
@@ -661,19 +765,7 @@ export default class PhaserScene extends Phaser.Scene {
       this.updateScore(10);
     }
 
-    // Movement controls listener
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(0 - this.playerVelocityX);
-
-      this.player.anims.play("left", true);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(this.playerVelocityX);
-
-      this.player.anims.play("right", true);
-    } else {
-      this.player.setVelocityX(0);
-      this.player.anims.play("turn");
-    }
+    this.listenForInput();
 
     // Platform random generation
     this.recyclePlatforms();
@@ -686,7 +778,9 @@ export default class PhaserScene extends Phaser.Scene {
           if (!this.gameEndInProgress) {
             // Iterate through, get biggest Y
             const newStarY =
-              this.lastCreatedStar.y + this.levelConfig.starDistance + Phaser.Math.RND.between(0, 100);
+              this.lastCreatedStar.y +
+              this.levelConfig.starDistance +
+              Phaser.Math.RND.between(0, 100);
             const newStar = this.starsGroup.get(
               Phaser.Math.RND.between(0, 574),
               newStarY

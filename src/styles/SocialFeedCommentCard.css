@@ -1,0 +1,26 @@
+.SocialFeedCommentCard{
+border-radius: 20px;
+background-color: rgba(250, 235, 215, 0.534);
+padding: 10px 20px;
+display: flex;
+flex-direction: column;
+margin: 20px;
+}
+
+.social-comment-card-body{
+    font-size: 2rem;
+    margin: 10px;
+
+}
+
+.social-comment-card-username{
+    font-size: 1.6rem;
+    margin: 10px;
+
+}
+
+.social-comment-card-time{
+    font-size: 1.6rem;
+    margin: 10px;
+
+}
