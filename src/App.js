@@ -14,6 +14,7 @@ import Profile from './components/Menus/Profile';
 import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
 import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
 import LevelSelect from './components/Menus/LevelSelect';
+import LeaderboardsPage from './components/Menus/LeaderboardsPage';
 
 function App() {
   const [gameTime, setGameTime] = useState(0)
@@ -52,6 +53,11 @@ function App() {
             <Route
              path='/global-leaderboard'
              element={<GlobalLeaderboard />}
+            />
+
+<Route
+             path='/leaderboards'
+             element={<LeaderboardsPage />}
             />
 
             <Route 

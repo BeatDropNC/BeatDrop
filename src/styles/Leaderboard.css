@@ -1,0 +1,81 @@
+.Leaderboard{
+
+
+}
+
+.leaderboard-level-select-title{
+font-size: 2rem;
+text-align: center;
+}
+
+
+.leaderboard-level-select-container{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+
+.leaderboard-level-select-button{
+    height: 70px; 
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.623);
+    border-radius: 6px;
+    font-size: 1.6rem;
+    color: black;
+}
+
+.selected-button{
+    background-color: #fc1681;
+    color: #fff;
+}
+
+.leaderboard-level-select-button:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+}
+
+.leaderboard-level-select-button:active{
+    color: #fff;
+    background: #acb1ff;
+    box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
+}
+
+
+.leaderboard-scorecard-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+
+}
+
+.leaderboard-scorecard-titles{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.623);
+    border-radius: 10px;
+    height: 100px;
+    align-items: center;
+    font-size: 2rem;
+
+}
+
+.leaderboard-title{
+    flex-grow: 1;
+    flex-shrink: 1;   
+     font-weight: 600;
+
+}
+
+
+
+@media only screen and (max-width: 500px) {
+
+}
+@media only screen and (max-width: 475px) {
+
+    
+}

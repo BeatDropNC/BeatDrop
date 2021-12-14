@@ -1,0 +1,35 @@
+.LeaderboardScoreCard{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.623);
+    border-radius: 10px;
+    height: 140px;
+    align-items: center;
+    font-size: 2rem;
+
+    
+}
+
+.leaderboard-item{
+    flex-grow: 1;
+    width: 25%;
+}
+
+.leaderboard-rank{
+    font-weight: 600;
+}
+
+/* .gold{
+    background-color: rgb(255, 217, 0);
+}
+
+.silver{
+    background-color: rgb(87, 86, 78);
+
+}
+
+.bronze{
+    background-color: rgb(146, 60, 20);
+
+} */
