@@ -99,7 +99,7 @@ const patchUserBadges = async (userUid, badges) => {
 
 const getActivities = async () => {
     const activitiesRef = collection(db,"activities");
-    const q = query(activitiesRef, orderBy('timestamp'), limit(2));
+    const q = query(activitiesRef, orderBy('timestamp'), limit(5));
     const activityDocuments = []
     try {
      const querySnapshot = await getDocs(q)
