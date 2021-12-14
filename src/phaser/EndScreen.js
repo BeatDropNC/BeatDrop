@@ -36,9 +36,9 @@ export default class EndScreen extends Phaser.Scene {
         color: color,
       })
       .setOrigin(0.5, 0.5)
-      .setShadow(4, 4, "#333333", 4, false, true)
+      .setShadow(4, 4, "#333333", 4, false, true);
 
-      if (strokeText) this[propName].setStroke("black", 4)
+    if (strokeText) this[propName].setStroke("black", 4);
   };
 
   createBadges = () => {
@@ -56,7 +56,15 @@ export default class EndScreen extends Phaser.Scene {
       .on("pointerdown", () => {
         console.log("retry clicked");
       });
-    this.createText(150, 620, "retryButtonText", "Retry", "32px", "black", false);
+    this.createText(
+      150,
+      620,
+      "retryButtonText",
+      "Retry",
+      "32px",
+      "black",
+      false
+    );
 
     this.retryButton = this.add
       .image(450, 620, "menu-button")
@@ -91,7 +99,9 @@ export default class EndScreen extends Phaser.Scene {
 
   update = () => {
     if (this.scoreText?.text < this.score) {
-      if (this.score > 10000) this.scoreCounter += 100;
+      if (this.score > 10000) this.scoreCounter += 1000;
+      else if (this.score > 1000) this.scoreCounter += 100;
+      else if (this.score > 100) this.scoreCounter += 10;
       else this.scoreCounter += 10;
       this.scoreText.setText(this.scoreCounter);
     } else if (this.scoreText) {
