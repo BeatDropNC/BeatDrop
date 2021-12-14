@@ -9,7 +9,7 @@ const Homepage = () => {
 
     useEffect(() => {
         if (userUid) {
-            navigate('/welcome-page');
+            navigate('/main-menu');
         }
     }, [userUid, navigate]);
 
