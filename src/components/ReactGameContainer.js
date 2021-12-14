@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserUidContext } from "../contexts/UserUidContext";
-import { patchUserScores } from "../firebase/firebase.api";
+import { getGlobalLeaderboard, patchGlobalLeaderboardScore, patchUserScores } from "../firebase/firebase.api";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
 import { currentDateTimeString } from "../utils";
@@ -15,8 +15,8 @@ function ReactGameContainer({
   const submitScore = async (newScore) => {
     const currentLevelScores = userInformation["userScores"][levelChoice];
 
-    currentLevelScores.sort((a,b) => b.score - a.score);
-    if (newScore >= currentLevelScores[4].score) {
+    currentLevelScores.sort((a, b) => b.score - a.score);
+    if (newScore >= currentLevelScores[currentLevelScores.length - 1].score) {
       const newLevelScores = [...currentLevelScores];
       newLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
       newLevelScores.sort((a, b) => b.score - a.score);
@@ -29,11 +29,32 @@ function ReactGameContainer({
         return newUserInformation
       })
 
-      // post new score to 'users' collection on firestore
-      patchUserScores(userUid, newLevelScores, levelChoice)
-      .then(() => {
-        console.log("New high score was updated!")
-      })      
+      // patch new highscore to 'users' collection on firestore
+      await patchUserScores(userUid, newLevelScores, levelChoice)
+        .then(() => {
+          console.log("New high score was updated!")
+        })
+
+      // check global leaderboard
+      const response = await getGlobalLeaderboard();
+      const currentGlobalLevelScores = response[levelChoice]["scoresList"];
+      currentGlobalLevelScores.sort((a, b) => b.score - a.score);
+      console.log(currentGlobalLevelScores)
+      if (newScore >= currentGlobalLevelScores[currentGlobalLevelScores.length-1].score) {
+        const newGlobalLevelScores = [...currentGlobalLevelScores];
+        newGlobalLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
+        newGlobalLevelScores.sort((a, b) => b.score - a.score);
+        newGlobalLevelScores.pop();
+
+        //patch new global highscore to global leaderboard
+        await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
+          .then(() => {
+            console.log("New global high score was achieved!")
+          })
+
+      } else {
+        console.log("Not a global high score.")
+      }
     } else {
       console.log("Not a high score.")
     }
