@@ -50,12 +50,12 @@ function App() {
             />
 
             <Route
-             path='/leaderboards/personal'
+             path='/personal-leaderboard'
              element={<PersonalLeaderboard />}
             />
 
             <Route
-             path='/leaderboards/global'
+             path='/global-leaderboard'
              element={<GlobalLeaderboard />}
             />
 
