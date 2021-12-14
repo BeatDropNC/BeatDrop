@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getLevelConfig } from "./levelConfigs";
 
 export default class PhaserScene extends Phaser.Scene {
-  constructor(levelChoice) {
+  constructor(levelChoice, submitScore) {
     super("PhaserScene");
     this.gameOver = false;
     this.player = undefined;
@@ -41,6 +41,8 @@ export default class PhaserScene extends Phaser.Scene {
 
     //This sets the key level details such as assets, platform distance and powerups
     this.levelConfig = getLevelConfig(levelChoice);
+
+    this.submitScore = submitScore;
   }
 
   loadAudio = () => {
@@ -549,7 +551,10 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.sound.pauseAll();
     this.scene.pause("PhaserScene");
+    this.submitScore(this.score);
     this.scene.launch("EndScreen", { score: this.score });
+
+    
   };
 
   hitStarAddScore = () => {
