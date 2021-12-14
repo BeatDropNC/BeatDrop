@@ -68,21 +68,21 @@ function ReactGameContainer({
     
     // assign badges based on score
     const isUpdatedObj = {};
-    if (newScore > 100 && !userInformation.badges[levelChoice].bronze) {
+    if (newScore > 50000 && !userInformation.badges[levelChoice].bronze) {
       toPatchBadgesObj[levelChoice].bronze = true;
       isUpdatedObj.bronze = true;
     } else {
       isUpdatedObj.bronze = false;
     }
 
-    if (newScore > 100 && !userInformation.badges[levelChoice].silver) {
+    if (newScore > 100000 && !userInformation.badges[levelChoice].silver) {
       toPatchBadgesObj[levelChoice].silver = true;
       isUpdatedObj.silver = true;
     } else {
       isUpdatedObj.silver = false;
     }
 
-    if (newScore > 100 && !userInformation.badges[levelChoice].gold) {
+    if (newScore > 300000 && !userInformation.badges[levelChoice].gold) {
       toPatchBadgesObj[levelChoice].gold = true
       isUpdatedObj.gold = true;
     } else {
@@ -103,6 +103,11 @@ function ReactGameContainer({
         newUserInformation.badges = toPatchBadgesObj;
         return newUserInformation
       })
+      // sends post request to create a new social feed post that medal has been earned
+      const newBadges = Object.entries(isUpdatedObj).filter(badgeEntry => badgeEntry[1] === true).map(badgeEntry => badgeEntry[0])
+      console.log(newBadges)
+      await postNewActivity(userInformation.username, newBadges, newScore, levelChoice)
+      .then(() => console.log("create new activity post"))
     } else {
       console.log("No new badges were earned")
     }
