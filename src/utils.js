@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 
 const currentDateTimeString = () => {
@@ -40,7 +40,48 @@ const seedGlobalLeaderboardCollection = async () => {
     })
 }
 
+const seedActivitiesCollection = async () => {
+    const activityCollectionRef = collection(db, "activities");
+    try {
+        await addDoc(activityCollectionRef,
+            {
+                "highscore": null,
+                "level": "level 1",
+                "username": "wadawdaw",
+                "comments": [
+                    {
+                        "username": "ssi75121",
+                        "commentBody": "Congrats! Thats such a good badge to get! you are pretty good at this now!",
+                        "timestamp": Timestamp.fromDate(new Date())
+                    }, {
+                        "username": "ssi75121",
+                        "commentBody": "Congrats! Thats such a good badge to get! you are pretty good at this now!",
+                        "timestamp": Timestamp.fromDate(new Date())
+                    }, {
+                        "username": "ssi75121",
+                        "commentBody": "Congrats! Thats such a good badge to get! you are pretty good at this now!",
+                        "timestamp": Timestamp.fromDate(new Date())
+                    }, {
+                        "username": "ssi75121",
+                        "commentBody": "Congrats! Thats such a good badge to get! you are pretty good at this now!",
+                        "timestamp": Timestamp.fromDate(new Date())
+                    }, {
+                        "username": "ssi75121",
+                        "commentBody": "Congrats! Thats such a good badge to get! you are pretty good at this now!",
+                        "timestamp": Timestamp.fromDate(new Date())
+                    }
+                ],
+                "achievement": "Badge1",
+                "timestamp": Timestamp.fromDate(new Date())
+            }
+        )
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     currentDateTimeString,
-    seedGlobalLeaderboardCollection
+    seedGlobalLeaderboardCollection,
+    seedActivitiesCollection,
 }
