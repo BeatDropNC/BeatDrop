@@ -3,20 +3,7 @@ import Phaser from "phaser";
 export default class PauseMenu extends Phaser.Scene {
   constructor(destroyPhaserGame) {
     super("PauseMenu");
-    this.background = undefined;
-    this.menuBackground = undefined;
-
-    this.resumeButton = undefined;
-    this.resumeButtonText = undefined;
-
-    this.exitButton = undefined;
-    this.exitButtonText = undefined;
-
-    this.muteButton = undefined;
-    this.muteButtonText = undefined;
-
     this.isMuted = false;
-
     this.destroyPhaserGame = destroyPhaserGame;
   }
 
