@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserUidContext } from "../contexts/UserUidContext";
-import { getGlobalLeaderboard, patchGlobalLeaderboardScore, patchUserScores, postNewActivity } from "../firebase/firebase.api";
+import { getGlobalLeaderboard, patchGlobalLeaderboardScore, patchUserBadges, patchUserScores, postNewActivity } from "../firebase/firebase.api";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
 import { currentDateTimeString } from "../utils";
@@ -11,7 +11,9 @@ function ReactGameContainer({
 }) {
   const { userInformation, setUserInformation, userUid } = useContext(UserUidContext);
   const [gameEnd, setGameEnd] = useState(false);
+
   const submitScore = async (newScore) => {
+
     const currentLevelScores = userInformation["userScores"][levelChoice];
 
     currentLevelScores.sort((a, b) => b.score - a.score);
@@ -22,6 +24,12 @@ function ReactGameContainer({
       newLevelScores.sort((a, b) => b.score - a.score);
       newLevelScores.pop();
 
+      // patch new highscore to 'users' collection on firestore
+      await patchUserScores(userUid, newLevelScores, levelChoice)
+        .then(() => {
+          console.log("New high score was updated!")
+        })
+
       // set local user state
       setUserInformation(currentUserInformation => {
         const newUserInformation = JSON.parse(JSON.stringify(currentUserInformation));
@@ -29,17 +37,13 @@ function ReactGameContainer({
         return newUserInformation
       })
 
-      // patch new highscore to 'users' collection on firestore
-      await patchUserScores(userUid, newLevelScores, levelChoice)
-        .then(() => {
-          console.log("New high score was updated!")
-        })
-      
+
+
       // check global leaderboard. If a global highscore, also patch that level's global leaderboard.
       const response = await getGlobalLeaderboard();
       const currentGlobalLevelScores = response[levelChoice]["scoresList"];
       currentGlobalLevelScores.sort((a, b) => b.score - a.score);
-      if (newScore >= currentGlobalLevelScores[currentGlobalLevelScores.length-1].score) {
+      if (newScore >= currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
         const newGlobalLevelScores = [...currentGlobalLevelScores];
         newGlobalLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
         newGlobalLevelScores.sort((a, b) => b.score - a.score);
@@ -57,17 +61,54 @@ function ReactGameContainer({
     } else {
       console.log("Not a high score.")
     }
+
+
+    // check existing badges
+    const toPatchBadgesObj = JSON.parse(JSON.stringify(userInformation.badges));
     
-    // check if meet requirements for new badges, then send new badge
-    let badge;
-    if(newScore > 0) {
-      badge = "badge1";
+    // assign badges based on score
+    const isUpdatedObj = {};
+    if (newScore > 100 && !userInformation.badges[levelChoice].bronze) {
+      toPatchBadgesObj[levelChoice].bronze = true;
+      isUpdatedObj.bronze = true;
+    } else {
+      isUpdatedObj.bronze = false;
     }
 
-    if(badge !== undefined) {
-      await postNewActivity(userInformation.username, badge, newScore, levelChoice)
-      .then(() => console.log("posted new achievement activity"))
+    if (newScore > 100 && !userInformation.badges[levelChoice].silver) {
+      toPatchBadgesObj[levelChoice].silver = true;
+      isUpdatedObj.silver = true;
+    } else {
+      isUpdatedObj.silver = false;
     }
+
+    if (newScore > 100 && !userInformation.badges[levelChoice].gold) {
+      toPatchBadgesObj[levelChoice].gold = true
+      isUpdatedObj.gold = true;
+    } else {
+      isUpdatedObj.gold = false;
+    }
+
+
+    // sends patch to update badges if any new ones have been earned
+    const isUpdatedArray = Object.values(isUpdatedObj);
+    console.log(isUpdatedArray)
+    if (isUpdatedArray.includes(true)) {
+      // patch user badges
+      await patchUserBadges(userUid, toPatchBadgesObj)
+        .then(() => console.log("Send user badges patch"))
+      // update local state
+      setUserInformation(currentUserInformation => {
+        const newUserInformation = JSON.parse(JSON.stringify(currentUserInformation));
+        newUserInformation.badges = toPatchBadgesObj;
+        return newUserInformation
+      })
+    } else {
+      console.log("No new badges were earned")
+    }
+    
+
+
   }
 
   const navigate = useNavigate();
@@ -87,14 +128,19 @@ function ReactGameContainer({
     };
   }, []);
 
-  return (
-    <div className="ReactGameContainer">
-      <div id="phaser-container"></div>
-      <Link className="quit-button" to={"/level-select"}>
-        Quit
-      </Link>
-    </div>
-  );
+  if (!userInformation) {
+    return <p>Loading...</p>
+  } else {
+    return (
+      <div className="ReactGameContainer">
+        <div id="phaser-container"></div>
+        <Link className="quit-button" to={"/level-select"}>
+          Quit
+        </Link>
+      </div>
+    );
+  }
+
 }
 
 export default ReactGameContainer;
