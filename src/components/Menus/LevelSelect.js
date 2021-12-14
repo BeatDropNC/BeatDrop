@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserUidContext } from '../../contexts/UserUidContext';
 import arrowRight from '../../assets/next.png'
 import arrowLeft from '../../assets/next.png'
+import play from '../../assets/buttons/Play.png';
+import returnButton from '../../assets/buttons/Return.png';
 
 function LevelSelect({ setLevelChoice }) {
 
@@ -20,8 +22,6 @@ function LevelSelect({ setLevelChoice }) {
   // 03: gggRIME		    === bass_trap_60_sec
   // 04: helter_sKeLtOr	=== boss_time_60_sec
   // 05: cityPOP		    === funny_bit_60_sec_edit
-
-
 
   return (
     <div className="Menu">
@@ -41,8 +41,8 @@ function LevelSelect({ setLevelChoice }) {
           <button className="red button" onClick={() => {setLevelChoice('level5')}}>Level 5</button>
         </div> 
       </div>
-      <Link id={'start-button'} className={"button start-button"} to={"/newgame"}>Play</Link>
-      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'>Return to Main Menu</Link>
+      <Link id={'start-button'} className={"button start-button"} to={"/newgame"}><img className='pixel-buttons' src={play}/></Link>
+      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons' src={returnButton}/></Link>
     </div>
   );
 }
