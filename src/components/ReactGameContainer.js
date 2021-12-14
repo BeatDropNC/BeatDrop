@@ -15,7 +15,7 @@ function ReactGameContainer({
     const currentLevelScores = userInformation["userScores"][levelChoice];
 
     currentLevelScores.sort((a, b) => b.score - a.score);
-    // 
+    // if score is a user high score, continue.
     if (newScore >= currentLevelScores[currentLevelScores.length - 1].score) {
       const newLevelScores = [...currentLevelScores];
       newLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
@@ -58,17 +58,13 @@ function ReactGameContainer({
       console.log("Not a high score.")
     }
 
-    // send any new badges
+    // check if meet requirements for new badges, then send new badge
     let badge;
     if(newScore > 0) {
       badge = "badge1";
     }
 
     if(badge !== undefined) {
-      // console.log(userInformation.username, "Username")
-      // console.log(badge, "badge")
-      // console.log(newScore, "newScore")
-      // console.log(levelChoice, "level choice")
       await postNewActivity(userInformation.username, badge, newScore, levelChoice)
       .then(() => console.log("posted new achievement activity"))
     }
