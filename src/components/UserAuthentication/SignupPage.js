@@ -29,7 +29,7 @@ const SignupPage = () => {
 
         if (userUid !== undefined && userUid !== null){
              //The user has logged in
-            navigate('/welcome-page')
+            navigate('/main-menu')
         } else {
             //The user is not logged in
         }

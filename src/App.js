@@ -8,7 +8,6 @@ import SignupPage from './components/UserAuthentication/SignupPage';
 import ResetPasswordPage from './components/UserAuthentication/ResetPasswordPage';
 import { UserUidProvider } from './contexts/UserUidContext';
 import Homepage from './components/Menus/Homepage';
-import WelcomePage from './components/Menus/WelcomePage';
 import MainMenu from './components/Menus/MainMenu';
 import SocialFeed from './components/Menus/SocialFeed';
 import Profile from './components/Menus/Profile';
@@ -28,10 +27,6 @@ function App() {
             <Route
               path='/'
               element={<Homepage />}
-            />
-            <Route
-              path='/welcome-page'
-              element={<WelcomePage />}
             />
 
             <Route 
