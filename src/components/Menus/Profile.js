@@ -19,7 +19,7 @@ const Profile = () => {
     
     console.log(userInformation?.avatar_url)
 
-    const [currentAvatar, setCurrentAvatar] = useState(userInformation.avatar_url);
+    const [currentAvatar, setCurrentAvatar] = useState(userInformation?.avatar_url);
 
     console.log(currentAvatar)
     
