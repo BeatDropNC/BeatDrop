@@ -15,7 +15,7 @@ function ReactGameContainer({
     const currentLevelScores = userInformation["userScores"][levelChoice];
 
     currentLevelScores.sort((a, b) => b.score - a.score);
-    // if score is a user high score, continue.
+    // if score is a personal user high score, continue with setting local state and posting to users collection.
     if (newScore >= currentLevelScores[currentLevelScores.length - 1].score) {
       const newLevelScores = [...currentLevelScores];
       newLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
@@ -34,8 +34,8 @@ function ReactGameContainer({
         .then(() => {
           console.log("New high score was updated!")
         })
-
-      // check global leaderboard
+      
+      // check global leaderboard. If a global highscore, also patch that level's global leaderboard.
       const response = await getGlobalLeaderboard();
       const currentGlobalLevelScores = response[levelChoice]["scoresList"];
       currentGlobalLevelScores.sort((a, b) => b.score - a.score);
@@ -57,7 +57,7 @@ function ReactGameContainer({
     } else {
       console.log("Not a high score.")
     }
-
+    
     // check if meet requirements for new badges, then send new badge
     let badge;
     if(newScore > 0) {
