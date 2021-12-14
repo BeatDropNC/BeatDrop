@@ -47,7 +47,7 @@ function ReactGameContainer({
         newGlobalLevelScores.pop();
 
         //patch new global highscore to global leaderboard
-        await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
+        await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores, userInformation.username)
           .then(() => {
             console.log("New global high score was achieved!")
           })
