@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
+import { patchUserAvatar } from '../../firebase/firebase.api';
 import '../../styles/Profile.css'
 const data = require('../../dummy-data.json');
 
 const Profile = () => {
-    const { userUid } = useContext(UserUidContext);
+    const { userUid, userInformation, setUserInformation } = useContext(UserUidContext);
+
     const navigate = useNavigate();
     useEffect(() => {
         if (!userUid) {
@@ -13,10 +15,14 @@ const Profile = () => {
         }
     }, [userUid, navigate]);
 
-    const [currentAvatar, setCurrentAvatar] = useState('https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg');
 
+    
+    console.log(userInformation?.avatar_url)
 
+    const [currentAvatar, setCurrentAvatar] = useState(userInformation?.avatar_url);
 
+    console.log(currentAvatar)
+    
     // Temp character sprites
     const spriteLinks = [
         'https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg',
@@ -47,7 +53,12 @@ const Profile = () => {
                     {spriteLinks.map((sprite) => {
                         return (
                             <button key={sprite} onClick={() => {
-                                setCurrentAvatar(sprite);
+                                setCurrentAvatar((prevSprite)=>{
+                                    if(sprite !== prevSprite) {
+                                        return sprite
+                                    }
+                                    return prevSprite
+                                });
                                 // Patch user with new sprite
                             }}>
                                 <img className={sprite} key={sprite} src={sprite} alt={sprite}></img>
@@ -55,6 +66,20 @@ const Profile = () => {
                         )
                     })}
                 </div>
+                <button onClick={async ()=>{
+                    setUserInformation(currentUserInformation => {
+                        const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
+                        newUserInformation.avatar_url = currentAvatar
+                        return newUserInformation
+                    })
+                    await patchUserAvatar(userUid, currentAvatar)
+                    .then(()=>{
+                        console.log("Patched")
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                    })
+                }}>Submit</button>
             </div>
             <h2>Badges</h2>
             <div className='user_badges'>
