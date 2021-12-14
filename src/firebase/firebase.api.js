@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -58,13 +58,31 @@ const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores, 
 }
 
 const patchUserAvatar = async (uid, avatar_url) => {
-    const userDocRef = doc(db,"users", uid);
+    const userDocRef = doc(db, "users", uid);
     try {
         await updateDoc(userDocRef, {
             avatar_url
         })
     } catch (error) {
-        
+
+    }
+}
+
+const postNewActivity = async (username, newBadge, newScore, level) => {
+    const activityCollectionRef = collection(db, "activities");
+    //const temporaryDocRef = doc(db, "activities", "test-post")
+    console.log(username, newBadge, newScore, level)
+    try {
+        await addDoc(activityCollectionRef, {
+            highscore: newScore,
+            level,
+            username,
+            "comments": [],
+            "achievement": newBadge,
+            "timestamp": Timestamp.fromDate(new Date()),
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -74,4 +92,5 @@ export {
     getGlobalLeaderboard,
     patchGlobalLeaderboardScore,
     patchUserAvatar,
+    postNewActivity,
 }
