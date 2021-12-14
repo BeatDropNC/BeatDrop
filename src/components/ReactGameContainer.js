@@ -27,6 +27,7 @@ function ReactGameContainer({
       await patchUserScores(userUid, newLevelScores, levelChoice)
         .then(async () => {
           console.log("New high score was updated!")
+          await postNewActivity(userInformation.username, null, newScore, levelChoice);
         })
 
       // set local user state
