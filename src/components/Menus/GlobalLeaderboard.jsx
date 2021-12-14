@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import { getGlobalLeaderboard } from '../../firebase/firebase.api';
+import personal from '../../assets/buttons/Personal.png';
+import global from '../../assets/buttons/Global.png';
 import '../../styles/GlobalLeaderboard.css'
 
 const GlobalLeaderboard = () => {
@@ -47,8 +49,8 @@ const GlobalLeaderboard = () => {
             <main className='globalLeaderboard'>
                 <h1> Global Leaderboard </h1>
                 <div className="leaderboard-chooser">
-                    <Link to='/personal-leaderboard'><button>Personal</button></Link>
-                    <Link to='/global-leaderboard'><button>Global</button></Link>
+                    <Link to='/personal-leaderboard'><img className='pixel-buttons' src={personal}/></Link>
+                    <Link to='/global-leaderboard'><img className='pixel-buttons' src={global}/></Link>
                 </div>
                 <div>
                     <h2>Level {levelToShow + 1}</h2>
