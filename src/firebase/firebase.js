@@ -5,7 +5,7 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
-    
+
 } from 'firebase/auth'
 import {
     getFirestore,
@@ -24,7 +24,7 @@ const loginUserByEmail = async (email, password, setErrorMessage) => {
     try {
         const signInResult = await signInWithEmailAndPassword(auth, email, password)
         return signInResult
-    
+
     } catch (error) {
         console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage)
@@ -56,45 +56,71 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             uid: user.uid,
             username,
             email,
-            badges: [],
+            badges: {
+                "level1": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level2": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level3": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level4": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level5": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                }
+            },
             authProvider: 'local',
             friends: [],
             avatar_url: "https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg",
             userScores: {
                 "level1": [
-                    {"score": 0, "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                ],   
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ],
                 "level2": [
-                    {"score": 0, "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
                 ],
                 "level3": [
-                    {"score": 0, "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
                 ],
                 "level4": [
-                    {"score": 0, "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
                 ],
                 "level5": [
-                    {"score": 0, "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
-                    {"score": 0,  "timeCompletedAt": ""},
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
                 ]
             },
         })
