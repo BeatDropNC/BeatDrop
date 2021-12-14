@@ -19,11 +19,12 @@ const getUserDoc = async (uid) => {
     }
 }
 
-const patchUserScores = async (userUid, sortedScores, levelChoice) => {
+const patchUserScores = async (userUid, newLevelScores, levelChoice) => {
     const userDocRef = doc(db, "users", userUid);
+    const keyString = `userScores.${levelChoice}`;
     try {
         updateDoc(userDocRef, {
-            userScores: { [levelChoice]: sortedScores }
+            [keyString]: newLevelScores
         })
     } catch (error) {
         console.log(error)
@@ -44,11 +45,12 @@ const getGlobalLeaderboard = async () => {
     }
 }
 
-const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores) => {
+const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores, username) => {
     const globalLeaderboardDocRef = doc(db, "globalLeaderboard", gameLevel);
     try {
         await updateDoc(globalLeaderboardDocRef, {
-            scoresList: { [gameLevel]: newGlobalLevelHighScores }
+            scoresList: newGlobalLevelHighScores,
+            username
         })
     } catch (error) {
         console.log(error)
