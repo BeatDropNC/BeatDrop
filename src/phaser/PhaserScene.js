@@ -518,7 +518,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   startEndGame = () => {
     this.gameTimer = this.time.addEvent({
-      delay: 54000,
+      delay: 0,
       callbackScope: this,
       loop: false,
       callback: this.endGame,
@@ -570,6 +570,10 @@ export default class PhaserScene extends Phaser.Scene {
     this.sound.pauseAll();
     this.scene.pause("PhaserScene");
     this.submitScore(this.score);
+
+    this.scoreText.setVisible(false);
+    this.button.setVisible(false);
+
     this.scene.launch("EndScreen", { score: this.score });
   };
 
