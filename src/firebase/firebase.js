@@ -56,6 +56,7 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             uid: user.uid,
             username,
             email,
+            badges: [],
             authProvider: 'local',
             friends: [],
             avatar_url: "https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg",
