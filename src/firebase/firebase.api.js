@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, updateDoc, query, orderBy, limit } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, query, orderBy, limit, arrayUnion } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -86,11 +86,27 @@ const getActivities = async () => {
     }
 }
 
+
+const postCommentToActivity = async (activityRef, commentToAdd) => {
+    console.log("making a post request to activity comments", activityRef, commentToAdd)
+    const docRef = doc(db,"activities", activityRef);
+    try {
+     return await updateDoc(docRef, {
+         comments: arrayUnion(commentToAdd)
+     })
+
+    } catch (error) {
+        console.log("there was an error Posting to activities")
+    }
+}
+
+
 export {
     getUserDoc,
     patchUserScores,
     getGlobalLeaderboard,
     patchGlobalLeaderboardScore,
     patchUserAvatar,
-    getActivities
+    getActivities,
+    postCommentToActivity
 }

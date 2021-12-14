@@ -12,7 +12,7 @@ const SocialFeedCard = ({postData, postKey}) => {
 
   console.log("username ", postData.username)
   console.log("time ", postData.timestamp.seconds)
-
+  const timestamp = new Date(postData.timestamp.seconds * 1000).toUTCString()
   let postDescription = `${postData.username} has `
 
   if (postData.highscore === null){
@@ -28,14 +28,14 @@ const SocialFeedCard = ({postData, postKey}) => {
         <img className="social-card-image"></img>
         <div className="social-card-user-info-container">
           <h3 className="social-card-username">{postData.username}</h3>
-          <h4 className="social-card-timestamp">{postData.timestamp.seconds}</h4>
+          <h4 className="social-card-timestamp">{timestamp}</h4>
         </div>
         <h2 className="social-card-description">{postDescription}</h2>
         <img onClick={() => {setCommentsVisibility((previousState) => {
           return !previousState
         })}} id={`show-comments-image`} src={commentImage} className="social-card-show-comments"></img>
       </div>
-      <SocialFeedCommentsContainer commentsVisibility={commentsVisibility} commentsForPost={commentsForPost}></SocialFeedCommentsContainer>
+      <SocialFeedCommentsContainer commentsVisibility={commentsVisibility} setCommentsVisibility={setCommentsVisibility} commentsForPost={commentsForPost} postKey={postKey}></SocialFeedCommentsContainer>
     </div>
   );
 };

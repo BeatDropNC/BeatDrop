@@ -1,30 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import "../../styles/SocialFeedCommentsContainer.css";
 import CollapsibleContainer from "./CollapsibleContainer";
 import SocialFeedCommentCard from "./SocialFeedCommentCard";
 import HiddenContainer from "./HiddenContainer";
+import { postCommentToActivity } from "../../firebase/firebase.api";
+import { Timestamp } from "@firebase/firestore";
+import { UserUidContext } from "../../contexts/UserUidContext";
 
 const SocialFeedCommentsContainer = ({
   commentsVisibility,
+  setCommentsVisibility,
   commentsForPost,
+  postKey
 }) => {
   const [commentsDisplayed, setCommentsDisplayed] = useState([]);
   const [loadMoreVisibility, setLoadMoreVisibility] = useState(false);
   const totalCommentsDisplayed = useRef(0);
   const [userAddedComments, setUserAddedComments] = useState([]);
   const [newCommentText, setNewCommentText] = useState("")
+  const { userInformation } = useContext(UserUidContext);
 
 
 
   const submitNewComment = () => {
-    //Make call to firebase here!
-    setUserAddedComments((previousComments) => {
-      //Need username from firebase to create object to add to the displayed comments
-      return [...previousComments, ...newCommentText]
+    const timestamp = Timestamp.fromDate(new Date());
+    const newComment = {commentBody: newCommentText, timestamp: timestamp, username: userInformation.username}
+
+    
+    postCommentToActivity(postKey, newComment).then(() => {
+      setNewCommentText("")
+      setCommentsVisibility(false)
+    }).catch((err) => {
+      console.log(err, "error posting comment")
     })
+
+    // //Make call to firebase here!
+    // setUserAddedComments((previousComments) => {
+    //   //Need username from firebase to create object to add to the displayed comments
+    //   return [...previousComments, ...newCommentText]
+    // })
   
   }
 
+
+  const sortComments = (commentsArray) => {
+    const newArray = commentsArray.sort((a, b) => {return b.timestamp.seconds - a.timestamp.seconds})
+    return newArray
+  }
 
   //Loads comments 3 at a time until there are none left - triggered by the user
   const loadMoreComments = () => {
@@ -40,8 +62,7 @@ const SocialFeedCommentsContainer = ({
             ),
           ];
           totalCommentsDisplayed.current = totalCommentsDisplayed.current + 3;
-
-          return newComments;
+          return sortComments(newComments);
         });
       } else {
         setCommentsDisplayed((previousComments) => {
@@ -56,8 +77,8 @@ const SocialFeedCommentsContainer = ({
             totalCommentsDisplayed.current +
             commentsForPost.length -
             totalCommentsDisplayed.current;
-          return newComments;
-        });
+            return sortComments(newComments);
+          });
       }
     }
   };
@@ -71,12 +92,20 @@ const SocialFeedCommentsContainer = ({
         setCommentsDisplayed((previousComments) => {
           totalCommentsDisplayed.current = 3;
           setLoadMoreVisibility(true);
-          return [...previousComments, ...commentsForPost.slice(0, 3)];
+          const sortedComments = sortComments(commentsForPost)
+          const initialComments = [...previousComments, ...sortedComments.slice(0, 3)];
+
+          return initialComments
+
         });
       } else {
         setCommentsDisplayed((previousComments) => {
           totalCommentsDisplayed.current = commentsForPost.length;
-          return [...previousComments, ...commentsForPost];
+          const sortedComments = sortComments(commentsForPost)
+
+          const initialComments = [...previousComments, ...sortedComments];
+          return initialComments;
+
         });
       }
     }
@@ -103,9 +132,9 @@ const SocialFeedCommentsContainer = ({
           </div>
         </div>
       </CollapsibleContainer>
-      {console.log("redrawing with ", commentsDisplayed)}
       {commentsDisplayed.map((comment, index) => {
-        return (
+
+      return (
           <SocialFeedCommentCard
             key={`${comment.username}${index}`}
             commentObject={comment}
