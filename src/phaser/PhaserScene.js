@@ -275,6 +275,29 @@ export default class PhaserScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   };
 
+  createText = (
+    xPosition,
+    yPosition,
+    propName,
+    value,
+    fontSize = "48px",
+    color = "#5dc416",
+    strokeText = true
+  ) => {
+    this[propName] = this.add
+      .text(xPosition, yPosition, value, {
+        fontSize: fontSize,
+        align: "center",
+        fontFamily: "'Press Start 2P'",
+        color: color,
+      })
+      .setOrigin(0.5, 0.5)
+      .setShadow(4, 4, "#333333", 4, false, true)
+      .setScrollFactor(0);
+
+    if (strokeText) this[propName].setStroke("black", 4);
+  };
+
   setPlayerPhysics = () => {
     this.player.body.setGravityY(50);
     this.player.body.setMaxVelocityY(70);
@@ -559,7 +582,7 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   updateScore(updateAmount) {
-    const color = updateAmount < 0 ? "#d40000" : "#000";
+    const color = updateAmount < 0 ? "#d40000" : "#5dc416";
 
     this.score += updateAmount;
     this.scoreText.setText(`Score: ${this.score}`);
@@ -567,13 +590,12 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   playerScore = () => {
-    this.scoreText = this.add.text(50, 16, "Score: 0", {
-      fontSize: "32px",
-      fill: "#000",
-    });
+    // this.scoreText = this.add.text(50, 16, "Score: 0", {
+    //   fontSize: "32px",
+    //   fill: "#000",
+    // });
 
-    //Not affected by scrolling
-    this.scoreText.setScrollFactor(0);
+    this.createText(300, 16, "scoreText", "Score: 0", "28px");
   };
 
   recyclePowerups = () => {
@@ -678,7 +700,6 @@ export default class PhaserScene extends Phaser.Scene {
     this.addOnscreenControls();
     this.pauseMenu();
     this.playerScore();
-
   }
 
   recyclePlatforms() {
