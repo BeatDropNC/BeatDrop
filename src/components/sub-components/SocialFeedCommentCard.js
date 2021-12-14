@@ -1,10 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { UserUidContext } from "../../contexts/UserUidContext";
 import "../../styles/SocialFeedCommentCard.css";
 
 const SocialFeedCommentCard = ({commentObject}) => {
-  const { userUid } = useContext(UserUidContext);
   const timestamp = new Date(commentObject.timestamp.seconds * 1000).toUTCString()
 
   return (

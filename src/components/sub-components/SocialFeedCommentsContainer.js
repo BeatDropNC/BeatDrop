@@ -16,7 +16,6 @@ const SocialFeedCommentsContainer = ({
   const [commentsDisplayed, setCommentsDisplayed] = useState([]);
   const [loadMoreVisibility, setLoadMoreVisibility] = useState(false);
   const totalCommentsDisplayed = useRef(0);
-  const [userAddedComments, setUserAddedComments] = useState([]);
   const [newCommentText, setNewCommentText] = useState("")
   const { userInformation } = useContext(UserUidContext);
 
@@ -30,6 +29,13 @@ const SocialFeedCommentsContainer = ({
     postCommentToActivity(postKey, newComment).then(() => {
       setNewCommentText("")
       setCommentsVisibility(false)
+      totalCommentsDisplayed.current = (totalCommentsDisplayed.current - 1)
+
+      setCommentsDisplayed((previousComments) => {
+        return [newComment, ...previousComments]
+      })
+
+
     }).catch((err) => {
       console.log(err, "error posting comment")
     })
@@ -50,33 +56,49 @@ const SocialFeedCommentsContainer = ({
 
   //Loads comments 3 at a time until there are none left - triggered by the user
   const loadMoreComments = () => {
-    if (commentsForPost.length > totalCommentsDisplayed.current) {
-      if (commentsForPost.length - totalCommentsDisplayed.current > 3) {
+    const totalCommentsBeforeChanges = totalCommentsDisplayed.current
+
+
+    
+    if (commentsForPost.length > totalCommentsBeforeChanges) {
+
+      
+      if ((commentsForPost.length - totalCommentsBeforeChanges) > 3) {
+
+        
+
         setCommentsDisplayed((previousComments) => {
+
           const newComments = [
-          
             ...previousComments,
             ...commentsForPost.slice(
-              totalCommentsDisplayed.current,
-              totalCommentsDisplayed.current + 3
+              totalCommentsBeforeChanges,
+              totalCommentsBeforeChanges + 3
             ),
           ];
-          totalCommentsDisplayed.current = totalCommentsDisplayed.current + 3;
+
+          totalCommentsDisplayed.current = totalCommentsBeforeChanges + 3;
+
+          
           return sortComments(newComments);
         });
       } else {
         setCommentsDisplayed((previousComments) => {
+
+
           setLoadMoreVisibility(false);
 
           const newComments = [
     
             ...previousComments,
-            ...commentsForPost.slice(totalCommentsDisplayed.current),
+            ...commentsForPost.slice(totalCommentsBeforeChanges),
           ];
-          const newTotalCommentsDisplayed =
-            totalCommentsDisplayed.current +
-            commentsForPost.length -
-            totalCommentsDisplayed.current;
+
+          // const newTotalCommentsDisplayed =
+          //   totalCommentsDisplayed.current +
+          //   commentsForPost.length -
+          //   totalCommentsDisplayed.current;
+          totalCommentsDisplayed.current = commentsForPost.length
             return sortComments(newComments);
           });
       }

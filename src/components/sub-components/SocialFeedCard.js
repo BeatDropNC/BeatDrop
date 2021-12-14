@@ -4,14 +4,10 @@ import commentImage from '../../assets/comment.png'
 import '../../styles/SocialFeedCard.css'
 import SocialFeedCommentsContainer from "./SocialFeedCommentsContainer";
 const SocialFeedCard = ({postData, postKey}) => {
-  const { userUid } = useContext(UserUidContext);
   const [commentsVisibility, setCommentsVisibility] = useState(false)
   const [commentsForPost, setCommentsForPost] = useState(postData.comments)
 
-  console.log("received post data ", postData)
-
-  console.log("username ", postData.username)
-  console.log("time ", postData.timestamp.seconds)
+ 
   const timestamp = new Date(postData.timestamp.seconds * 1000).toUTCString()
   let postDescription = `${postData.username} has `
 
