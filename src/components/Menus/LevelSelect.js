@@ -23,7 +23,7 @@ function LevelSelect({ setLevelChoice }) {
 
   return (
     <div className="Menu">
-      <h1>Level Selector</h1>
+      <h1 className='title'>Level<br></br>Selector</h1>
       <h2>Level title on change</h2>
       <div className='level_selector'>
       <img className='arrowLeft' src={arrowLeft}/>
@@ -31,13 +31,16 @@ function LevelSelect({ setLevelChoice }) {
         <img className='arrowRight' src={arrowRight}/>
       </div>
       <div className="button-container">
-        <button className="red button" onClick={() => {setLevelChoice('level1')}}>Level 1</button>
-        <button className="red button" onClick={() => {setLevelChoice('level2')}}>Level 2</button>
-        <button className="red button" onClick={() => {setLevelChoice('level3')}}>Level 3</button>
-        <button className="red button" onClick={() => {setLevelChoice('level4')}}>Level 4</button>
-        <button className="red button" onClick={() => {setLevelChoice('level5')}}>Level 5</button>
-      </div> <Link id={'start-button'} className={"button start-button"} to={"/newgame"}> Start Phaser</Link>
-      <Link to='/main-menu'>Return to Main Menu</Link>
+        <div className='buttons'>
+          <button className="red button" onClick={() => {setLevelChoice('level1')}}>Level 1</button>
+          <button className="red button" onClick={() => {setLevelChoice('level2')}}>Level 2</button>
+          <button className="red button" onClick={() => {setLevelChoice('level3')}}>Level 3</button>
+          <button className="red button" onClick={() => {setLevelChoice('level4')}}>Level 4</button>
+          <button className="red button" onClick={() => {setLevelChoice('level5')}}>Level 5</button>
+        </div> 
+      </div>
+      <Link id={'start-button'} className={"button start-button"} to={"/newgame"}>Play</Link>
+      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'>Return to Main Menu</Link>
     </div>
   );
 }
