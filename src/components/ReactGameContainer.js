@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserUidContext } from "../contexts/UserUidContext";
@@ -45,7 +46,7 @@ function ReactGameContainer({
       currentGlobalLevelScores.sort((a, b) => b.score - a.score);
       if (newScore >= currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
         const newGlobalLevelScores = [...currentGlobalLevelScores];
-        newGlobalLevelScores.push({ score: newScore, timeCompletedAt: currentDateTimeString() })
+        newGlobalLevelScores.push({ score: newScore, username: userInformation.username, timeCompletedAt: currentDateTimeString() })
         newGlobalLevelScores.sort((a, b) => b.score - a.score);
         newGlobalLevelScores.pop();
 
