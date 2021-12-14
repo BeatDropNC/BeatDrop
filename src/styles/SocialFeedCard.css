@@ -6,6 +6,7 @@
     padding: 20px;
     font-family: 'Roboto Mono', monospace;
     width: 80%;
+    background-color: rgba(255, 255, 255, 0.623);
 }
 
 .social-card-container{
@@ -48,7 +49,7 @@
 
 .social-card-description{
     grid-area: social-card-description;
-    font-size: 1.4rem;
+    font-size: 2rem;
     padding: 20px;
 
 }
@@ -61,3 +62,13 @@
 
 }
 
+.social-card-show-comments:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+}
+.social-card-show-comments:active{
+    color: #fff;
+    background: #acb1ff;
+    box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
+}

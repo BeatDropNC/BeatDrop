@@ -13,6 +13,9 @@ const Homepage = () => {
         }
     }, [userUid, navigate]);
 
+
+
+
     return (
         <main className="Homepage">
             <div>

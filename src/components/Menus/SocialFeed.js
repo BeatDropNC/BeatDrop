@@ -2,25 +2,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import '../../styles/SocialFeed.css'
-import data from '../../dummy-data.json'
 import SocialFeedCard from '../sub-components/SocialFeedCard';
 import { auth } from '../../firebase/firebase';
 import { onAuthStateChanged } from '@firebase/auth';
+import { getActivities } from '../../firebase/firebase.api';
 
 const SocialFeed = () => {
     const { userUid } = useContext(UserUidContext);
     const navigate = useNavigate();
     const [socialData, setSocialData] = useState([])
 
-    const getSocialData = () => {
-        setSocialData(data.activities)
-        
-    }
+
 
     useEffect(() => {
-        getSocialData()
-        console.log(socialData)
-    }, [socialData]) 
+        console.log("Request made to get activities")
+       getActivities().then((activities) => {
+        setSocialData(activities)
+       })
+        
+    }, [setSocialData]) 
 
 
     useEffect(() => {
@@ -46,9 +46,10 @@ const SocialFeed = () => {
         <div className="SocialFeed">
             <h1 className="social-feed-title">Social</h1>
             <div className="social-feed-container">
-            {Object.keys(socialData).map((key) => {
-                const postData = socialData[key]
-                return <SocialFeedCard key={key} postData={postData}></SocialFeedCard>
+            {socialData.map((singleActivityObject) => {
+                const activityKey = Object.keys(singleActivityObject)[0]
+                const postData = singleActivityObject[activityKey]
+                return <SocialFeedCard key={activityKey} postData={postData} postKey={activityKey}></SocialFeedCard>
 
 
             })}
