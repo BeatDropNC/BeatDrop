@@ -1,0 +1,30 @@
+.SocialFeed{
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+
+}
+
+.social-feed-title{
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 5rem;
+    line-height: 2;
+    gap: 20px;
+    text-align: center;
+
+}
+
+.social-feed-container{
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    align-items: center;
+    
+
+}
