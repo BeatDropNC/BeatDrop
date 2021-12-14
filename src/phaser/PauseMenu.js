@@ -25,7 +25,7 @@ export default class PauseMenu extends Phaser.Scene {
     yPosition,
     propName,
     value,
-    fontSize = "48px",
+    fontSize = "36px",
     color = "#5dc416",
     strokeText = true
   ) => {
@@ -49,12 +49,12 @@ export default class PauseMenu extends Phaser.Scene {
     //load in background grey background
     this.load.image("menuBackground2", "assets/grey-background3.png");
     // load in menu button
-    this.load.image("menuButton", "assets/menu-button.png");
+    this.load.image("menuButton", "assets/Buttons/Blank.png");
   }
 
   create() {
     // add blue background
-    this.background = this.add.image(300, 400, "menuBackground");
+    this.background = this.add.image(300, 400, "menuBackground")
     this.background.alpha = 0.5;
 
     // add grey background
@@ -68,7 +68,7 @@ export default class PauseMenu extends Phaser.Scene {
       .on("pointerdown", () => {
         this.sound.resumeAll();
       });
-    this.createText(300, 250, "resumeButtonText", "Resume", "24px");
+    this.createText(300, 250, "resumeButtonText", "Resume");
 
     // exit button
     this.exitButton = this.add
@@ -77,7 +77,7 @@ export default class PauseMenu extends Phaser.Scene {
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
       });
-    this.createText(300, 400, "menuButtonText", "Menu", "24px");
+    this.createText(300, 400, "menuButtonText", "Menu");
 
     // mute button
     this.muteButton = this.add
@@ -97,8 +97,7 @@ export default class PauseMenu extends Phaser.Scene {
       300,
       550,
       "muteButtonText",
-      this.sound.mute ? "Unmute" : "Mute",
-      "24px"
+      this.sound.mute ? "Unmute" : "Mute"
     );
 
     // add onClick event listener to resume button.
