@@ -5,38 +5,17 @@ export default class PhaserScene extends Phaser.Scene {
   constructor(levelChoice, submitScore) {
     super("PhaserScene");
     this.gameOver = false;
-    this.player = undefined;
     this.score = 0;
-    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
-    this.scrollingBackground = undefined;
-    this.scrollingPlatforms = undefined;
-    this.platformGroup = undefined;
-    this.cursors = undefined;
-    this.lastPlatform = undefined;
     this.gameInProgress = true;
-
     this.starGap = 500;
-    this.lastCreatedPlatform = undefined;
-    this.floor = undefined;
     this.gameEndInProgress = false;
     this.gameOver = false;
-    this.starsGroup = undefined;
-    this.lastStar = undefined;
-    this.lastCreatedStar = undefined;
-    this.gameTimer = undefined;
     this.gameMusic = {};
-
     this.powerupGap = 1500;
-    this.powerupsGroup = undefined;
-    this.lastPowerup = undefined;
-    this.lastCreatedPowerup = undefined;
-
-    this.menuButton = undefined;
     this.playerVelocityX = 500;
-
     this.objectVelocityY = -400;
 
     //This sets the key level details such as assets, platform distance and powerups
@@ -518,7 +497,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   startEndGame = () => {
     this.gameTimer = this.time.addEvent({
-      delay: 0,
+      delay: 54000,
       callbackScope: this,
       loop: false,
       callback: this.endGame,
