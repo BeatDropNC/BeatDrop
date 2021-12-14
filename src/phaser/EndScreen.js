@@ -34,10 +34,9 @@ export default class EndScreen extends Phaser.Scene {
         align: "center",
         fontFamily: "'Press Start 2P'",
         color: color,
-        "-webkit-text-stroke": "1px black",
       })
       .setOrigin(0.5, 0.5)
-      .setShadow(2, 2, "#333333", 2, false, true)
+      .setShadow(4, 4, "#333333", 4, false, true)
 
       if (strokeText) this[propName].setStroke("black", 4)
   };
