@@ -26,7 +26,7 @@ const Homepage = () => {
                 <h1 className='drop'>DROP</h1>
             </div>
             <img src={signup} className={`signup-button homepage-button`} onClick={() => navigate('/signup')}/>
-            <img src={login} className={`login-button homepage-button`} onClick={() => navigate('/login')}/>
+            <img src={login} className={`login-button homepage-buttonTwo`} onClick={() => navigate('/login')}/>
         </main>
     )
 }
