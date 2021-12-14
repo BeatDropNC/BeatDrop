@@ -6,6 +6,7 @@ import SocialFeedCard from '../sub-components/SocialFeedCard';
 import { auth } from '../../firebase/firebase';
 import { onAuthStateChanged } from '@firebase/auth';
 import { getActivities } from '../../firebase/firebase.api';
+import returnButton from '../../assets/buttons/Return.png';
 
 const SocialFeed = () => {
     const { userUid } = useContext(UserUidContext);
@@ -56,7 +57,7 @@ const SocialFeed = () => {
 
                 
             </div>
-            <Link to='/main-menu'>Return to Main Menu</Link>
+            <Link to='/main-menu'><img className='pixel-buttons' src={returnButton}/></Link>
         </div>
     )
 }
