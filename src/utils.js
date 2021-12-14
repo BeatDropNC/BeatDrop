@@ -66,6 +66,7 @@ const seedActivitiesCollection = async () => {
                     }
                 ],
                 "achievement": "Badge1",
+                "achievements": ["bronze", "silver"],
                 "timestamp": Timestamp.fromDate(new Date())
             }
         )
@@ -74,7 +75,36 @@ const seedActivitiesCollection = async () => {
     }
 }
 
+const createBadgeActivityBody = (achievementsArray, level) => {
+    // add space in level string
+    const formattedLevel = `${level.slice(0,level.length - 1)} ${level[level.length-1]}`
+
+    // create post body
+    let postBody = '';
+
+    if (achievementsArray.length === 1) {
+        postBody += `posted a new achievement! They completed the ${achievementsArray[0]} challenge while playing ${formattedLevel}.`
+    } else if (achievementsArray.length === 2) {
+        postBody += `posted new achievements! They completed the ${achievementsArray[0]} and ${achievementsArray[1]} challenges while playing ${formattedLevel}.`
+    } else {
+        postBody += `posted new achievements! They completed the `;
+        // build sentence list
+        let sentence = '';
+        for (let i = 0; i < achievementsArray.length - 2; i++) {
+            sentence += `${achievementsArray[i]}, `
+        }
+        sentence += achievementsArray[achievementsArray.length - 2];
+        sentence += ` and ${achievementsArray[achievementsArray.length - 1]}`
+        // add sentence list
+        postBody += sentence;
+        // end of post body
+        postBody += ` challenges while playing ${formattedLevel}.`
+    }
+    return postBody
+}
+
 export {
     seedGlobalLeaderboardCollection,
     seedActivitiesCollection,
+    createBadgeActivityBody,
 }
