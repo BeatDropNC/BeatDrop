@@ -521,22 +521,13 @@ export default class PhaserScene extends Phaser.Scene {
     });
   };
 
-  pauseMenu = () => {
-    this.button = this.add
-      .text(470, 40, "Pause", {
-        fontSize: "26px",
-        fill: "#000",
-        backgroundColor: "green",
-      })
-      .setOrigin(0, 0);
-    this.button.setScrollFactor(0);
-    this.button.setInteractive();
-    this.button.on("pointerdown", () => {
-      console.log("CLICKED PAUSE");
+  createPauseMenu = () => {
+    this.createText(560, 24, "button", "⏸");
 
+    this.button.setInteractive().on("pointerdown", () => {
+      this.button.setFill("#c4b243");
       this.sound.pauseAll();
-      this.scene.pause("PhaserScene");
-      this.scene.launch("PauseMenu");
+      this.scene.pause("PhaserScene").launch("PauseMenu");
     });
   };
 
@@ -589,13 +580,8 @@ export default class PhaserScene extends Phaser.Scene {
     this.scoreText.setFill(color);
   }
 
-  playerScore = () => {
-    // this.scoreText = this.add.text(50, 16, "Score: 0", {
-    //   fontSize: "32px",
-    //   fill: "#000",
-    // });
-
-    this.createText(300, 16, "scoreText", "Score: 0", "28px");
+  createScoreText = () => {
+    this.createText(300, 24, "scoreText", "Score: 0", "28px");
   };
 
   recyclePowerups = () => {
@@ -661,6 +647,12 @@ export default class PhaserScene extends Phaser.Scene {
     this.player.anims.play("turn");
   };
 
+  listenForResume = () => {
+    this.events.on("resume", () => {
+      this.button.setFill("#5dc416");
+    });
+  };
+
   preload() {
     this.loadImages();
     this.loadAudio();
@@ -698,8 +690,8 @@ export default class PhaserScene extends Phaser.Scene {
     this.setPlayerAnimation();
 
     this.addOnscreenControls();
-    this.pauseMenu();
-    this.playerScore();
+    this.createPauseMenu();
+    this.createScoreText();
   }
 
   recyclePlatforms() {
@@ -759,6 +751,8 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   update() {
+    this.listenForResume();
+
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
       // this.score += 10
