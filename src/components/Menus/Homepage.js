@@ -27,9 +27,7 @@ const Homepage = () => {
             </div>
             <img src={signup} className={`signup-button homepage-button`} onClick={() => navigate('/signup')}/>
             <img src={login} className={`login-button homepage-button`} onClick={() => navigate('/login')}/>
-            {/* <button className={`login-button homepage-button`} onClick={() => navigate('/login')}>LOGIN</button> */}
         </main>
-        // Replace buttons with pixel buttons images 
     )
 }
 
