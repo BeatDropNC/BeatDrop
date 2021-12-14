@@ -50,7 +50,6 @@ const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores, 
     try {
         await updateDoc(globalLeaderboardDocRef, {
             scoresList: newGlobalLevelHighScores,
-            username
         })
     } catch (error) {
         console.log(error)
