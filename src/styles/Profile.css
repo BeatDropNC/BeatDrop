@@ -1,8 +1,14 @@
 .Profile{
-    font-family: 'Press Start 2P', cursive;
     font-size: 1rem;
     display: grid;
     text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+}
+
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
 }
 
 .current_avatar, .user_badges {

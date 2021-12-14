@@ -1,19 +1,23 @@
-.Menu{
+.Menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    
 }
 
-.button-container{
+.button-container {
     display: flex;
     gap: 30px;
 
 }
 
-.button{
+h2 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+}
+
+.button {
     background-color: royalblue;
     color: #fff;
     height: 100px;
@@ -29,22 +33,27 @@
 
 }
 
-.yellow{
+.yellow {
     background-color: yellow;
     color: black;
 }
 
-.red{
-background-color: red;
-color: #fff;
+.red {
+    background-color: red;
+    color: #fff;
 }
 
-/* #start-button{
- 
+.bgimage {
+    height: 800px;
+    width: 600px;
+    background-color: black;
+}
+
+.arrowLeft {
+    transform: scale(-1);
+}
+
+.level_selector {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 2rem;
-    margin-bottom: 20px;
-} */
+}

@@ -19,8 +19,8 @@
     powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
     powerupDistance: 3000,
     music: {
-      name: "initial_sixty",
-      path: "assets/music/funny_bit_60_sec.mp3",
+      name: "lets_go_60_sec",
+      path: "assets/music/lets_go_60_sec.mp3",
     },
     platformSfx: {
       name: "platform_impact",
@@ -81,8 +81,8 @@
       powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
       powerupDistance: 3000,
       music: {
-        name: "lets_go_60_sec",
-        path: "assets/music/lets_go_60_sec.mp3",
+        name: "bass_trap_60_sec",
+        path: "assets/music/bass_trap_60_sec.mp3",
       },
       platformSfx: {
         name: "platform_impact",
@@ -145,8 +145,8 @@
       powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
       powerupDistance: 3000,
       music: {
-        name: "boss_time_60_sec",
-        path: "assets/music/boss_time_60_sec.mp3",
+        name: "funny_bit_60_sec_edit",
+        path: "assets/music/funny_bit_60_sec_edit.mp3",
       },
       platformSfx: {
         name: "platform_impact",
