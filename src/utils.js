@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "./firebase/firebase";
 
-const seedGlobalLeaderboardCollection = async () => {
+const resetGlobalLeaderboardCollection = async () => {
     const leaderboardDocRefs = [
         { ref: doc(db, 'globalLeaderboard', "level1"), level: "level1" },
         { ref: doc(db, 'globalLeaderboard', "level2"), level: "level2" },
@@ -104,7 +104,7 @@ const createBadgeActivityBody = (achievementsArray, level) => {
 }
 
 export {
-    seedGlobalLeaderboardCollection,
+    resetGlobalLeaderboardCollection,
     seedActivitiesCollection,
     createBadgeActivityBody,
 }
