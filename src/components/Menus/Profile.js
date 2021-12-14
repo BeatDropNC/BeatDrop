@@ -67,18 +67,20 @@ const Profile = () => {
                     })}
                 </div>
                 <button onClick={async ()=>{
-                    setUserInformation(currentUserInformation => {
-                        const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
-                        newUserInformation.avatar_url = currentAvatar
-                        return newUserInformation
-                    })
-                    await patchUserAvatar(userUid, currentAvatar)
-                    .then(()=>{
-                        console.log("Patched")
-                    })
-                    .catch((err)=>{
-                        console.log(err)
-                    })
+                    if(userInformation.avatar_url !== currentAvatar) {
+                        setUserInformation(currentUserInformation => {
+                            const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
+                            newUserInformation.avatar_url = currentAvatar
+                            return newUserInformation
+                        })
+                        await patchUserAvatar(userUid, currentAvatar)
+                        .then(()=>{
+                            console.log("Patched")
+                        })
+                        .catch((err)=>{
+                            console.log(err)
+                        })
+                    } 
                 }}>Submit</button>
             </div>
             <h2>Badges</h2>

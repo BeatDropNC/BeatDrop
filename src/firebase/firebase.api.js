@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, setDoc, Timestamp, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, query, orderBy, limit, arrayUnion, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
@@ -97,6 +97,39 @@ const patchUserBadges = async (userUid, badges) => {
     }
 }
 
+
+const getActivities = async () => {
+    const activitiesRef = collection(db,"activities");
+    const q = query(activitiesRef, orderBy('timestamp'), limit(2));
+    const activityDocuments = []
+    try {
+     const querySnapshot = await getDocs(q)
+     querySnapshot.forEach((doc) => {
+         console.log(doc.id, " => ", doc.data(), "This is an activity doc")
+         activityDocuments.push({[doc.id]: doc.data()})
+     })
+
+    return activityDocuments        
+    } catch (error) {
+        console.log("there was an error getting activities")
+    }
+}
+
+
+const postCommentToActivity = async (activityRef, commentToAdd) => {
+    console.log("making a post request to activity comments", activityRef, commentToAdd)
+    const docRef = doc(db,"activities", activityRef);
+    try {
+     return await updateDoc(docRef, {
+         comments: arrayUnion(commentToAdd)
+     })
+
+    } catch (error) {
+        console.log("there was an error Posting to activities")
+    }
+}
+
+
 export {
     getUserDoc,
     patchUserScores,
@@ -105,4 +138,6 @@ export {
     patchUserAvatar,
     postNewActivity,
     patchUserBadges,
+    getActivities,
+    postCommentToActivity
 }
