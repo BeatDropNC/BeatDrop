@@ -44,8 +44,32 @@ const getGlobalLeaderboard = async () => {
     }
 }
 
+const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores) => {
+    const globalLeaderboardDocRef = doc(db, "globalLeaderboard", gameLevel);
+    try {
+        await updateDoc(globalLeaderboardDocRef, {
+            scoresList: { [gameLevel]: newGlobalLevelHighScores }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const patchUserAvatar = async (uid, avatar_url) => {
+    const userDocRef = doc(db,"users", uid);
+    try {
+        await updateDoc(userDocRef, {
+            avatar_url
+        })
+    } catch (error) {
+        
+    }
+}
+
 export {
     getUserDoc,
     patchUserScores,
     getGlobalLeaderboard,
+    patchGlobalLeaderboardScore,
+    patchUserAvatar,
 }
