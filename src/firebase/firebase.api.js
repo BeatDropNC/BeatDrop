@@ -86,6 +86,17 @@ const postNewActivity = async (username, newBadge, newScore, level) => {
     }
 }
 
+const patchUserBadges = async (userUid, badges) => {
+    const userDocRef = doc(db, "users", userUid);
+    try {
+        await updateDoc(userDocRef, {
+            badges
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     getUserDoc,
     patchUserScores,
@@ -93,4 +104,5 @@ export {
     patchGlobalLeaderboardScore,
     patchUserAvatar,
     postNewActivity,
+    patchUserBadges,
 }
