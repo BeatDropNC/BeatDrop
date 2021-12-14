@@ -62,6 +62,7 @@ export default class PhaserScene extends Phaser.Scene {
       frameHeight: 48,
     });
     this.load.image("floor", "assets/Platform/floor.png");
+    this.load.image("pause-button", "assets/Buttons/PauseButton.png");
 
     //Load assets from the level config
 
@@ -524,10 +525,12 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   createPauseMenu = () => {
-    this.createText(560, 24, "button", "⏸");
+    this.button = this.add
+      .image(560, 36, "pause-button")
+      .setScrollFactor(0)
+      .setScale(0.5);
 
     this.button.setInteractive().on("pointerdown", () => {
-      this.button.setFill("#c4b243");
       this.sound.pauseAll();
       this.scene.pause("PhaserScene").launch("PauseMenu");
     });
@@ -567,8 +570,6 @@ export default class PhaserScene extends Phaser.Scene {
     this.scene.pause("PhaserScene");
     this.submitScore(this.score);
     this.scene.launch("EndScreen", { score: this.score });
-
-    
   };
 
   hitStarAddScore = () => {
@@ -756,8 +757,6 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   update() {
-    this.listenForResume();
-
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
       // this.score += 10
