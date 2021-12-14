@@ -5,7 +5,6 @@ import { UserUidContext } from "../contexts/UserUidContext";
 import { getGlobalLeaderboard, patchGlobalLeaderboardScore, patchUserBadges, patchUserScores, postNewActivity } from "../firebase/firebase.api";
 import CreateGame from "../phaser/CreateGame";
 import "../styles/ReactGameContainer.css";
-import { currentDateTimeString } from "../utils";
 function ReactGameContainer({
   levelChoice,
   setGameTime,
@@ -15,10 +14,9 @@ function ReactGameContainer({
 
   const submitScore = async (newScore) => {
 
+    // get current highscores for played level from user context
     const currentLevelScores = userInformation["userScores"][levelChoice];
-
-    currentLevelScores.sort((a, b) => b.score - a.score);
-    // if score is a personal user high score, continue with setting local state and posting to users collection.
+    // if score is a personal user high score, continue posting to users collection and updating local state.
     if (newScore >= currentLevelScores[currentLevelScores.length - 1].score) {
       const newLevelScores = [...currentLevelScores];
       newLevelScores.push({ score: newScore, timeCompletedAt: Timestamp.fromDate(new Date()) })
@@ -27,7 +25,7 @@ function ReactGameContainer({
 
       // patch new highscore to 'users' collection on firestore
       await patchUserScores(userUid, newLevelScores, levelChoice)
-        .then(() => {
+        .then(async () => {
           console.log("New high score was updated!")
         })
 
@@ -64,10 +62,10 @@ function ReactGameContainer({
     }
 
 
-    // check existing badges
+    // copies existing user badges from user context, and assigns to toPatchBadgesObj variable.
     const toPatchBadgesObj = JSON.parse(JSON.stringify(userInformation.badges));
     
-    // assign badges based on score
+    // sequentially updates toPatchBadgesObj badges based on game score
     const isUpdatedObj = {};
     if (newScore > 50000 && !userInformation.badges[levelChoice].bronze) {
       toPatchBadgesObj[levelChoice].bronze = true;
@@ -91,23 +89,22 @@ function ReactGameContainer({
     }
 
 
-    // sends patch to update badges if any new ones have been earned
+    // If any new badges have been earned, sends a patch request to update these badges in 'users' collection
     const isUpdatedArray = Object.values(isUpdatedObj);
-    console.log(isUpdatedArray)
     if (isUpdatedArray.includes(true)) {
-      // patch user badges
       await patchUserBadges(userUid, toPatchBadgesObj)
         .then(() => console.log("Send user badges patch"))
-      // update local state
+      
+      // then updates local state
       setUserInformation(currentUserInformation => {
         const newUserInformation = JSON.parse(JSON.stringify(currentUserInformation));
         newUserInformation.badges = toPatchBadgesObj;
         return newUserInformation
       })
-      // sends post request to create a new social feed post that medal has been earned
+
+      // sends a post request to create a new social feed entry featuring the new badges that have been earned
       const newBadges = Object.entries(isUpdatedObj).filter(badgeEntry => badgeEntry[1] === true).map(badgeEntry => badgeEntry[0])
-      console.log(newBadges)
-      await postNewActivity(userInformation.username, newBadges, newScore, levelChoice)
+      await postNewActivity(userInformation.username, newBadges, null, levelChoice)
       .then(() => console.log("create new activity post"))
     } else {
       console.log("No new badges were earned")
