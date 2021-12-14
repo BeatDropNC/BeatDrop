@@ -35,7 +35,7 @@ export default class PhaserScene extends Phaser.Scene {
     this.lastCreatedPowerup = undefined;
 
     this.menuButton = undefined;
-    this.playerVelocityX = 300;
+    this.playerVelocityX = 500;
 
     this.objectVelocityY = -400;
 
@@ -57,9 +57,9 @@ export default class PhaserScene extends Phaser.Scene {
   loadImages = () => {
     //Static Assets
     this.load.image("star", "assets/star.png");
-    this.load.spritesheet("dude", "assets/dude.png", {
-      frameWidth: 32,
-      frameHeight: 48,
+    this.load.spritesheet("dude", "assets/Sprites/mascott_anim.png", {
+      frameWidth: 70,
+      frameHeight: 86,
     });
     this.load.image("floor", "assets/Platform/floor.png");
 
@@ -270,6 +270,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   createPlayer = () => {
     this.player = this.physics.add.sprite(300, 400, "dude");
+    // this.player.setScale(1.2)
     this.player.setCollideWorldBounds(true);
     this.player.body.setBounceY(0.1);
 
@@ -319,7 +320,7 @@ export default class PhaserScene extends Phaser.Scene {
       key: "left",
       frames: this.anims.generateFrameNumbers("dude", {
         start: 0,
-        end: 3,
+        end: 6,
       }),
       frameRate: 10,
       repeat: -1,
@@ -327,15 +328,15 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dude", frames: 8 }],
       frameRate: 20,
     });
 
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("dude", {
-        start: 5,
-        end: 8,
+        start: 9,
+        end: 15,
       }),
       frameRate: 10,
       repeat: -1,
