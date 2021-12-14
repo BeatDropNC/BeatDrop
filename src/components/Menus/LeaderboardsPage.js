@@ -4,6 +4,8 @@ import { UserUidContext } from '../../contexts/UserUidContext';
 import '../../styles/LeaderboardsPage.css'
 import Leaderboard from '../../components/sub-components/Leaderboard'
 import { getGlobalLeaderboard } from '../../firebase/firebase.api';
+import { onAuthStateChanged } from '@firebase/auth';
+import { auth } from '../../firebase/firebase';
 const LeaderboardsPage = () => {
 
     const { userUid, userInformation } = useContext(UserUidContext)
@@ -14,17 +16,18 @@ const LeaderboardsPage = () => {
     const [globalScores, setGlobalScores] = useState({})
 
     useEffect(() => {
-        if (!userUid) {
+        if (!userUid || userUid === undefined || userUid === null){
             navigate('/')
         }
     }, [userUid, navigate])
-
+    
+ 
 
     //This is triggered when the user selects the type of leaderboard or the level they
     //want to see. It will pull information from the state/context by default and make a
     //call to firebase if the global scores are not already in state.
     useEffect(() => {
-
+        console.log("useeffect triggered, ", leaderboardToShow, userInformation)
         if (leaderboardToShow === 'personal' && userInformation !== null && userInformation){
             console.log("fetching personal scores from context")
             const userScoresForLevel = userInformation.userScores[levelToShow]
@@ -49,7 +52,7 @@ const LeaderboardsPage = () => {
     
     return (
         <main className='LeaderboardsPage'>
-            <h1 className="leaderboards-title">Leaderboards</h1>
+            <h1 id='leaderboards-title' className="leaderboards-title">Leaderboards</h1>
             <div className="leaderboard-container">
                 <div className="leaderboards-choice-container">
                    <button className={`leaderboards-choice-button  ${leaderboardToShow === 'personal' ? 'selected-button' : ""}`} onClick={() => {setLeaderboardToShow('personal')}}>Personal Bests</button>

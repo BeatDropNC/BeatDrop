@@ -1,5 +1,3 @@
-import React, { useContext, useState } from "react";
-import { UserUidContext } from "../../contexts/UserUidContext";
 import "../../styles/Leaderboard.css";
 import LeaderboardScoreCard from "./LeaderboardScoreCard";
 
@@ -25,8 +23,9 @@ const Leaderboard = ({scoreObjects, levelToShow, setLevelToShow, leaderboardToSh
         <p className="leaderboard-title  leaderboard-rank">Rank</p>
         <p className="leaderboard-title">Score</p>
         {leaderboardToShow === 'personal' ? null : <p className="leaderboard-title">User</p>}
+        {leaderboardToShow === 'global' ? null : <p className="leaderboard-title">Date</p>}
 
-        <p className="leaderboard-title">Date</p>
+        
         </div>
    {scoreObjects.map((scoreInformation, index) => {
       return <LeaderboardScoreCard key={index} rank={index + 1} scoreInformation={scoreInformation} leaderboardToShow={leaderboardToShow}></LeaderboardScoreCard>

@@ -18,6 +18,39 @@
 
 .leaderboard-rank{
     font-weight: 600;
+
+    
+}
+
+
+
+@media only screen and (max-width: 1074px) {
+    .leaderboard-item{
+        font-size: 1.6rem;
+
+    }   
+
+
+
+}
+@media only screen and (max-width: 766) {
+    .LeaderboardScoreCard{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 20px;
+
+    
+        
+    }
+    
+    .leaderboard-item{
+        width: 100%;
+        margin: 0;
+        font-size: 1.2rem;
+
+    }
+    
 }
 
 /* .gold{
@@ -33,3 +66,4 @@
     background-color: rgb(146, 60, 20);
 
 } */
+
