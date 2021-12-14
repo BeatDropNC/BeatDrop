@@ -17,7 +17,7 @@ function ReactGameContainer({
     // get current highscores for played level from user context
     const currentLevelScores = userInformation["userScores"][levelChoice];
     // if score is a personal user high score, continue posting to users collection and updating local state.
-    if (newScore >= currentLevelScores[currentLevelScores.length - 1].score) {
+    if (newScore > currentLevelScores[currentLevelScores.length - 1].score) {
       const newLevelScores = [...currentLevelScores];
       newLevelScores.push({ score: newScore, timeCompletedAt: Timestamp.fromDate(new Date()) })
       newLevelScores.sort((a, b) => b.score - a.score);
@@ -43,7 +43,7 @@ function ReactGameContainer({
       const response = await getGlobalLeaderboard();
       const currentGlobalLevelScores = response[levelChoice]["scoresList"];
       currentGlobalLevelScores.sort((a, b) => b.score - a.score);
-      if (newScore >= currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
+      if (newScore > currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
         const newGlobalLevelScores = [...currentGlobalLevelScores];
         newGlobalLevelScores.push({ score: newScore, username: userInformation.username, timeCompletedAt: Timestamp.fromDate(new Date()) })
         newGlobalLevelScores.sort((a, b) => b.score - a.score);
