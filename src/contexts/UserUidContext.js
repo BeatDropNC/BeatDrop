@@ -18,7 +18,9 @@ export const UserUidProvider = ({ children }) => {
             getUserDoc(user?.uid)
                 .then(response => {
                     if(response !== undefined) {
+                        console.log("current user object ", response)
                         setUserInformation(response);
+
                     }
                 })
         })

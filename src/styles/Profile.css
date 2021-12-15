@@ -46,7 +46,7 @@ img {
 }
 
 @media only screen and (max-width: 500px) {
-    h1, h2 {
+    div.profile h1, h2 {
         text-align: center;
     }
 
@@ -60,7 +60,7 @@ img {
     }
 }
 @media only screen and (max-width: 475px) {
-    h1, h2 {
+    div.profile h1, h2 {
         text-align: center;
     }
 

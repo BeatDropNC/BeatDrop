@@ -1,0 +1,76 @@
+.LeaderboardsPage{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.leaderboards-title{
+    font-size: 5rem;
+    text-align: center;
+}
+
+.leaderboard-container {
+    background-color: rgba(255, 255, 255, 0.623);
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 20px;
+   
+}
+.leaderboards-choice-container{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.leaderboards-choice-button{
+    height: 100px; 
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.623);
+    border-radius: 6px;
+    font-size: 1.6rem;
+    color: black;
+}
+
+.selected-button{
+    background-color: #fc1681;
+    color: #fff;
+}
+
+.leaderboards-choice-button:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+}
+
+.leaderboards-choice-button:active{
+    color: #fff;
+    background: #acb1ff;
+    box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
+}
+
+@media only screen and (max-width: 1074px) and (min-width: 767px) {
+    #leaderboards-title{
+        font-size: 3rem;
+    }
+}
+
+@media only screen and (max-width: 766px) {
+    #leaderboards-title{
+        font-size: 2rem;
+    }
+    .LeaderboardsPage{
+        width: 90%;
+        font-size: 1rem;
+    }
+}
+@media only screen and (max-width: 550px) {
+    #leaderboards-title{
+        font-size: 1rem;
+    }
+
+
+}
+
+
+

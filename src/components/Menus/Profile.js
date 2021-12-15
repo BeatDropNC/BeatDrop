@@ -12,6 +12,7 @@ import robot_4 from '../../assets/sprites/char_select_robot_4.png'
 import bronze from '../../assets/medals/18.png'
 import silver from '../../assets/medals/19.png'
 import gold from '../../assets/medals/20.png'
+import returnButton from '../../assets/buttons/Return.png';
 const data = require('../../dummy-data.json');
 
 
@@ -128,7 +129,7 @@ const Profile = () => {
                 {userInformation.badges[`level${levelToShow + 1}`].gold ? <img src={gold}/> : ""}
             </div>
             <div className='main_menu_link'>
-                <Link to='/main-menu'>Return to Main Menu</Link>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
             </div>
             
         </div>

@@ -11,7 +11,6 @@ body {
     background-image: url('https://wallpaperaccess.com/full/869.jpg');
     background-position: center; 
     background-size: cover;
-    width: 100%;
 }
 
 .beat {
@@ -28,7 +27,6 @@ body {
 
 .homepage-button{
     height: 100px;
-    background-color: #fff;
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
@@ -38,4 +36,17 @@ body {
     color: #fff;
     background: #fc1681;
     box-shadow: 0 0 10px #fc1681, 0 0 40px #fc1681, 0 0 80px;
+}
+
+.homepage-buttonTwo{
+    height: 100px;
+    border-radius: 6px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+}
+
+.homepage-buttonTwo:hover{
+    color: #fff;
+    background: #19FC9A;
+    box-shadow: 0 0 10px #19FC9A, 0 0 40px #19FC9A, 0 0 80px;
 }
