@@ -24,3 +24,13 @@
     margin: auto;
     padding-bottom: 20px;
 }
+
+.pixel-buttons-personal {
+    height: 120px;
+    width: 240px;
+}
+
+.pixel-buttons-global {
+    height: 100px;
+    width: 240px;
+}
