@@ -51,7 +51,7 @@ function ReactGameContainer({
 
         //patch new global highscore to global leaderboard
         await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
-          .then(() => {
+          .then(async () => {
             console.log("New global high score was achieved!")
             await postNewActivity(userInformation.username, null, newScore, levelChoice);
           })

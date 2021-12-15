@@ -36,7 +36,7 @@ export default class PhaserScene extends Phaser.Scene {
   loadImages = () => {
     //Static Assets
     this.load.image("star", "assets/star.png");
-    this.load.spritesheet("dude", "assets/Sprites/mascott_anim.png", {
+    this.load.spritesheet("dude", "assets/Sprites/fox_spritesheet.png", {
       frameWidth: 70,
       frameHeight: 86,
     });
