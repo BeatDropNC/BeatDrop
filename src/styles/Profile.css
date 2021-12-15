@@ -1,4 +1,4 @@
-.Profile{
+/* .Profile{
     font-size: 1rem;
     display: grid;
     text-align: center;
@@ -46,7 +46,7 @@ img {
 }
 
 @media only screen and (max-width: 500px) {
-    div.profile h1, h2 {
+     h1, h2 {
         text-align: center;
     }
 
@@ -73,4 +73,4 @@ img {
         width: 80px;
     }
 }
-
+ */

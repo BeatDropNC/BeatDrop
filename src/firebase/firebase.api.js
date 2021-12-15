@@ -56,11 +56,12 @@ const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores) 
     }
 }
 
-const patchUserAvatar = async (uid, avatar_url) => {
+const patchUserAvatar = async (uid, avatar, avatar_url) => {
     const userDocRef = doc(db, "users", uid);
     try {
         await updateDoc(userDocRef, {
-            avatar_url
+            avatar_url,
+            avatar
         })
     } catch (error) {
 

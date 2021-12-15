@@ -5,7 +5,7 @@ import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
 import signup from '../../assets/buttons/Signup.png'
 import login from '../../assets/buttons/Login.png'
-
+import avatar from '../../assets/sprites/fox.png'
 const SignupPage = () => {
     const { userUid } = useContext(UserUidContext)
 
@@ -21,7 +21,7 @@ const SignupPage = () => {
         if (!username) {
             alert('Please enter a username')
         } else {
-            await signUpUserByEmail(username, email, password, setErrorMessage).then((result) => {
+            await signUpUserByEmail(username, email, password, setErrorMessage, avatar).then((result) => {
             })
 
         }

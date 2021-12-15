@@ -1,4 +1,4 @@
-.Homepage{
+.Homepage {
     font-family: 'Press Start 2P', cursive;
     line-height: 2;
     display: flex;
@@ -17,11 +17,11 @@ body {
 
 .beat {
     margin-top: 80px;
-    font-size: 3.7rem;
+    font-size: 6.7rem;
 }
 
 .drop {
-    font-size: 4rem;
+    font-size: 7rem;
     color: #fc1681;
     margin-top: -108px;
 }
@@ -30,11 +30,12 @@ body {
     display: grid;
     grid-template-rows: 1fr 1fr;
     margin: auto;
-    padding-top: 300px;
+    padding-top: 200px;
 }
 
 .homepage-button{
-    height: 100px;
+    height: 200px;
+    width: 400px;
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
@@ -42,7 +43,8 @@ body {
 }
 
 .homepage-buttonTwo{
-    height: 100px;
+    height: 200px;
+    width: 400px;
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
@@ -67,23 +69,23 @@ body {
 }
 
 .fox_container {
-    margin-top: 75px;
+    margin-left: -200px;
 }
 
 .penguin_container {
-    margin-left: 750px;
-    margin-top: -160px;
+    margin-left: 1000px;
+    margin-top: -320px;
 }
 
 .fox_img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     transform: rotate(-10deg);
 }
 
 .penguin_img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     transform: rotate(12deg);
 }
 

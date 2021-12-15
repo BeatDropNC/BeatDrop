@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import { patchUserAvatar } from '../../firebase/firebase.api';
-import '../../styles/Profile.css'
+import '../../styles/ProfilePage.css'
 import fox from '../../assets/sprites/fox.png'
 import penguin from '../../assets/sprites/penguin.png'
 import robot_1 from '../../assets/sprites/robot_1.png'
@@ -13,10 +13,11 @@ import bronze from '../../assets/medals/18.png'
 import silver from '../../assets/medals/19.png'
 import gold from '../../assets/medals/20.png'
 import returnButton from '../../assets/buttons/Return.png';
+import UserBadges from '../sub-components/UserBadges';
 const data = require('../../dummy-data.json');
 
 
-const Profile = () => {
+const ProfilePage = () => {
 
     const { userUid, userInformation, setUserInformation } = useContext(UserUidContext);
     const [levelToShow, setLevelToShow] = useState(0);
@@ -28,10 +29,11 @@ const Profile = () => {
         }
     }, [userUid, navigate]);
 
-    const defaultAvatar = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox}
-    const [currentAvatar, setCurrentAvatar] = useState(defaultAvatar);
+    let defaultAvatarObject = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox }
 
-    console.log(currentAvatar)
+
+    const [currentAvatar, setCurrentAvatar] = useState(defaultAvatarObject);
+
 
     const updateUserAvatarInFirebase = async () => {
 
@@ -67,24 +69,7 @@ const Profile = () => {
         {avatarName: "robot_4", avatarSrc: robot_4},
 
     ]
-    // Temp character sprites
-    // const spriteLinks = [
-    //     fox,
-    //     penguin,
-    //     robot_1,
-    //     robot_2,
-    //     robot_3,
-    //     robot_4
-    // ]
 
-    const badgesLink = [
-        bronze,
-        silver,
-        gold
-    ]
-
-    console.log(levelToShow)
-    console.log(userInformation)
 
     if(!userInformation) {
         return (
@@ -92,65 +77,46 @@ const Profile = () => {
         )
     }
     return (
-        <div className='Profile'>
-            <h1>{userInformation.username}'s Profile</h1>
-            <h2>Avatar</h2>
+        <div className='ProfilePage'>
+
+            <h1 className="profile-title">{userInformation.username}'s Profile</h1>
+
+            <div className="main-profile-container">
+            <div className="avatar-select-container">
+
+            <h2 className="profile-subtitle">Current Avatar</h2>
             <div className='current_avatar'>
-                <img src={currentAvatar.avatarSrc} alt={userInformation.username}></img>
+                <img className={`current-avatar-image`}src={currentAvatar.avatarSrc} alt={userInformation.username}></img>
             </div>
-            <h2 className='character_select_title'>Character Select</h2>
-            {/* <h2 className='character_select_title_mobile'>Character Select</h2> */}
+            <h2 className='character_select_title profile-subtitle'>Choose a New Character</h2>
+
             <div className='character_select_container'>
+
                 <div className='character_select'>
                     {avatars.map((avatarObject) => {
                         return (
-                            <button className='charSelectButton' key={avatarObject.avatarName} onClick={() => {
+                            <button className={`character-select-button ${avatarObject.avatarName === currentAvatar.avatarName ? 'selected-button' : ""}`} key={avatarObject.avatarName} onClick={() => {
                                 chooseAvatar(avatarObject)
 
                             }}>
-                                <img className={avatarObject.avatarName} key={avatarObject.avatarName} src={avatarObject.avatarSrc} alt={avatarObject.avatarName}></img>
+                                <img className={`avatar-button-image`} key={avatarObject.avatarName} src={avatarObject.avatarSrc} alt={avatarObject.avatarName}></img>
                             </button>
                         )
                     })}
                 </div>
-                <button onClick={async ()=>{
+                <button className={`avatar-submit-button`} onClick={async ()=>{
                    updateUserAvatarInFirebase()
-                }}>Submit</button>
+                }}>Save Avatar Choice</button>
             </div>
-            <h2>Badges - Level {levelToShow + 1}</h2>
-            <div>
-                <div className='profile-levelButtons'>
-                    {Object.keys(userInformation.badges).map((level, index) => {
-                        return (
-                            <button
-                                key={'buttons' + level + index}
-                                onClick={() => {
-                                    setLevelToShow(index)
-                                }}
-                            >
-                                Level {index + 1}
-                            </button>
-                        )
-                    })}
-                </div>
             </div>
-            <div className='user_badges'>
+                <UserBadges></UserBadges>
 
-                {!userInformation.badges[`level${levelToShow + 1}`].bronze 
-                && !userInformation.badges[`level${levelToShow + 1}`].silver 
-                && !userInformation.badges[`level${levelToShow + 1}`].gold ? 
-                <p>No badges for this level yet!</p> : ""}
-
-                {userInformation.badges[`level${levelToShow + 1}`].bronze ? <img src={bronze}/>: ""}
-                {userInformation.badges[`level${levelToShow + 1}`].silver ? <img src={silver}/> : ""}
-                {userInformation.badges[`level${levelToShow + 1}`].gold ? <img src={gold}/> : ""}
-            </div>
             <div className='main_menu_link'>
                 <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
             </div>
-            
+            </div>
         </div>
     )
 }
 
-export default Profile
+export default ProfilePage

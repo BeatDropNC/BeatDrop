@@ -1,0 +1,117 @@
+.UserBadges{
+    
+}
+
+.badges-level-select-title{
+font-size: 2rem;
+text-align: center;
+}
+
+
+.badges-level-select-container{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.badges-level-select-button:hover{
+    color: #fff;
+    background: #6a74ff;
+    box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
+}
+
+.badges-level-select-button:active{
+    color: #fff;
+    background: #acb1ff;
+    box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
+}
+
+.badges-level-select-button{
+    height: 70px; 
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.623);
+    border-radius: 6px;
+    font-size: 1.6rem;
+    color: black;
+}
+
+
+.selected-button{
+    background-color: #fc1681;
+    color: #fff;
+}
+
+
+
+
+.badges-container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+
+}
+
+
+
+.badges-title{
+    flex-grow: 1;
+    flex-shrink: 1;   
+     font-weight: 600;
+
+}
+
+.badge{
+    height: 200px;
+    width: 200px;
+    opacity: 0.2;
+}
+
+.badge-earned{
+    opacity: 1;
+
+}
+
+
+
+@media only screen and (max-width: 1074px) {
+
+    .badge{
+        width: 140px;
+        height: 140px;
+    }
+}
+
+
+
+@media only screen and (max-width: 820px) {
+    .badges-title, .badges-level-select-title {
+        font-size: 1rem;
+        margin: 10px;
+    }
+
+    .badge{
+        width: 90px;
+        height: 90px;
+    }
+
+    
+}
+
+@media only screen and (max-width: 820px) {
+
+  
+    .badge{
+        width: 50px;
+        height: 50px;
+    }
+    .badges-level-select-button{
+        height: 50px; 
+        flex-grow: 1;
+
+        font-size: 1rem;
+
+    }
+
+}
+
+
