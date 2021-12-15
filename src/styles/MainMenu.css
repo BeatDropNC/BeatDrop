@@ -49,6 +49,33 @@ h1 {
     height: 100px;
 }
 
+@media only screen  and (min-width: 1200px){
+    .pixel-buttons-play {
+        width: 250px;
+        height: 150px;
+    }
+    
+    .pixel-buttons-social {
+        width: 300px;
+        height: 150px;
+    }
+    
+    .pixel-buttons-profile {
+        width: 350px;
+        height: 150px;
+    }
+    
+    .pixel-buttons-leaderboards {
+        width: 500px;
+        height: 150px;
+    }
+    
+    .pixel-buttons-signout {
+        width: 300px;
+        height: 150px;
+    }
+}
+
 @media only screen and (max-width: 500px) {
     .main-menu {
         margin-top: 40px;
