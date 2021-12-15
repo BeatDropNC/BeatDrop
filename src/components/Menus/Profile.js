@@ -28,18 +28,21 @@ const Profile = () => {
         }
     }, [userUid, navigate]);
 
-    const [currentAvatar, setCurrentAvatar] = useState(userInformation?.avatar_url);
+    const defaultAvatar = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox}
+    const [currentAvatar, setCurrentAvatar] = useState(defaultAvatar);
 
     console.log(currentAvatar)
 
     const updateUserAvatarInFirebase = async () => {
-        if(userInformation.avatar_url !== currentAvatar) {
+
+        if(userInformation.avatar !== currentAvatar.avatarName) {
             setUserInformation(currentUserInformation => {
                 const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
-                newUserInformation.avatar_url = currentAvatar
+                newUserInformation.avatar = currentAvatar.avatarName
+                newUserInformation.avatar_src = currentAvatar.avatarSrc
                 return newUserInformation
             })
-            await patchUserAvatar(userUid, currentAvatar)
+            await patchUserAvatar(userUid, currentAvatar.avatarName, currentAvatar.avatarSrc)
             .then(()=>{
                 console.log("Patched")
             })
@@ -47,28 +50,32 @@ const Profile = () => {
                 console.log(err)
             })
         } 
-
     }
     
 
-    const chooseAvatar = (sprite) => {
+    const chooseAvatar = (avatar) => {
 
-        setCurrentAvatar((prevSprite)=>{
-            if(sprite !== prevSprite) {
-                return sprite
-            }
-            return prevSprite
-        });
+        setCurrentAvatar(avatar)
     }
-    // Temp character sprites
-    const spriteLinks = [
-        fox,
-        penguin,
-        robot_1,
-        robot_2,
-        robot_3,
-        robot_4
+
+    const avatars = [
+        {avatarName: "fox", avatarSrc: fox},
+        {avatarName: "penguin", avatarSrc: penguin},
+        {avatarName: "robot_1", avatarSrc: robot_1},
+        {avatarName: "robot_2", avatarSrc: robot_2},
+        {avatarName: "robot_3", avatarSrc: robot_3},
+        {avatarName: "robot_4", avatarSrc: robot_4},
+
     ]
+    // Temp character sprites
+    // const spriteLinks = [
+    //     fox,
+    //     penguin,
+    //     robot_1,
+    //     robot_2,
+    //     robot_3,
+    //     robot_4
+    // ]
 
     const badgesLink = [
         bronze,
@@ -89,19 +96,19 @@ const Profile = () => {
             <h1>{userInformation.username}'s Profile</h1>
             <h2>Avatar</h2>
             <div className='current_avatar'>
-                <img src={currentAvatar} alt={userInformation.username}></img>
+                <img src={currentAvatar.avatarSrc} alt={userInformation.username}></img>
             </div>
             <h2 className='character_select_title'>Character Select</h2>
             {/* <h2 className='character_select_title_mobile'>Character Select</h2> */}
             <div className='character_select_container'>
                 <div className='character_select'>
-                    {spriteLinks.map((sprite) => {
+                    {avatars.map((avatarObject) => {
                         return (
-                            <button className='charSelectButton' key={sprite} onClick={() => {
-                                chooseAvatar(sprite)
+                            <button className='charSelectButton' key={avatarObject.avatarName} onClick={() => {
+                                chooseAvatar(avatarObject)
 
                             }}>
-                                <img className={sprite} key={sprite} src={sprite} alt={sprite}></img>
+                                <img className={avatarObject.avatarName} key={avatarObject.avatarName} src={avatarObject.avatarSrc} alt={avatarObject.avatarName}></img>
                             </button>
                         )
                     })}
