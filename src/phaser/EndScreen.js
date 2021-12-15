@@ -16,16 +16,29 @@ export default class EndScreen extends Phaser.Scene {
     this.load.image("badge1", "assets/Items/no animations/18.png");
     this.load.image("badge2", "assets/Items/no animations/19.png");
     this.load.image("badge3", "assets/Items/no animations/20.png");
-    this.load.image("menu-button", "assets/menu-button.png");
+    this.load.image("menu-button", "assets/Buttons/Blank.png");
   };
 
-  createText = (xPosition, yPosition, propName, value, fontSize = "72px") => {
+  createText = (
+    xPosition,
+    yPosition,
+    propName,
+    value,
+    fontSize = "48px",
+    color = "#5dc416",
+    strokeText = true
+  ) => {
     this[propName] = this.add
       .text(xPosition, yPosition, value, {
         fontSize: fontSize,
         align: "center",
+        fontFamily: "'Press Start 2P'",
+        color: color,
       })
-      .setOrigin(0.5, 0.5);
+      .setOrigin(0.5, 0.5)
+      .setShadow(4, 4, "#333333", 4, false, true)
+
+      if (strokeText) this[propName].setStroke("black", 4)
   };
 
   createBadges = () => {
@@ -43,7 +56,7 @@ export default class EndScreen extends Phaser.Scene {
       .on("pointerdown", () => {
         console.log("retry clicked");
       });
-    this.createText(150, 620, "retryButtonText", "Retry", "32px");
+    this.createText(150, 620, "retryButtonText", "Retry", "32px", "black", false);
 
     this.retryButton = this.add
       .image(450, 620, "menu-button")
@@ -51,7 +64,7 @@ export default class EndScreen extends Phaser.Scene {
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
       });
-    this.createText(450, 620, "exitButtonText", "Exit", "32px");
+    this.createText(450, 620, "exitButtonText", "Exit", "32px", "black", false);
   };
 
   preload = () => {

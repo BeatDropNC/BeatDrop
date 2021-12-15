@@ -5,15 +5,13 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
-    
+
 } from 'firebase/auth'
 import {
     getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    where,
-    query,
+    setDoc,
+    doc,
+    Timestamp,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 
@@ -22,13 +20,11 @@ const auth = getAuth()
 const db = getFirestore()
 
 
-
-
 const loginUserByEmail = async (email, password, setErrorMessage) => {
     try {
         const signInResult = await signInWithEmailAndPassword(auth, email, password)
         return signInResult
-    
+
     } catch (error) {
         console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage)
@@ -54,24 +50,81 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             password
         )
         // add to users collection
-        const collectionRef = collection(db, 'users')
-        await addDoc(collectionRef, {
+        //const collectionRef = collection(db, 'users')
+        const userDocRef = doc(db, 'users', user.uid)
+        await setDoc(userDocRef, {
             uid: user.uid,
             username,
             email,
+            badges: {
+                "level1": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level2": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level3": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level4": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                },
+                "level5": {
+                    "gold": false,
+                    "silver": false,
+                    "bronze": false,
+                }
+            },
             authProvider: 'local',
             friends: [],
-            scores: {
-                level1: 0,
-                level2: 0,
-                level3: 0,
-                level4: 0,
-                level5: 0,
-                level6: 0,
+            avatar_url: "https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg",
+            userScores: {
+                "level1": [
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ],
+                "level2": [
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ],
+                "level3": [
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ],
+                "level4": [
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ],
+                "level5": [
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                    { "score": 0, "timeCompletedAt": "" },
+                ]
             },
         })
     } catch (error) {
-        //console.log([error.message])
         setFrontendErrorMessage(error, setErrorMessage);
     }
 }
@@ -85,27 +138,11 @@ const resetPasswordByEmail = async (email, setErrorMessage, setMessageToUser) =>
     }
 }
 
-const getUserByUid = async (uid) => {
-    try {
-        const collectionRef = collection(db, 'users')
-        const queryToUse = query(collectionRef, where('uid', '==', uid))
-        const querySnapshot = await getDocs(queryToUse)
-        let user
-        querySnapshot.forEach((item) => {
-            user = item.data()
-        })
-        return user
-    } catch (error) {
-        console.log(error)
-        alert(error.message)
-    }
-}
 
 export {
-    auth,
+    auth, db,
     loginUserByEmail,
     logoutUser,
     signUpUserByEmail,
     resetPasswordByEmail,
-    getUserByUid,
 }

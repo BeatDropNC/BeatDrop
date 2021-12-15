@@ -2,45 +2,26 @@ import Phaser from "phaser";
 import { getLevelConfig } from "./levelConfigs";
 
 export default class PhaserScene extends Phaser.Scene {
-  constructor(levelChoice) {
+  constructor(levelChoice, submitScore) {
     super("PhaserScene");
     this.gameOver = false;
-    this.player = undefined;
     this.score = 0;
-    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
-    this.scrollingBackground = undefined;
-    this.scrollingPlatforms = undefined;
-    this.platformGroup = undefined;
-    this.cursors = undefined;
-    this.lastPlatform = undefined;
     this.gameInProgress = true;
-
     this.starGap = 500;
-    this.lastCreatedPlatform = undefined;
-    this.floor = undefined;
     this.gameEndInProgress = false;
     this.gameOver = false;
-    this.starsGroup = undefined;
-    this.lastStar = undefined;
-    this.lastCreatedStar = undefined;
-    this.gameTimer = undefined;
     this.gameMusic = {};
-
     this.powerupGap = 1500;
-    this.powerupsGroup = undefined;
-    this.lastPowerup = undefined;
-    this.lastCreatedPowerup = undefined;
-
-    this.menuButton = undefined;
-    this.playerVelocityX = 300;
-
+    this.playerVelocityX = 500;
     this.objectVelocityY = -400;
 
     //This sets the key level details such as assets, platform distance and powerups
     this.levelConfig = getLevelConfig(levelChoice);
+
+    this.submitScore = submitScore;
   }
 
   loadAudio = () => {
@@ -55,11 +36,12 @@ export default class PhaserScene extends Phaser.Scene {
   loadImages = () => {
     //Static Assets
     this.load.image("star", "assets/star.png");
-    this.load.spritesheet("dude", "assets/Sprites/angel.png", {
+    this.load.spritesheet("dude", "assets/Sprites/mascott_anim.png", {
       frameWidth: 70,
-      frameHeight: 40,
+      frameHeight: 86,
     });
     this.load.image("floor", "assets/Platform/floor.png");
+    this.load.image("pause-button", "assets/Buttons/PauseButton.png");
 
     //Load assets from the level config
 
@@ -268,11 +250,35 @@ export default class PhaserScene extends Phaser.Scene {
 
   createPlayer = () => {
     this.player = this.physics.add.sprite(300, 400, "dude");
+    // this.player.setScale(1.2)
     this.player.setCollideWorldBounds(true);
     this.player.body.setBounceY(0.1);
 
     // Player input
     this.cursors = this.input.keyboard.createCursorKeys();
+  };
+
+  createText = (
+    xPosition,
+    yPosition,
+    propName,
+    value,
+    fontSize = "48px",
+    color = "#5dc416",
+    strokeText = true
+  ) => {
+    this[propName] = this.add
+      .text(xPosition, yPosition, value, {
+        fontSize: fontSize,
+        align: "center",
+        fontFamily: "'Press Start 2P'",
+        color: color,
+      })
+      .setOrigin(0.5, 0.5)
+      .setShadow(4, 4, "#333333", 4, false, true)
+      .setScrollFactor(0);
+
+    if (strokeText) this[propName].setStroke("black", 4);
   };
 
   setPlayerPhysics = () => {
@@ -294,7 +300,7 @@ export default class PhaserScene extends Phaser.Scene {
       key: "left",
       frames: this.anims.generateFrameNumbers("dude", {
         start: 0,
-        end: 3,
+        end: 6,
       }),
       frameRate: 10,
       repeat: -1,
@@ -302,15 +308,15 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dude", frames: 8 }],
       frameRate: 20,
     });
 
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("dude", {
-        start: 5,
-        end: 8,
+        start: 9,
+        end: 15,
       }),
       frameRate: 10,
       repeat: -1,
@@ -498,23 +504,16 @@ export default class PhaserScene extends Phaser.Scene {
     });
   };
 
-  pauseMenu = () => {
+  createPauseMenu = () => {
     this.button = this.add
-      .text(470, 40, "Pause", {
-        fontSize: "26px",
-        fill: "#000",
-        backgroundColor: "green",
-      })
-      .setOrigin(0, 0);
-    this.button.setScrollFactor(0);
-    this.button.setInteractive();
-    this.button.on("pointerdown", () => {
-      console.log("CLICKED PAUSE");
-
-      this.sound.pauseAll();
-      this.scene.pause("PhaserScene");
-      this.scene.launch("PauseMenu");
-    });
+      .image(560, 36, "pause-button")
+      .setScrollFactor(0)
+      .setScale(0.5)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.sound.pauseAll();
+        this.scene.pause("PhaserScene").launch("PauseMenu");
+      });
   };
 
   endGame = () => {
@@ -549,6 +548,11 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.sound.pauseAll();
     this.scene.pause("PhaserScene");
+    this.submitScore(this.score);
+
+    this.scoreText.setVisible(false);
+    this.button.setVisible(false);
+
     this.scene.launch("EndScreen", { score: this.score });
   };
 
@@ -559,21 +563,15 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   updateScore(updateAmount) {
-    const color = updateAmount < 0 ? "#d40000" : "#000";
+    const color = updateAmount < 0 ? "#d40000" : "#5dc416";
 
     this.score += updateAmount;
     this.scoreText.setText(`Score: ${this.score}`);
     this.scoreText.setFill(color);
   }
 
-  playerScore = () => {
-    this.scoreText = this.add.text(50, 16, "Score: 0", {
-      fontSize: "32px",
-      fill: "#000",
-    });
-
-    //Not affected by scrolling
-    this.scoreText.setScrollFactor(0);
+  createScoreText = () => {
+    this.createText(300, 24, "scoreText", "Score: 0", "28px");
   };
 
   recyclePowerups = () => {
@@ -639,6 +637,12 @@ export default class PhaserScene extends Phaser.Scene {
     this.player.anims.play("turn");
   };
 
+  listenForResume = () => {
+    this.events.on("resume", () => {
+      this.button.setFill("#5dc416");
+    });
+  };
+
   preload() {
     this.loadImages();
     this.loadAudio();
@@ -676,9 +680,8 @@ export default class PhaserScene extends Phaser.Scene {
     this.setPlayerAnimation();
 
     this.addOnscreenControls();
-    this.pauseMenu();
-    this.playerScore();
-
+    this.createPauseMenu();
+    this.createScoreText();
   }
 
   recyclePlatforms() {
