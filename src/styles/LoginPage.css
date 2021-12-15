@@ -10,8 +10,8 @@
 }
 
 .login-page-form{
-display: flex;
-flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-page-fields-container{
@@ -46,6 +46,11 @@ flex-direction: column;
 
 .buttonContainer {
     display: block;
+}
+
+#loginButton {
+    width: 200px;
+    height: 100px;
 }
 
 .homepage-buttonThree {
