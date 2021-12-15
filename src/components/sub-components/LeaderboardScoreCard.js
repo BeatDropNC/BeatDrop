@@ -27,7 +27,7 @@ const LeaderboardScoreCard = ({scoreInformation, rank, leaderboardToShow}) => {
         <p className="leaderboard-item leaderboard-rank">{rank}</p>
         <p className="leaderboard-item">{scoreInformation.score === 0 ? "--" : scoreInformation.score}</p>
         {leaderboardToShow === 'personal' ? null : <p className="leaderboard-item">{username}</p>}
-        {leaderboardToShow === 'global' ? null :  <p className="leaderboard-item">{scoreInformation.timeCompletedAt}</p>}
+        {leaderboardToShow === 'global' ? null :  <p className="leaderboard-item">{scoreInformation.timeCompletedAt.seconds}</p>}
 
        
 
