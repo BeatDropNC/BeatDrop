@@ -44,11 +44,17 @@ input {
 }
 
 .reset-pass-btn {
-    width: 200px;
+    width: 300px;
     height: 100px;
+    margin-bottom: 20px;
 }
 .reset-pass-btn:hover {
     color: #fff;
     background: #56A9FC;
     box-shadow: 0 0 10px #56A9FC, 0 0 40px #56A9FC, 0 0 80px;
+}
+
+.resetContainer {
+    display: grid;
+    place-items: center;
 }

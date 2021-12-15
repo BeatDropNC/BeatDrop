@@ -19,7 +19,7 @@ const ResetPasswordPage = () => {
     }
     return (
         <main className="auth-page">
-            <form className="auth-form" onSubmit={handleSubmitPasswordReset}>
+            <form className="auth-form">
                 <h1 className="auth-page-header">Reset Password</h1>
                 <div className="auth-form-fields">
                     <label htmlFor="email-input">Email address:</label>
@@ -38,10 +38,13 @@ const ResetPasswordPage = () => {
                     {messageToUser ? messageToUser : null}
                 </p>
 
-                <img src={resetPass} className={`reset-pass-btn`} alt="reset password submit button"  onClick={handleSubmitPasswordReset}/>
+
             </form>
-            <Link to="/signup"><img className={`signup-btn`} src={signup} alt="sign up button" /></Link>
-            <Link to="/login"><img className={`login-btn`} src={login} alt="" /></Link>
+            <div className='resetContainer'>
+                <img src={resetPass} className={`reset-pass-btn`} alt="reset password submit button"  onClick={handleSubmitPasswordReset}/>
+                <Link to="/signup"><img className={`signup-btn`} src={signup} alt="sign up button" /></Link>
+                <Link to="/login"><img className={`login-btn`} src={login} alt="" /></Link>
+            </div>
         </main>
     )
 }
