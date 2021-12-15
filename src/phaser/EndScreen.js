@@ -16,6 +16,9 @@ export default class EndScreen extends Phaser.Scene {
     this.load.image("badge2", "assets/Items/no animations/19.png");
     this.load.image("badge3", "assets/Items/no animations/20.png");
     this.load.image("menu-button", "assets/Buttons/Blank.png");
+
+    this.load.image("retry-button", "assets/Buttons/Retry.png")
+    this.load.image("quit-button", "assets/Buttons/Quit.png")
   };
 
   createText = (
@@ -50,28 +53,18 @@ export default class EndScreen extends Phaser.Scene {
 
   createButtons = () => {
     this.retryButton = this.add
-      .image(150, 620, "menu-button")
+      .image(150, 620, "retry-button")
       .setInteractive()
       .on("pointerdown", () => {
         console.log("retry clicked");
       });
-    this.createText(
-      150,
-      620,
-      "retryButtonText",
-      "Retry",
-      "32px",
-      "black",
-      false
-    );
 
-    this.retryButton = this.add
-      .image(450, 620, "menu-button")
+    this.quitButton = this.add
+      .image(450, 620, "quit-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
       });
-    this.createText(450, 620, "exitButtonText", "Exit", "32px", "black", false);
   };
 
   preload = () => {

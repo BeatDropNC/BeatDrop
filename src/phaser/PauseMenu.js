@@ -38,7 +38,6 @@ export default class PauseMenu extends Phaser.Scene {
     this.load.image("quit-button", "assets/Buttons/Quit.png");
 
     this.load.image("resume-button", "assets/Buttons/Resume.png");
-    this.load.image("menu-button", "assets/Buttons/Menu.png");
     this.load.image("mute-button", "assets/Buttons/Mute.png");
     this.load.image("unmute-button", "assets/Buttons/Unmute.png");
   }
