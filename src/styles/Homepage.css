@@ -29,7 +29,8 @@ body {
 .homepage_buttons {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    margin-left: 130px;
+    margin: auto;
+    padding-top: 300px;
 }
 
 .homepage-button{
@@ -37,12 +38,7 @@ body {
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
-}
-
-.homepage-button:hover{
-    color: #fff;
-    background: #fc1681;
-    box-shadow: 0 0 10px #fc1681, 0 0 40px #fc1681, 0 0 80px;
+    margin: auto;
 }
 
 .homepage-buttonTwo{
@@ -50,6 +46,13 @@ body {
     border-radius: 6px;
     font-family: 'Roboto Mono', monospace;
     font-size: 2rem;
+    margin: auto;
+}
+
+.homepage-button:hover{
+    color: #fff;
+    background: #fc1681;
+    box-shadow: 0 0 10px #fc1681, 0 0 40px #fc1681, 0 0 80px;
 }
 
 .homepage-buttonTwo:hover{
@@ -85,22 +88,22 @@ body {
 }
 
 .titles {
-    margin-bottom: 50px;
+    margin: auto;
 }
 
 @media only screen and (max-width: 500px) {
     .titles {
-        margin-left: 100px;
+        margin: auto;
     }
 
     .fox_container {
-        margin-left: 50px;
+        margin-left: 110px;
         margin-top: 110px;
     }
 
     .penguin_container {
-        margin-right: 90px;
-        margin-top: -110px;
+        margin-right: 110px;
+        margin-top: -100px;
     }
 
     .fox_img {
@@ -114,7 +117,8 @@ body {
     }
 
     .homepage_buttons {
-        margin-left: 260px;
+        margin: auto;
+        padding-top: 100px;
     }
 
     .homepage-button {
