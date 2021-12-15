@@ -41,7 +41,7 @@ const logoutUser = async () => {
 }
 
 
-const signUpUserByEmail = async (username, email, password, setErrorMessage) => {
+const signUpUserByEmail = async (username, email, password, setErrorMessage, avatarUrl) => {
     try {
         // create user authentication
         const { user } = await createUserWithEmailAndPassword(
@@ -85,7 +85,8 @@ const signUpUserByEmail = async (username, email, password, setErrorMessage) => 
             },
             authProvider: 'local',
             friends: [],
-            avatar_url: "https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg",
+            avatar_url: avatarUrl,
+            avatar: "fox",
             userScores: {
                 "level1": [
                     { "score": 0, "timeCompletedAt": "" },

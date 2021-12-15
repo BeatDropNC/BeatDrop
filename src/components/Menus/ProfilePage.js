@@ -29,10 +29,11 @@ const ProfilePage = () => {
         }
     }, [userUid, navigate]);
 
-    const defaultAvatar = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox}
-    const [currentAvatar, setCurrentAvatar] = useState(defaultAvatar);
+    let defaultAvatarObject = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox }
 
-    console.log(currentAvatar)
+
+    const [currentAvatar, setCurrentAvatar] = useState(defaultAvatarObject);
+
 
     const updateUserAvatarInFirebase = async () => {
 
