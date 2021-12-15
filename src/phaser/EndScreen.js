@@ -42,8 +42,8 @@ export default class EndScreen extends Phaser.Scene {
 
   createBadges = () => {
     if (this.score > 1000) this.add.sprite(150, 500, "badge1");
-    if (this.score > 5000) this.add.sprite(300, 500, "badge2");
-    if (this.score > 6000) this.add.sprite(450, 500, "badge3");
+    if (this.score > 80000) this.add.sprite(300, 500, "badge2");
+    if (this.score > 90000) this.add.sprite(450, 500, "badge3");
 
     this.badgesCreated = true;
   };
@@ -79,12 +79,12 @@ export default class EndScreen extends Phaser.Scene {
   };
 
   create = () => {
-    this.createText(300, 200, "playerText", this.game.username);
+    this.createText(300, 160, "playerText", this.game.username);
 
     this.time.delayedCall(
       1000,
       this.createText,
-      [300, 300, "youScoredText", "you scored"],
+      [300, 280, "youScoredText", "you scored"],
       this
     );
 
