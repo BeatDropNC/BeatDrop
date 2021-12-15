@@ -45,17 +45,8 @@ function App() {
             element={<Profile />}
             />
 
-            <Route
-             path='/personal-leaderboard'
-             element={<PersonalLeaderboard />}
-            />
 
             <Route
-             path='/global-leaderboard'
-             element={<GlobalLeaderboard />}
-            />
-
-<Route
              path='/leaderboards'
              element={<LeaderboardsPage />}
             />
