@@ -71,3 +71,18 @@ text-align: center;
 
 
 
+@media only screen and (max-width: 1074px) and (min-width: 767px) {
+
+
+}
+
+@media only screen and (max-width: 780px) {
+    .leaderboard-scorecard-titles{
+        display: none;
+       
+    }
+}
+
+@media only screen and (max-width: 550px) {
+ 
+}

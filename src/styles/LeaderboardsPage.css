@@ -64,12 +64,16 @@
         font-size: 2rem;
     }
     .LeaderboardsPage{
-        width: 90%;
+        width: 100%;
         font-size: 1rem;
     }
 }
 @media only screen and (max-width: 550px) {
     #leaderboards-title{
+        font-size: 1.5rem;
+    }
+    .LeaderboardsPage{
+        width: 100%;
         font-size: 1rem;
     }
 

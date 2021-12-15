@@ -29,26 +29,31 @@
         font-size: 1.6rem;
 
     }   
+    .leaderboard-rank{
+        font-size: 2rem;
+         
+    }
 
 
 
 }
-@media only screen and (max-width: 766) {
+@media only screen and (max-width: 780px) {
     .LeaderboardScoreCard{
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         padding: 20px;
 
-    
-        
     }
     
     .leaderboard-item{
         width: 100%;
         margin: 0;
         font-size: 1.2rem;
-
+    }
+    .leaderboard-rank{
+        font-size: 2rem;
+         
     }
     
 }
