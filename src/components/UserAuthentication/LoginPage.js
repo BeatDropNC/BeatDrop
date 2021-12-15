@@ -5,6 +5,8 @@ import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
 import '../../styles/LoginPage.css'
 import login from '../../assets/buttons/Login.png'
+import forgot from '../../assets/buttons/ForgotPass.png'
+import signup from '../../assets/buttons/Signup.png'
 
 
 const LoginPage = () => {
@@ -62,16 +64,14 @@ const LoginPage = () => {
                     {errorMessage ? errorMessage : null}
                 </p>
 
-                <img src={login} className={`login-button homepage-buttonTwo`} onClick={handleSubmitLogin}/>
-
+                <div className='buttonContainer'>
+                    <img src={login} className={`login-button homepage-buttonTwo`} onClick={handleSubmitLogin}/>
+                    <img src={signup} className={`login-button homepage-buttonFour`} onClick={() => navigate('/signup')}/>
+                    <img src={forgot} className={`login-button homepage-buttonThree`} onClick={() => navigate('/reset-password')}/>
+                </div>
+                
             </form>
-            <p className="login-page-reset-password-link">
-                <Link to="/reset-password">Forgot Password</Link>
-            </p>
-            <p>Don't have<br></br>an account?</p>
-            <div className="login-page-signup-link">
-                <Link  to="/signup">Sign up</Link>
-            </div>
+            
         </main>
     )
 }
