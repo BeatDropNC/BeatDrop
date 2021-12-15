@@ -36,9 +36,9 @@ export default class PhaserScene extends Phaser.Scene {
   loadImages = () => {
     //Static Assets
     this.load.image("star", "assets/star.png");
-    this.load.spritesheet("dude", "assets/Sprites/fox_spritesheet.png", {
+    this.load.spritesheet("dude", `assets/Sprites/${this.game.avatar}_spritesheet.png`, {
       frameWidth: 70,
-      frameHeight: 86,
+      frameHeight: this.game.avatar.includes('robot') ? 53 : 86
     });
     this.load.image("floor", "assets/Platform/floor.png");
     this.load.image("pause-button", "assets/Buttons/PauseButton.png");

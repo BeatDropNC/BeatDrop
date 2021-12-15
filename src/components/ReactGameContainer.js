@@ -127,15 +127,18 @@ function ReactGameContainer({
   }
 
   const username = userInformation ? userInformation.username : 'Player';
+  const avatar = userInformation ? userInformation.avatar : 'fox';
 
   useEffect(() => {
     const height = 800;
     const width = 600;
-    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore, username);
+    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore, username, avatar);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
       document.game.destroy(true);
+
+      console.log(userInformation)
       
     };
   }, []);
