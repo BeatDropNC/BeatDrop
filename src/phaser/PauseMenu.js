@@ -31,12 +31,8 @@ export default class PauseMenu extends Phaser.Scene {
   };
 
   preload() {
-    // load in lightblue background
     this.load.image("menuBackground", "assets/lightblue-background.png");
-    //load in background grey background
     this.load.image("menuBackground2", "assets/grey-background3.png");
-    // load in menu button
-    this.load.image("menuButton", "assets/Buttons/Blank.png");
 
     this.load.image("retry-button", "assets/Buttons/Retry.png");
     this.load.image("quit-button", "assets/Buttons/Quit.png");
@@ -48,23 +44,20 @@ export default class PauseMenu extends Phaser.Scene {
   }
 
   create() {
-    // add blue background
     this.background = this.add.image(300, 400, "menuBackground");
     this.background.alpha = 0.5;
 
-    // add grey background
     this.menuBackground = this.add.image(300, 400, "menuBackground2");
     this.menuBackground.alpha = 0.5;
 
-    // add resume button
     this.resumeButton = this.add
       .image(300, 250, "resume-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.sound.resumeAll();
+        this.scene.stop().resume("PhaserScene");
       });
 
-    // exit button
     this.quitButton = this.add
       .image(300, 400, "quit-button")
       .setInteractive()
@@ -72,10 +65,8 @@ export default class PauseMenu extends Phaser.Scene {
         this.game.destroyPhaserGame();
       });
 
-    // mute button
     this.unMuteButton = this.add
       .image(300, 550, "unmute-button")
-      .setVisible(false)
       .setInteractive()
       .on("pointerdown", () => {
         this.sound.mute = false;
@@ -92,12 +83,8 @@ export default class PauseMenu extends Phaser.Scene {
         this.unMuteButton.setVisible(true);
       });
 
-    // add onClick event listener to resume button.
-    // Closes this scene, and resumes game.
-    this.resumeButton.on("pointerdown", () => {
-      this.scene.stop().resume("PhaserScene");
-    });
+    this.sound.mute
+      ? this.muteButton.setVisible(false)
+      : this.unMuteButton.setVisible(false);
   }
-
-  update() {}
 }
