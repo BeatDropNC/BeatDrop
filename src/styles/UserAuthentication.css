@@ -54,6 +54,18 @@ input {
     box-shadow: 0 0 10px #56A9FC, 0 0 40px #56A9FC, 0 0 80px;
 }
 
+.signup-btn:hover {
+    color: #fff;
+    background: #FC1789;
+    box-shadow: 0 0 10px #FC1789, 0 0 40px #FC1789, 0 0 80px;
+}
+
+.login-btn:hover {
+    color: #fff;
+    background: #19FC9A;
+    box-shadow: 0 0 10px #19FC9A, 0 0 40px #19FC9A, 0 0 80px;
+}
+
 .resetContainer {
     display: grid;
     place-items: center;
