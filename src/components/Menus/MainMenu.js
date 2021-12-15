@@ -25,7 +25,7 @@ const MainMenu = () => {
     }
     return (
         <main className="main-menu">
-            <Link to="/level-select"><img className='pixel-buttons-play' src={play}/></Link>
+            <Link to="/level-select"><img className='main-menu-pixel-buttons-play' src={play}/></Link>
             <Link to="/social"><img className='pixel-buttons-social' src={social}/></Link>
             <Link to="/profile"><img className='pixel-buttons-profile' src={profile}/></Link>
             <Link to="/leaderboards"><img className='pixel-buttons-leaderboards' src={leaderboards}/></Link>
