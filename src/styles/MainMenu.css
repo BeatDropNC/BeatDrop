@@ -12,6 +12,10 @@ h1 {
     font-size: 3rem;
 }
 
+.main-menu {
+    margin-top: 100px;
+}
+
 .main-menu > a {
     margin: 0.1em;
 }
