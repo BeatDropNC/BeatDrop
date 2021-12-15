@@ -8,7 +8,7 @@
 }
 
 body {
-    background-image: url('https://wallpaperaccess.com/full/869.jpg');
+    background-image: url('../../src/assets/pixel_city_background.png');
     background-position: center; 
     background-size: cover;
     background-repeat: no-repeat;

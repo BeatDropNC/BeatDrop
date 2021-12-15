@@ -53,7 +53,7 @@ function ReactGameContainer({
         await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
           .then(async () => {
             console.log("New global high score was achieved!")
-            await postNewActivity(userInformation.username, null, newScore, levelChoice);
+            await postNewActivity(userInformation.username, null, newScore, levelChoice, userInformation.avatar_url);
           })
 
       } else {
@@ -126,10 +126,12 @@ function ReactGameContainer({
     navigate('/main-menu');
   }
 
+  const username = userInformation ? userInformation.username : 'Player';
+
   useEffect(() => {
     const height = 800;
     const width = 600;
-    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore);
+    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore, username);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));

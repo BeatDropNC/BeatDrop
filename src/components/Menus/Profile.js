@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import { patchUserAvatar } from '../../firebase/firebase.api';
 import '../../styles/Profile.css'
-import fox from '../../assets/sprites/char_select_fox.png'
-import penguin from '../../assets/sprites/char_select_penguin.png'
-import robot_1 from '../../assets/sprites/char_select_robot_1.png'
-import robot_2 from '../../assets/sprites/char_select_robot_2.png'
-import robot_3 from '../../assets/sprites/char_select_robot_3.png'
-import robot_4 from '../../assets/sprites/char_select_robot_4.png'
+import fox from '../../assets/sprites/fox.png'
+import penguin from '../../assets/sprites/penguin.png'
+import robot_1 from '../../assets/sprites/robot_1.png'
+import robot_2 from '../../assets/sprites/robot_2.png'
+import robot_3 from '../../assets/sprites/robot_3.png'
+import robot_4 from '../../assets/sprites/robot_4.png'
 import bronze from '../../assets/medals/18.png'
 import silver from '../../assets/medals/19.png'
 import gold from '../../assets/medals/20.png'

@@ -5,7 +5,6 @@ export default class EndScreen extends Phaser.Scene {
     super("EndScreen");
     this.destroyPhaserGame = destroyPhaserGame;
     this.scoreCounter = 0;
-    this.playerName = "Player";
   }
 
   init = (data) => {
@@ -25,7 +24,7 @@ export default class EndScreen extends Phaser.Scene {
     propName,
     value,
     fontSize = "48px",
-    color = "#5dc416",
+    color = this.game.textColor,
     strokeText = true
   ) => {
     this[propName] = this.add
@@ -36,15 +35,15 @@ export default class EndScreen extends Phaser.Scene {
         color: color,
       })
       .setOrigin(0.5, 0.5)
-      .setShadow(4, 4, "#333333", 4, false, true)
+      .setShadow(4, 4, "#333333", 4, false, true);
 
-      if (strokeText) this[propName].setStroke("black", 4)
+    if (strokeText) this[propName].setStroke("black", 4);
   };
 
   createBadges = () => {
     if (this.score > 1000) this.add.sprite(150, 500, "badge1");
-    if (this.score > 5000) this.add.sprite(300, 500, "badge2");
-    if (this.score > 6000) this.add.sprite(450, 500, "badge3");
+    if (this.score > 80000) this.add.sprite(300, 500, "badge2");
+    if (this.score > 90000) this.add.sprite(450, 500, "badge3");
 
     this.badgesCreated = true;
   };
@@ -56,7 +55,15 @@ export default class EndScreen extends Phaser.Scene {
       .on("pointerdown", () => {
         console.log("retry clicked");
       });
-    this.createText(150, 620, "retryButtonText", "Retry", "32px", "black", false);
+    this.createText(
+      150,
+      620,
+      "retryButtonText",
+      "Retry",
+      "32px",
+      "black",
+      false
+    );
 
     this.retryButton = this.add
       .image(450, 620, "menu-button")
@@ -72,12 +79,12 @@ export default class EndScreen extends Phaser.Scene {
   };
 
   create = () => {
-    this.createText(300, 200, "playerText", this.playerName);
+    this.createText(300, 160, "playerText", this.game.username);
 
     this.time.delayedCall(
       1000,
       this.createText,
-      [300, 300, "youScoredText", "you scored"],
+      [300, 280, "youScoredText", "you scored"],
       this
     );
 
@@ -91,7 +98,9 @@ export default class EndScreen extends Phaser.Scene {
 
   update = () => {
     if (this.scoreText?.text < this.score) {
-      if (this.score > 10000) this.scoreCounter += 100;
+      if (this.score > 10000) this.scoreCounter += 1000;
+      else if (this.score > 1000) this.scoreCounter += 100;
+      else if (this.score > 100) this.scoreCounter += 10;
       else this.scoreCounter += 10;
       this.scoreText.setText(this.scoreCounter);
     } else if (this.scoreText) {

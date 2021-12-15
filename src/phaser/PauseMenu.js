@@ -13,7 +13,7 @@ export default class PauseMenu extends Phaser.Scene {
     propName,
     value,
     fontSize = "36px",
-    color = "#5dc416",
+    color = this.game.textColor,
     strokeText = true
   ) => {
     this[propName] = this.add
