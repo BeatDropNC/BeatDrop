@@ -3,11 +3,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import { patchUserAvatar } from '../../firebase/firebase.api';
 import '../../styles/Profile.css'
+import fox from '../../assets/sprites/char_select_fox.png'
+import penguin from '../../assets/sprites/char_select_penguin.png'
+import robot_1 from '../../assets/sprites/char_select_robot_1.png'
+import robot_2 from '../../assets/sprites/char_select_robot_2.png'
+import robot_3 from '../../assets/sprites/char_select_robot_3.png'
+import robot_4 from '../../assets/sprites/char_select_robot_4.png'
+import bronze from '../../assets/medals/18.png'
+import silver from '../../assets/medals/19.png'
+import gold from '../../assets/medals/20.png'
 import returnButton from '../../assets/buttons/Return.png';
 const data = require('../../dummy-data.json');
 
+
 const Profile = () => {
+
     const { userUid, userInformation, setUserInformation } = useContext(UserUidContext);
+    const [levelToShow, setLevelToShow] = useState(0);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -16,36 +28,40 @@ const Profile = () => {
         }
     }, [userUid, navigate]);
 
-
-    
-    console.log(userInformation?.avatar_url)
-
     const [currentAvatar, setCurrentAvatar] = useState(userInformation?.avatar_url);
 
     console.log(currentAvatar)
     
     // Temp character sprites
     const spriteLinks = [
-        'https://img.favpng.com/13/21/14/sprite-animation-2d-computer-graphics-game-character-png-favpng-JfchZaT8PcD0SyBxicgteE54g.jpg',
-        'https://img.favpng.com/14/1/21/cartoon-character-animation-game-png-favpng-dt9BZDhZxuwemLxuqz1pmXPXy.jpg',
-        'https://www.pinclipart.com/picdir/middle/559-5591551_2d-character-sprite-transparent-clipart.png',
-        'https://www.pinclipart.com/picdir/middle/559-5599557_rpg-character-png-2d-clipart.png',
-        'https://www.pinclipart.com/picdir/middle/495-4951686_10-nobodys-hero-2d-sprites-character-egypt-clipart.png',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKWnct6W7vy_S_nYF3lKgXqtvBBrX2Dw3wz7naEZi8xHpw6zfxXD2NY1VfTYvS-hAFbpU&usqp=CAU',
+        fox,
+        penguin,
+        robot_1,
+        robot_2,
+        robot_3,
+        robot_4
     ]
 
     const badgesLink = [
-        'https://cdn.imgbin.com/16/21/8/imgbin-gold-badge-white-seal-badge-with-gold-decor-round-gold-frame-illutsration-7uCZV8fzRdEett5xPSEsXdBdw.jpg',
-        'https://toppng.com/uploads/preview/seal-badge-blue-png-11546988382eu7lmbuich.png',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR83MNqrxjXDb0yOdURuaOWFjFFGzRBjUTP6Lxe_i7q-Z-6pcwXruAhNY_V7tJn5GPUGf8&usqp=CAU',
+        bronze,
+        silver,
+        gold
     ]
 
+    console.log(levelToShow)
+    console.log(userInformation)
+
+    if(!userInformation) {
+        return (
+            <p>Loading...</p>
+        )
+    }
     return (
         <div className='Profile'>
-            <h1>{data.users.userDocument1.username}</h1>
+            <h1>{userInformation.username}'s Profile</h1>
             <h2>Avatar</h2>
             <div className='current_avatar'>
-                <img src={currentAvatar} alt={data.users.userDocument1.username}></img>
+                <img src={currentAvatar} alt={userInformation.username}></img>
             </div>
             <h2 className='character_select_title'>Character Select</h2>
             <h2 className='character_select_title_mobile'>Character Select</h2>
@@ -53,7 +69,7 @@ const Profile = () => {
                 <div className='character_select'>
                     {spriteLinks.map((sprite) => {
                         return (
-                            <button key={sprite} onClick={() => {
+                            <button className='charSelectButton' key={sprite} onClick={() => {
                                 setCurrentAvatar((prevSprite)=>{
                                     if(sprite !== prevSprite) {
                                         return sprite
@@ -84,13 +100,33 @@ const Profile = () => {
                     } 
                 }}>Submit</button>
             </div>
-            <h2>Badges</h2>
+            <h2>Badges - Level {levelToShow + 1}</h2>
+            <div>
+                <div className='levelButtons'>
+                    {Object.keys(userInformation.badges).map((level, index) => {
+                        return (
+                            <button
+                                key={'buttons' + level + index}
+                                onClick={() => {
+                                    setLevelToShow(index)
+                                }}
+                            >
+                                Level {index + 1}
+                            </button>
+                        )
+                    })}
+                </div>
+            </div>
             <div className='user_badges'>
-                {badgesLink.map((badge) => {
-                    return (
-                        <img className={badge} key={badge} src={badge} alt={badge}></img>
-                    )
-                })}
+
+                {!userInformation.badges[`level${levelToShow + 1}`].bronze 
+                && !userInformation.badges[`level${levelToShow + 1}`].silver 
+                && !userInformation.badges[`level${levelToShow + 1}`].gold ? 
+                <p>No badges for this level yet!</p> : ""}
+
+                {userInformation.badges[`level${levelToShow + 1}`].bronze ? <img src={bronze}/>: ""}
+                {userInformation.badges[`level${levelToShow + 1}`].silver ? <img src={silver}/> : ""}
+                {userInformation.badges[`level${levelToShow + 1}`].gold ? <img src={gold}/> : ""}
             </div>
             <div className='main_menu_link'>
                 <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>

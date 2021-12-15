@@ -35,6 +35,11 @@ img {
     display: none;
 }
 
+.charSelectButton {
+    border-radius: 10px;
+    margin: 5px;
+}
+
 .main_menu_link {
     text-align: center;
     margin-bottom: 20px;
