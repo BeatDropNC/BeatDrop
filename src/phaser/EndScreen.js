@@ -57,9 +57,9 @@ export default class EndScreen extends Phaser.Scene {
       .setTint(0x666666)
       .setAlpha(0.5);
 
-    if (this.score > 1000) this.badgeSpriteBronze.clearAlpha().clearTint();
-    if (this.score > 80000) this.badgeSpriteBronze.clearAlpha().clearTint();
-    if (this.score > 90000) this.badgeSpriteBronze.clearAlpha().clearTint();
+    if (this.score > 60000) this.badgeSpriteBronze.clearAlpha().clearTint();
+    if (this.score > 80000) this.badgeSpriteSilver.clearAlpha().clearTint();
+    if (this.score > 90000) this.badgeSpriteGold.clearAlpha().clearTint();
 
     this.badgesCreated = true;
   };
