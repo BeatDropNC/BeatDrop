@@ -453,11 +453,11 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   applyPowerupEffect = (powerupName) => {
-    if (powerupName === "powerup1") {
+    if (powerupName === "grow") {
       this.powerupGrow();
-    } else if (powerupName === "powerup2") {
+    } else if (powerupName === "slow") {
       this.powerupSlow();
-    } else if (powerupName === "powerup3") {
+    } else if (powerupName === "fast") {
       this.powerupFast();
     }
   };
