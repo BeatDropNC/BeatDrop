@@ -46,7 +46,7 @@ img {
 }
 
 @media only screen and (max-width: 500px) {
-    div.profile h1, h2 {
+     h1, h2 {
         text-align: center;
     }
 

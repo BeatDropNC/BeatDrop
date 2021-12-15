@@ -31,7 +31,35 @@ const Profile = () => {
     const [currentAvatar, setCurrentAvatar] = useState(userInformation?.avatar_url);
 
     console.log(currentAvatar)
+
+    const updateUserAvatarInFirebase = async () => {
+        if(userInformation.avatar_url !== currentAvatar) {
+            setUserInformation(currentUserInformation => {
+                const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
+                newUserInformation.avatar_url = currentAvatar
+                return newUserInformation
+            })
+            await patchUserAvatar(userUid, currentAvatar)
+            .then(()=>{
+                console.log("Patched")
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        } 
+
+    }
     
+
+    const chooseAvatar = (sprite) => {
+
+        setCurrentAvatar((prevSprite)=>{
+            if(sprite !== prevSprite) {
+                return sprite
+            }
+            return prevSprite
+        });
+    }
     // Temp character sprites
     const spriteLinks = [
         fox,
@@ -64,19 +92,14 @@ const Profile = () => {
                 <img src={currentAvatar} alt={userInformation.username}></img>
             </div>
             <h2 className='character_select_title'>Character Select</h2>
-            <h2 className='character_select_title_mobile'>Character Select</h2>
+            {/* <h2 className='character_select_title_mobile'>Character Select</h2> */}
             <div className='character_select_container'>
                 <div className='character_select'>
                     {spriteLinks.map((sprite) => {
                         return (
                             <button className='charSelectButton' key={sprite} onClick={() => {
-                                setCurrentAvatar((prevSprite)=>{
-                                    if(sprite !== prevSprite) {
-                                        return sprite
-                                    }
-                                    return prevSprite
-                                });
-                                // Patch user with new sprite
+                                chooseAvatar(sprite)
+
                             }}>
                                 <img className={sprite} key={sprite} src={sprite} alt={sprite}></img>
                             </button>
@@ -84,25 +107,12 @@ const Profile = () => {
                     })}
                 </div>
                 <button onClick={async ()=>{
-                    if(userInformation.avatar_url !== currentAvatar) {
-                        setUserInformation(currentUserInformation => {
-                            const  newUserInformation = JSON.parse(JSON.stringify(currentUserInformation))
-                            newUserInformation.avatar_url = currentAvatar
-                            return newUserInformation
-                        })
-                        await patchUserAvatar(userUid, currentAvatar)
-                        .then(()=>{
-                            console.log("Patched")
-                        })
-                        .catch((err)=>{
-                            console.log(err)
-                        })
-                    } 
+                   updateUserAvatarInFirebase()
                 }}>Submit</button>
             </div>
             <h2>Badges - Level {levelToShow + 1}</h2>
             <div>
-                <div className='levelButtons'>
+                <div className='profile-levelButtons'>
                     {Object.keys(userInformation.badges).map((level, index) => {
                         return (
                             <button
