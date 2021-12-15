@@ -49,8 +49,8 @@ const GlobalLeaderboard = () => {
             <main className='globalLeaderboard'>
                 <h1> Global Leaderboard </h1>
                 <div className="leaderboard-chooser">
-                    <Link to='/personal-leaderboard'><img className='pixel-buttons' src={personal}/></Link>
-                    <Link to='/global-leaderboard'><img className='pixel-buttons' src={global}/></Link>
+                    <Link to='/personal-leaderboard'><img className='pixel-buttons-personal' src={personal}/></Link>
+                    <Link to='/global-leaderboard'><img className='pixel-buttons-global' src={global}/></Link>
                 </div>
                 <div>
                     <h2>Level {levelToShow + 1}</h2>

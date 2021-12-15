@@ -93,7 +93,7 @@ const Profile = () => {
                 })}
             </div>
             <div className='main_menu_link'>
-                <Link to='/main-menu'><img className='pixel-buttons' src={returnButton}/></Link>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
             </div>
             
         </div>

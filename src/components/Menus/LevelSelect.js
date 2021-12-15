@@ -41,8 +41,8 @@ function LevelSelect({ setLevelChoice }) {
           <button className="red button" onClick={() => {setLevelChoice('level5')}}>Level 5</button>
         </div> 
       </div>
-      <Link id={'start-button'} className={"button start-button"} to={"/newgame"}><img className='pixel-buttons' src={play}/></Link>
-      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons' src={returnButton}/></Link>
+      <Link id={'start-button'} className={"play-button"} to={"/newgame"}><img className='pixel-buttons-play' src={play}/></Link>
+      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
     </div>
   );
 }

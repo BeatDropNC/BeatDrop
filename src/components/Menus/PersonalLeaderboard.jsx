@@ -31,10 +31,10 @@ const PersonalLeaderboard = () => {
             <h1> {userInformation.username}'s <br></br>Scores </h1>
                 <div className="leaderboard-chooser">
                     <div className='personal_leaderboard'>
-                        <Link to='/personal-leaderboard'><img className='pixel-buttons' src={personal}/></Link>
+                        <Link to='/personal-leaderboard'><img className='pixel-buttons-personal' src={personal}/></Link>
                     </div>
                     <div className='global_leaderboard'> 
-                        <Link to='/global-leaderboard'><img className='pixel-buttons' src={global}/></Link>
+                        <Link to='/global-leaderboard'><img className='pixel-buttons-global' src={global}/></Link>
                     </div>
                 </div>
             <div>
@@ -69,7 +69,7 @@ const PersonalLeaderboard = () => {
                 </tbody>
             </table>
             </div>
-            <Link to='/main-menu'><img className='pixel-buttons' src={returnButton}/></Link>
+            <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
         </main>
     );
 };
