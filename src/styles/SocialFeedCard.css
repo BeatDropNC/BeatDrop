@@ -72,3 +72,54 @@
     background: #acb1ff;
     box-shadow: 0 0 10px #acb1ff, 0 0 40px #acb1ff, 0 0 80px;
 }
+
+
+
+
+@media only screen and (max-width: 780px) {
+    .SocialFeedCard{
+        width: 80vw;
+    }
+    .social-card-image{
+        grid-area: social-card-image ;
+        height: 100px;
+        width: 100px;
+        margin: 10px;
+    }
+    .social-card-user-info-container{
+        margin: 10px;
+        height: 100px;
+    }
+    .social-card-description{
+        font-size: 1.4rem;
+        padding: 10px;
+    
+    }
+    }
+
+
+@media only screen and (max-width: 580px) {
+
+    .social-card-image{
+        grid-area: social-card-image ;
+        height: 80px;
+        width: 80px;
+        margin: 10px;
+    }
+
+    .social-card-user-info-container{
+        margin: 10px;
+        height: 80px;
+    }
+
+    .social-card-description{
+        font-size: 1rem;
+        margin-top: 80px;
+    }
+
+    .social-card-username{
+        font-size: 1.2rem;
+    
+        
+    }
+    }

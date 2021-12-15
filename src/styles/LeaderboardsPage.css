@@ -59,7 +59,7 @@
     }
 }
 
-@media only screen and (max-width: 766px) {
+@media only screen and (max-width: 780px) {
     #leaderboards-title{
         font-size: 2rem;
     }
