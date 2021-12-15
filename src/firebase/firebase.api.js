@@ -45,7 +45,7 @@ const getGlobalLeaderboard = async () => {
     }
 }
 
-const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores, username) => {
+const patchGlobalLeaderboardScore = async (gameLevel, newGlobalLevelHighScores) => {
     const globalLeaderboardDocRef = doc(db, "globalLeaderboard", gameLevel);
     try {
         await updateDoc(globalLeaderboardDocRef, {

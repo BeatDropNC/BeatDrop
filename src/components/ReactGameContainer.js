@@ -45,12 +45,13 @@ function ReactGameContainer({
       currentGlobalLevelScores.sort((a, b) => b.score - a.score);
       if (newScore > currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
         const newGlobalLevelScores = [...currentGlobalLevelScores];
+        console.log(newGlobalLevelScores)
         newGlobalLevelScores.push({ score: newScore, username: userInformation.username, timeCompletedAt: Timestamp.fromDate(new Date()) })
         newGlobalLevelScores.sort((a, b) => b.score - a.score);
         newGlobalLevelScores.pop();
 
         //patch new global highscore to global leaderboard
-        await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores, userInformation.username)
+        await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
           .then(() => {
             console.log("New global high score was achieved!")
           })
