@@ -53,6 +53,8 @@ export default class PhaserGame extends Phaser.Game {
         }
       };
     }
+
+
     getPlayTime() {
         console.log(this)
         console.log(this.loop.now - this.loop.startTime)

@@ -264,7 +264,7 @@ export default class PhaserScene extends Phaser.Scene {
     propName,
     value,
     fontSize = "48px",
-    color = "#5dc416",
+    color = this.game.textColor,
     strokeText = true
   ) => {
     this[propName] = this.add
@@ -497,7 +497,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   startEndGame = () => {
     this.gameTimer = this.time.addEvent({
-      delay: 0,
+      delay: 54000,
       callbackScope: this,
       loop: false,
       callback: this.endGame,
@@ -556,19 +556,19 @@ export default class PhaserScene extends Phaser.Scene {
     this.scene.launch("EndScreen", { score: this.score });
   };
 
-  hitStarAddScore = () => {
-    // Increment score
-    this.updateScore(5000);
-    this.gameMusic.starCollectionSFX.play();
-  };
-
   updateScore(updateAmount) {
-    const color = updateAmount < 0 ? "#d40000" : "#5dc416";
+    const color = updateAmount < 0 ? "#d40000" : this.game.textColor();
 
     this.score += updateAmount;
     this.scoreText.setText(`Score: ${this.score}`);
     this.scoreText.setFill(color);
   }
+
+  hitStarAddScore = () => {
+    // Increment score
+    this.updateScore(5000);
+    this.gameMusic.starCollectionSFX.play();
+  };
 
   createScoreText = () => {
     this.createText(300, 24, "scoreText", "Score: 0", "28px");
