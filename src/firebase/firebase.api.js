@@ -67,10 +67,8 @@ const patchUserAvatar = async (uid, avatar_url) => {
     }
 }
 
-const postNewActivity = async (username, newBadges, newScore, level) => {
+const postNewActivity = async (username, newBadges, newScore, level, avatar_url) => {
     const activityCollectionRef = collection(db, "activities");
-    //const temporaryDocRef = doc(db, "activities", "test-post")
-    console.log(username, newBadges, newScore, level)
     try {
         await addDoc(activityCollectionRef, {
             "highscore": newScore,
@@ -79,6 +77,7 @@ const postNewActivity = async (username, newBadges, newScore, level) => {
             "comments": [],
             "achievements": newBadges,
             "timestamp": Timestamp.fromDate(new Date()),
+            avatar_url
         })
     } catch (error) {
         console.log(error)

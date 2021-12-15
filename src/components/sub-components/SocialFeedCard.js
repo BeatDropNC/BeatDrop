@@ -22,7 +22,7 @@ const SocialFeedCard = ({postData, postKey}) => {
   return (
     <div className="SocialFeedCard">
       <div className="social-card-container">
-        <img className="social-card-image"></img>
+        <img className="social-card-image" src={postData.avatar_url}></img>
         <div className="social-card-user-info-container">
           <h3 className="social-card-username">{postData.username}</h3>
           <h4 className="social-card-timestamp">{timestamp}</h4>
