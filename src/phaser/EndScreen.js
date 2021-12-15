@@ -16,7 +16,7 @@ export default class EndScreen extends Phaser.Scene {
     this.load.image("badge1", "assets/Items/no animations/18.png");
     this.load.image("badge2", "assets/Items/no animations/19.png");
     this.load.image("badge3", "assets/Items/no animations/20.png");
-    this.load.image("menu-button", "assets/menu-button.png");
+    this.load.image("menu-button", "assets/Buttons/Blank.png");
   };
 
   createText = (

@@ -5,38 +5,17 @@ export default class PhaserScene extends Phaser.Scene {
   constructor(levelChoice, submitScore) {
     super("PhaserScene");
     this.gameOver = false;
-    this.player = undefined;
     this.score = 0;
-    this.scoreText = undefined;
     this.gameInfo = {
       playTime: 0,
     };
-    this.scrollingBackground = undefined;
-    this.scrollingPlatforms = undefined;
-    this.platformGroup = undefined;
-    this.cursors = undefined;
-    this.lastPlatform = undefined;
     this.gameInProgress = true;
-
     this.starGap = 500;
-    this.lastCreatedPlatform = undefined;
-    this.floor = undefined;
     this.gameEndInProgress = false;
     this.gameOver = false;
-    this.starsGroup = undefined;
-    this.lastStar = undefined;
-    this.lastCreatedStar = undefined;
-    this.gameTimer = undefined;
     this.gameMusic = {};
-
     this.powerupGap = 1500;
-    this.powerupsGroup = undefined;
-    this.lastPowerup = undefined;
-    this.lastCreatedPowerup = undefined;
-
-    this.menuButton = undefined;
-    this.playerVelocityX = 300;
-
+    this.playerVelocityX = 500;
     this.objectVelocityY = -400;
 
     //This sets the key level details such as assets, platform distance and powerups
@@ -57,11 +36,12 @@ export default class PhaserScene extends Phaser.Scene {
   loadImages = () => {
     //Static Assets
     this.load.image("star", "assets/star.png");
-    this.load.spritesheet("dude", "assets/dude.png", {
-      frameWidth: 32,
-      frameHeight: 48,
+    this.load.spritesheet("dude", "assets/Sprites/fox_spritesheet.png", {
+      frameWidth: 70,
+      frameHeight: 86,
     });
     this.load.image("floor", "assets/Platform/floor.png");
+    this.load.image("pause-button", "assets/Buttons/PauseButton.png");
 
     //Load assets from the level config
 
@@ -270,6 +250,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   createPlayer = () => {
     this.player = this.physics.add.sprite(300, 400, "dude");
+    // this.player.setScale(1.2)
     this.player.setCollideWorldBounds(true);
     this.player.body.setBounceY(0.1);
 
@@ -319,7 +300,7 @@ export default class PhaserScene extends Phaser.Scene {
       key: "left",
       frames: this.anims.generateFrameNumbers("dude", {
         start: 0,
-        end: 3,
+        end: 6,
       }),
       frameRate: 10,
       repeat: -1,
@@ -327,15 +308,15 @@ export default class PhaserScene extends Phaser.Scene {
 
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dude", frames: 8 }],
       frameRate: 20,
     });
 
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("dude", {
-        start: 5,
-        end: 8,
+        start: 9,
+        end: 15,
       }),
       frameRate: 10,
       repeat: -1,
@@ -524,13 +505,15 @@ export default class PhaserScene extends Phaser.Scene {
   };
 
   createPauseMenu = () => {
-    this.createText(560, 24, "button", "⏸");
-
-    this.button.setInteractive().on("pointerdown", () => {
-      this.button.setFill("#c4b243");
-      this.sound.pauseAll();
-      this.scene.pause("PhaserScene").launch("PauseMenu");
-    });
+    this.button = this.add
+      .image(560, 36, "pause-button")
+      .setScrollFactor(0)
+      .setScale(0.5)
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.sound.pauseAll();
+        this.scene.pause("PhaserScene").launch("PauseMenu");
+      });
   };
 
   endGame = () => {
@@ -566,9 +549,11 @@ export default class PhaserScene extends Phaser.Scene {
     this.sound.pauseAll();
     this.scene.pause("PhaserScene");
     this.submitScore(this.score);
-    this.scene.launch("EndScreen", { score: this.score });
 
-    
+    this.scoreText.setVisible(false);
+    this.button.setVisible(false);
+
+    this.scene.launch("EndScreen", { score: this.score });
   };
 
   hitStarAddScore = () => {
@@ -756,8 +741,6 @@ export default class PhaserScene extends Phaser.Scene {
   }
 
   update() {
-    this.listenForResume();
-
     if (this.player.body.velocity.y > 10 && this.player.y > 0) {
       this.scrollingBackground.tilePositionY += 10;
       // this.score += 10
