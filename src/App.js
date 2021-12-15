@@ -10,7 +10,7 @@ import { UserUidProvider } from './contexts/UserUidContext';
 import Homepage from './components/Menus/Homepage';
 import MainMenu from './components/Menus/MainMenu';
 import SocialFeed from './components/Menus/SocialFeed';
-import Profile from './components/Menus/Profile';
+import ProfilePage from './components/Menus/ProfilePage';
 import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
 import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
 import LevelSelect from './components/Menus/LevelSelect';
@@ -42,7 +42,7 @@ function App() {
             
             <Route 
             path='/profile'
-            element={<Profile />}
+            element={<ProfilePage />}
             />
 
 
