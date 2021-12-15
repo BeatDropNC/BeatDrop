@@ -24,6 +24,11 @@ body {
     margin-top: -108px;
 }
 
+.homepage_buttons {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    margin-left: 130px;
+}
 
 .homepage-button{
     height: 100px;
@@ -49,4 +54,34 @@ body {
     color: #fff;
     background: #19FC9A;
     box-shadow: 0 0 10px #19FC9A, 0 0 40px #19FC9A, 0 0 80px;
+}
+
+.img_container {
+    margin-top: -150px;
+    margin-left: -375px;
+}
+
+.fox_container {
+    margin-top: 75px;
+}
+
+.penguin_container {
+    margin-left: 750px;
+    margin-top: -160px;
+}
+
+.fox_img {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-10deg);
+}
+
+.penguin_img {
+    width: 100px;
+    height: 100px;
+    transform: rotate(12deg);
+}
+
+.titles {
+    margin-bottom: 50px;
 }
