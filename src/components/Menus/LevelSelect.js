@@ -50,7 +50,7 @@ function LevelSelect({ setLevelChoice }) {
       {/* Only renders right button if level select is not 0 */}
       <div className='level_selector'>
         {currentLevel === 0 ? 
-        ""
+        <img className='arrowLeft' src={arrowLeft}/>
          : 
          <img className='arrowLeft' src={arrowLeft} onClick={()=>{
           setCurrentLevel((prevValue)=>{
@@ -64,7 +64,8 @@ function LevelSelect({ setLevelChoice }) {
         <img className='bgimage' src={levelInfo[currentLevel].img}/>
 
         {/* Only renders left button if level select is not 5 */}
-        {currentLevel === 4 ? "" :
+        {currentLevel === 4 ?
+        <img className='arrowRight' src={arrowRight}/> :
         <img className='arrowRight' src={arrowRight} onClick={()=>{
           setCurrentLevel((prevValue)=>{
             let newLevel = prevValue
