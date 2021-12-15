@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
 import { patchUserAvatar } from '../../firebase/firebase.api';
 import '../../styles/Profile.css'
+import returnButton from '../../assets/buttons/Return.png';
 const data = require('../../dummy-data.json');
 
 const Profile = () => {
@@ -92,7 +93,7 @@ const Profile = () => {
                 })}
             </div>
             <div className='main_menu_link'>
-                <Link to='/main-menu'>Return to Main Menu</Link>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
             </div>
             
         </div>

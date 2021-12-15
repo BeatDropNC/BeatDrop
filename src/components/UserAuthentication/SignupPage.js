@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signUpUserByEmail } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
+import signup from '../../assets/buttons/Signup.png'
+import login from '../../assets/buttons/Login.png'
 
 const SignupPage = () => {
     const { userUid } = useContext(UserUidContext)
@@ -69,12 +71,10 @@ const SignupPage = () => {
                     {errorMessage ? errorMessage : null}
                 </p>
                 <button className="auth-submit-btn">Sign Up</button>
+                <img src={signup} className={`auth-submit-btn`} onClick={() => navigate('/signup')}/>
             </form>
             <p>Already <br></br>signed up?</p>
-            <div className='login_link'>
-                <Link to="/login">login</Link>
-            </div>
-
+            <img src={login} className={`login_link`} onClick={() => navigate('/login')}/>
         </main>
     )
 }

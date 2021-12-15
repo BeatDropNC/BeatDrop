@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserUidContext } from '../../contexts/UserUidContext';
-import '../../styles/PersonalLeaderboard.css'
+import '../../styles/PersonalLeaderboard.css';
+import returnButton from '../../assets/buttons/Return.png';
+import personal from '../../assets/buttons/Personal.png';
+import global from '../../assets/buttons/Global.png';
 const data = require('../../dummy-data.json');
 
 const PersonalLeaderboard = () => {
@@ -28,10 +31,10 @@ const PersonalLeaderboard = () => {
             <h1> {userInformation.username}'s <br></br>Scores </h1>
                 <div className="leaderboard-chooser">
                     <div className='personal_leaderboard'>
-                        <Link to='/personal-leaderboard'><button>Personal</button></Link>
+                        <Link to='/personal-leaderboard'><img className='pixel-buttons-personal' src={personal}/></Link>
                     </div>
                     <div className='global_leaderboard'> 
-                        <Link to='/global-leaderboard'><button>Global</button></Link>
+                        <Link to='/global-leaderboard'><img className='pixel-buttons-global' src={global}/></Link>
                     </div>
                 </div>
             <div>
@@ -66,7 +69,7 @@ const PersonalLeaderboard = () => {
                 </tbody>
             </table>
             </div>
-            <Link to='/main-menu'>Return to Main Menu</Link>
+            <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
         </main>
     );
 };
