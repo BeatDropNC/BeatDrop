@@ -4,6 +4,8 @@ import { loginUserByEmail } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
 import '../../styles/LoginPage.css'
+import login from '../../assets/buttons/Login.png'
+import signup from '../../assets/buttons/Signup.png'
 
 const LoginPage = () => {
     const { userUid } = useContext(UserUidContext)
