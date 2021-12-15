@@ -65,15 +65,8 @@ export default class EndScreen extends Phaser.Scene {
   };
 
   createButtons = () => {
-    this.retryButton = this.add
-      .image(200, 600, "retry-button")
-      .setInteractive()
-      .on("pointerdown", () => {
-        console.log("retry clicked");
-      });
-
     this.quitButton = this.add
-      .image(450, 600, "quit-button")
+      .image(300, 600, "quit-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
