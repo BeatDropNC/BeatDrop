@@ -44,3 +44,32 @@ flex-direction: column;
     box-shadow: 0 0 10px #6a74ff, 0 0 40px #6a74ff, 0 0 80px;
 }
 
+.buttonContainer {
+    display: block;
+}
+
+.homepage-buttonThree {
+    width: 300px;
+    height: 100px;
+}
+
+.homepage-buttonFour {
+    width: 250px;
+    height: 100px;
+}
+
+@media only screen and (min-width: 800px) {
+    .buttonContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .homepage-buttonTwo {
+        margin-left: 50px;
+    }
+    .homepage-buttonThree {
+        margin-left: 10px;
+    }
+    .homepage-buttonFour {
+        margin-left: 30px;
+    }
+}
