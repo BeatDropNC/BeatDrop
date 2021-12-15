@@ -1,16 +1,21 @@
 .auth-page {
     text-align: center;
+    font-size: 2rem;
 }
 
-h1{
+h1 {
     margin-top: 80px;
 }
 
 .auth-form-fields {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
-    padding-top: 20px;
     row-gap: 15px;
+    
+}
+
+input {
+    height: 50px;
 }
 
 .auth-submit-btn {
