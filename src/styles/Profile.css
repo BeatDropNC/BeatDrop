@@ -35,13 +35,18 @@ img {
     display: none;
 }
 
+.charSelectButton {
+    border-radius: 10px;
+    margin: 5px;
+}
+
 .main_menu_link {
     text-align: center;
     margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 500px) {
-    h1, h2 {
+    div.profile h1, h2 {
         text-align: center;
     }
 
@@ -55,7 +60,7 @@ img {
     }
 }
 @media only screen and (max-width: 475px) {
-    h1, h2 {
+    div.profile h1, h2 {
         text-align: center;
     }
 
