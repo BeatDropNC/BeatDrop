@@ -64,11 +64,14 @@ const LoginPage = () => {
                     {errorMessage ? errorMessage : null}
                 </p>
 
-                <div className='buttonContainer'>
-                    <img src={login} className={`login-button homepage-buttonTwo`} id='loginButton' onClick={handleSubmitLogin}/>
-                    <img src={signup} className={`login-button homepage-buttonFour`} onClick={() => navigate('/signup')}/>
-                    <img src={forgot} className={`login-button homepage-buttonThree`} onClick={() => navigate('/reset-password')}/>
+                <div className='buttonWholeContainer'>
+                    <div className='buttonContainer'>
+                        <img src={login} className={`login-button homepage-buttonTwo`} id='loginButton' onClick={handleSubmitLogin}/>
+                        <img src={signup} className={`login-button homepage-buttonFour`} onClick={() => navigate('/signup')}/>
+                        <img src={forgot} className={`login-button homepage-buttonThree`} onClick={() => navigate('/reset-password')}/>
+                    </div>
                 </div>
+
                 
             </form>
             
