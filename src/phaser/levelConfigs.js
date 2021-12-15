@@ -16,7 +16,7 @@
     platformRandomY: 300,
     objectVelocityY: -400,
     starDistance: 900,
-    powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
+    powerups: ["slow", "fast", "grow"],
     powerupDistance: 3000,
     music: {
       name: "lets_go_60_sec",
@@ -46,7 +46,7 @@
     platformRandomY: 300,
     objectVelocityY: -400,
         starDistance: 1000,
-    powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
+    powerups: ["slow", "fast", "grow"],
       powerupDistance: 3000,
     music: {
       name: "partying_in_russia_60_sec",
@@ -78,7 +78,7 @@
       platformRandomY: 300,
       objectVelocityY: -400,
           starDistance: 900,
-      powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
+      powerups: ["slow", "fast", "grow"],
       powerupDistance: 3000,
       music: {
         name: "bass_trap_60_sec",
@@ -108,7 +108,7 @@
       platformRandomY: 100,
       objectVelocityY: -600,
           starDistance: 1200,
-      powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
+      powerups: ["slow", "fast", "grow"],
       powerupDistance: 3000,
       music: {
         name: "boss_time_60_sec",
@@ -142,7 +142,7 @@
       platformRandomY: 100,
       objectVelocityY: -400,
       starDistance: 900,
-      powerups: ["powerup1", "powerup2", "powerup3", "powerup4"],
+      powerups: ["slow", "fast", "grow"],
       powerupDistance: 3000,
       music: {
         name: "funny_bit_60_sec_edit",
