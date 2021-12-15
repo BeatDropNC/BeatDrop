@@ -58,9 +58,24 @@
     height: 100px;
 }
 
+.homepage-buttonThree:hover {
+    color: #fff;
+    background: #56A9FC;
+    box-shadow: 0 0 10px #56A9FC, 0 0 40px #56A9FC, 0 0 80px;
+}
+
 .homepage-buttonFour {
     width: 250px;
     height: 100px;
+}
+.homepage-buttonFour:hover {
+    color: #fff;
+    background: #FC1789;
+    box-shadow: 0 0 10px #FC1789, 0 0 40px #FC1789, 0 0 80px;
+}
+
+.buttonWholeContainer {
+    margin: auto;
 }
 
 @media only screen and (min-width: 800px) {

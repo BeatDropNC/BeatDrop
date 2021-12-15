@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { resetPasswordByEmail } from '../../firebase/firebase'
 import { Link } from 'react-router-dom'
 import '../../styles/UserAuthentication.css'
+import resetPass from '../../assets/buttons/ResetPass.png';
+import signup from '../../assets/buttons/Signup.png';
+import login from '../../assets/buttons/Login.png';
 
 const ResetPasswordPage = () => {
     const [email, setEmail] = useState('')
@@ -16,7 +19,7 @@ const ResetPasswordPage = () => {
     }
     return (
         <main className="auth-page">
-            <form className="auth-form" onSubmit={handleSubmitPasswordReset}>
+            <form className="auth-form">
                 <h1 className="auth-page-header">Reset Password</h1>
                 <div className="auth-form-fields">
                     <label htmlFor="email-input">Email address:</label>
@@ -35,17 +38,13 @@ const ResetPasswordPage = () => {
                     {messageToUser ? messageToUser : null}
                 </p>
 
-                <button type="submit" className="auth-submit-btn">
-                    Reset Password
-                </button>
+
             </form>
-            <p>
-                Haven't made an account yet?
-                <Link to="/signup"> Register</Link> now.
-            </p>
-            <p>
-                Already have an account? <Link to="/login">Login</Link>.
-            </p>
+            <div className='resetContainer'>
+                <img src={resetPass} className={`reset-pass-btn`} alt="reset password submit button"  onClick={handleSubmitPasswordReset}/>
+                <Link to="/signup"><img className={`signup-btn`} src={signup} alt="sign up button" /></Link>
+                <Link to="/login"><img className={`login-btn`} src={login} alt="" /></Link>
+            </div>
         </main>
     )
 }
