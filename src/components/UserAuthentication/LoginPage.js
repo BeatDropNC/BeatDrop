@@ -61,9 +61,9 @@ const LoginPage = () => {
                 <p className="auth-error-message login-page-error-message">
                     {errorMessage ? errorMessage : null}
                 </p>
-                <button type="submit" className="login-page-submit-button">
-                    REPLACE W LOGIN PIXEL
-                </button>
+
+                <img src={login} className={`login-button homepage-buttonTwo`} onClick={handleSubmitLogin}/>
+
             </form>
             <p className="login-page-reset-password-link">
                 <Link to="/reset-password">Forgot Password</Link>
