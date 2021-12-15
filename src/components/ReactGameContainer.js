@@ -126,10 +126,12 @@ function ReactGameContainer({
     navigate('/main-menu');
   }
 
+  const username = userInformation ? userInformation.username : 'Player';
+
   useEffect(() => {
     const height = 800;
     const width = 600;
-    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore);
+    document.game = new CreateGame(levelChoice, width, height, destroyPhaserGame, submitScore, username);
 
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
