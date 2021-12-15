@@ -85,3 +85,43 @@ body {
 .titles {
     margin-bottom: 50px;
 }
+
+@media only screen and (max-width: 500px) {
+    .titles {
+        margin-left: 100px;
+    }
+
+    .fox_container {
+        margin-left: 50px;
+        margin-top: 110px;
+    }
+
+    .penguin_container {
+        margin-right: 90px;
+        margin-top: -110px;
+    }
+
+    .fox_img {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .penguin_img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .homepage_buttons {
+        margin-left: 260px;
+    }
+
+    .homepage-button {
+        width: 200px;
+        height: 100px;
+    }
+
+    .homepage-buttonTwo {
+        width: 200px;
+        height: 100px;
+    }
+}
