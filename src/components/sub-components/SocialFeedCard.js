@@ -3,6 +3,7 @@ import { UserUidContext } from "../../contexts/UserUidContext";
 import commentImage from '../../assets/comment.png'
 import '../../styles/SocialFeedCard.css'
 import SocialFeedCommentsContainer from "./SocialFeedCommentsContainer";
+import { createBadgeActivityBody } from "../../utils";
 const SocialFeedCard = ({postData, postKey}) => {
   const [commentsVisibility, setCommentsVisibility] = useState(false)
   const [commentsForPost, setCommentsForPost] = useState(postData.comments)
@@ -12,10 +13,10 @@ const SocialFeedCard = ({postData, postKey}) => {
   let postDescription = `${postData.username} has `
 
   if (postData.highscore === null){
-    postDescription += `posted has a new achievement! They completed the ${postData.achievement} challenge while playing ${postData.level}.`
+    postDescription += createBadgeActivityBody(postData.achievements, postData.level)
 
   } else {
-      postDescription += `posted a new highscore! They scored ${postData.highscore} on ${postData.level}!`
+      postDescription += `posted a new global highscore! They scored ${postData.highscore} on ${postData.level}!`
   }
   
   return (
