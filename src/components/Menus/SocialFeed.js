@@ -57,7 +57,10 @@ const SocialFeed = () => {
 
                 
             </div>
-            <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+            <div className='return_button'>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+            </div>
+            
         </div>
     )
 }
