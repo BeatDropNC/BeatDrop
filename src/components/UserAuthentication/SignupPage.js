@@ -70,10 +70,8 @@ const SignupPage = () => {
                 <p className="auth-error-message">
                     {errorMessage ? errorMessage : null}
                 </p>
-                <button className="auth-submit-btn">Sign Up</button>
-                <img src={signup} className={`auth-submit-btn`} onClick={() => navigate('/signup')}/>
+                <img src={signup} className={`auth-submit-btn`} onClick={handleSubmitSignup}/>
             </form>
-            <p>Already <br></br>signed up?</p>
             <img src={login} className={`login_link`} onClick={() => navigate('/login')}/>
         </main>
     )
