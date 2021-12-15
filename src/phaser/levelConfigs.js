@@ -60,7 +60,7 @@
 
 
 
-  level3: {
+  level5: {
       levelName: "Level 3",
       assetsPath: "assets/levels/Level 3/",
       background: "background.png",
@@ -121,7 +121,7 @@
     },
 
 
-    level5: {
+    level3: {
       levelName: "Level 5",
       assetsPath: "assets/levels/Level 5/",
       background: "background.png",

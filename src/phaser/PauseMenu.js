@@ -31,68 +31,59 @@ export default class PauseMenu extends Phaser.Scene {
   };
 
   preload() {
-    // load in lightblue background
     this.load.image("menuBackground", "assets/lightblue-background.png");
-    //load in background grey background
     this.load.image("menuBackground2", "assets/grey-background3.png");
-    // load in menu button
-    this.load.image("menuButton", "assets/Buttons/Blank.png");
+
+    this.load.image("retry-button", "assets/Buttons/Retry.png");
+    this.load.image("quit-button", "assets/Buttons/Quit.png");
+
+    this.load.image("resume-button", "assets/Buttons/Resume.png");
+    this.load.image("mute-button", "assets/Buttons/Mute.png");
+    this.load.image("unmute-button", "assets/Buttons/Unmute.png");
   }
 
   create() {
-    // add blue background
-    this.background = this.add.image(300, 400, "menuBackground")
+    this.background = this.add.image(300, 400, "menuBackground");
     this.background.alpha = 0.5;
 
-    // add grey background
     this.menuBackground = this.add.image(300, 400, "menuBackground2");
     this.menuBackground.alpha = 0.5;
 
-    // add resume button
     this.resumeButton = this.add
-      .image(300, 250, "menuButton")
+      .image(300, 250, "resume-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.sound.resumeAll();
+        this.scene.stop().resume("PhaserScene");
       });
-    this.createText(300, 250, "resumeButtonText", "Resume");
 
-    // exit button
-    this.exitButton = this.add
-      .image(300, 400, "menuButton")
+    this.quitButton = this.add
+      .image(300, 400, "quit-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
       });
-    this.createText(300, 400, "menuButtonText", "Menu");
 
-    // mute button
-    this.muteButton = this.add
-      .image(300, 550, "menuButton")
+    this.unMuteButton = this.add
+      .image(300, 550, "unmute-button")
       .setInteractive()
       .on("pointerdown", () => {
-        if (this.sound.mute) {
-          this.sound.mute = false;
-          this.muteButtonText.text = "Mute";
-        } else {
-          this.sound.mute = true;
-          this.muteButtonText.text = "Unmute";
-        }
+        this.sound.mute = false;
+        this.unMuteButton.setVisible(false);
+        this.muteButton.setVisible(true);
       });
 
-    this.createText(
-      300,
-      550,
-      "muteButtonText",
-      this.sound.mute ? "Unmute" : "Mute"
-    );
+    this.muteButton = this.add
+      .image(300, 550, "mute-button")
+      .setInteractive()
+      .on("pointerdown", () => {
+        this.sound.mute = true;
+        this.muteButton.setVisible(false);
+        this.unMuteButton.setVisible(true);
+      });
 
-    // add onClick event listener to resume button.
-    // Closes this scene, and resumes game.
-    this.resumeButton.on("pointerdown", () => {
-      this.scene.stop().resume("PhaserScene");
-    });
+    this.sound.mute
+      ? this.muteButton.setVisible(false)
+      : this.unMuteButton.setVisible(false);
   }
-
-  update() {}
 }
