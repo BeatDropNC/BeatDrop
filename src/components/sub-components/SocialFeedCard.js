@@ -16,7 +16,7 @@ const SocialFeedCard = ({postData, postKey}) => {
     postDescription += createBadgeActivityBody(postData.achievements, postData.level)
 
   } else {
-      postDescription += `posted a new highscore! They scored ${postData.highscore} on ${postData.level}!`
+      postDescription += `posted a new global highscore! They scored ${postData.highscore} on ${postData.level}!`
   }
   
   return (
