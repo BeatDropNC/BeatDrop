@@ -4,7 +4,7 @@ import PauseMenu from "./PauseMenu";
 import PhaserScene from "./PhaserScene";
 
 export default class PhaserGame extends Phaser.Game {
-    constructor(levelChoice, width, height, destroyPhaserGame, submitScore) {
+    constructor(levelChoice, width, height, destroyPhaserGame, submitScore, username) {
       const config = {
         type: Phaser.AUTO,
         parent: "phaser-container",
@@ -25,7 +25,8 @@ export default class PhaserGame extends Phaser.Game {
       
       super(config);
       
-
+      this.username = username;
+      this.levelChoice = levelChoice;
       this.globals = {  };
       this.destroyPhaserGame = destroyPhaserGame;
       this.pauseScene = new PauseMenu(destroyPhaserGame);

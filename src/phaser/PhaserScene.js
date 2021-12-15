@@ -497,7 +497,7 @@ export default class PhaserScene extends Phaser.Scene {
 
   startEndGame = () => {
     this.gameTimer = this.time.addEvent({
-      delay: 54000,
+      delay: 0,
       callbackScope: this,
       loop: false,
       callback: this.endGame,

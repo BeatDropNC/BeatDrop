@@ -5,7 +5,6 @@ export default class EndScreen extends Phaser.Scene {
     super("EndScreen");
     this.destroyPhaserGame = destroyPhaserGame;
     this.scoreCounter = 0;
-    this.playerName = "Player";
   }
 
   init = (data) => {
@@ -80,7 +79,7 @@ export default class EndScreen extends Phaser.Scene {
   };
 
   create = () => {
-    this.createText(300, 200, "playerText", this.playerName);
+    this.createText(300, 200, "playerText", this.game.username);
 
     this.time.delayedCall(
       1000,
