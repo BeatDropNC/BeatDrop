@@ -148,7 +148,7 @@ function ReactGameContainer({
   } else {
     return (
       <div className="ReactGameContainer">
-        <div id="phaser-container"></div>
+        <div id="phaser-container" className={"phaser-container"}></div>
       </div>
     );
   }

@@ -6,24 +6,24 @@
     height: 100%;
 }
 
-   .phaser-container{
-    width: auto;
-    height: auto;
-    flex-shrink: 1;
-   }
-   .quit-button{
-   
-       /* left: 425px; */
-       bottom:0;
-       background-color: blue;
-       color: #fff;
-       height: 100px;
-       width: 140px;
-       border-radius: 6px;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       text-decoration: none;
-       font-size: 2rem;
-       flex-shrink: 1;
-   }
+
+
+
+@media only screen and (max-width: 620px) {
+
+    .ReactGameContainer{
+        justify-content: center;
+        width: 100vw;
+        height: auto;
+    }
+
+
+    .phaser-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+}
+
