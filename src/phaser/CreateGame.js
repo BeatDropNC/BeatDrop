@@ -36,6 +36,22 @@ export default class PhaserGame extends Phaser.Game {
       this.scene.add("PauseMenu", this.pauseScene);
       this.scene.add("EndScreen", this.endScreen);
       this.scene.start("PhaserScene");
+      this.textColor = () => {
+        switch (this.levelChoice) {
+          case "level1":
+            return "#5dc416";
+          case "level2":
+            return "#bdbb8c";
+          case "level3":
+            return "#848461";
+          case "level4":
+            return "#c33c16";
+          case "level5":
+            return "#e6d678";
+          default:
+            return "#5dc416";
+        }
+      };
     }
     getPlayTime() {
         console.log(this)
