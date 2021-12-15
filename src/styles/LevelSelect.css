@@ -70,6 +70,11 @@ h2 {
     width: 200px;
     height: 120px;
 }
+.pixel-buttons-return:hover {
+    color: #fff;
+    background: #FF4D4D;
+    box-shadow: 0 0 10px #FF4D4D, 0 0 40px #FF4D4D, 0 0 80px;
+}
 
 @media only screen and (max-width: 500px) {
     .bgimage {
