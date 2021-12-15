@@ -68,8 +68,10 @@ const PersonalLeaderboard = () => {
                     })}
                 </tbody>
             </table>
+            <img className='pixel-buttons-return' src={returnButton}/>
             </div>
-            <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+            
+            <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
         </main>
     );
 };

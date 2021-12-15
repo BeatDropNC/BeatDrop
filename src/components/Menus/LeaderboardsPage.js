@@ -6,6 +6,8 @@ import Leaderboard from '../../components/sub-components/Leaderboard'
 import { getGlobalLeaderboard } from '../../firebase/firebase.api';
 import { onAuthStateChanged } from '@firebase/auth';
 import { auth } from '../../firebase/firebase';
+import returnButton from '../../assets/buttons/Return.png';
+
 const LeaderboardsPage = () => {
 
     const { userUid, userInformation } = useContext(UserUidContext)
@@ -59,9 +61,11 @@ const LeaderboardsPage = () => {
                    <button className={`leaderboards-choice-button ${leaderboardToShow === 'global' ? 'selected-button' : ""}`} onClick={() => {setLeaderboardToShow('global')}}>World Records</button>
             </div>
             <Leaderboard scoreObjects={scoreObjects} levelToShow={levelToShow} setLevelToShow={setLevelToShow} leaderboardToShow={leaderboardToShow}></Leaderboard>
-        
             </div>
-            <Link to='/main-menu'>Return to Main Menu</Link>
+            <div className='return-container'>
+                <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+            </div>
+            
         </main>
     );
 };
