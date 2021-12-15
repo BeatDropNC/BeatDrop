@@ -4,6 +4,7 @@ import { UserUidContext } from '../../contexts/UserUidContext';
 import { getGlobalLeaderboard } from '../../firebase/firebase.api';
 import personal from '../../assets/buttons/Personal.png';
 import global from '../../assets/buttons/Global.png';
+import returnButton from '../../assets/buttons/Return.png';
 import '../../styles/GlobalLeaderboard.css'
 
 const GlobalLeaderboard = () => {
@@ -84,7 +85,7 @@ const GlobalLeaderboard = () => {
                     </div>
                 </div>
                 <div className='main_menu'>
-                    <Link to='/main-menu'>Return to Main Menu</Link>
+                    <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
                 </div>
             </main>
         );
