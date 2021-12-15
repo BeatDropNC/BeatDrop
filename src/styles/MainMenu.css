@@ -48,3 +48,9 @@ h1 {
     width: 200px;
     height: 100px;
 }
+
+@media only screen and (max-width: 500px) {
+    .main-menu {
+        margin-top: 40px;
+    }
+}
