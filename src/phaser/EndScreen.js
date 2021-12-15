@@ -17,8 +17,8 @@ export default class EndScreen extends Phaser.Scene {
     this.load.image("badge3", "assets/Items/no animations/20.png");
     this.load.image("menu-button", "assets/Buttons/Blank.png");
 
-    this.load.image("retry-button", "assets/Buttons/Retry.png")
-    this.load.image("quit-button", "assets/Buttons/Quit.png")
+    this.load.image("retry-button", "assets/Buttons/Retry.png");
+    this.load.image("quit-button", "assets/Buttons/Quit.png");
   };
 
   createText = (
@@ -44,23 +44,36 @@ export default class EndScreen extends Phaser.Scene {
   };
 
   createBadges = () => {
-    if (this.score > 1000) this.add.sprite(150, 500, "badge1");
-    if (this.score > 80000) this.add.sprite(300, 500, "badge2");
-    if (this.score > 90000) this.add.sprite(450, 500, "badge3");
+    this.badgeSpriteBronze = this.add
+      .sprite(150, 450, "badge1")
+      .setTint(0x666666)
+      .setAlpha(0.5);
+    this.badgeSpriteSilver = this.add
+      .sprite(300, 450, "badge2")
+      .setTint(0x666666)
+      .setAlpha(0.5);
+    this.badgeSpriteGold = this.add
+      .sprite(450, 450, "badge3")
+      .setTint(0x666666)
+      .setAlpha(0.5);
+
+    if (this.score > 1000) this.badgeSpriteBronze.clearAlpha().clearTint();
+    if (this.score > 80000) this.badgeSpriteBronze.clearAlpha().clearTint();
+    if (this.score > 90000) this.badgeSpriteBronze.clearAlpha().clearTint();
 
     this.badgesCreated = true;
   };
 
   createButtons = () => {
     this.retryButton = this.add
-      .image(150, 620, "retry-button")
+      .image(200, 600, "retry-button")
       .setInteractive()
       .on("pointerdown", () => {
         console.log("retry clicked");
       });
 
     this.quitButton = this.add
-      .image(450, 620, "quit-button")
+      .image(450, 600, "quit-button")
       .setInteractive()
       .on("pointerdown", () => {
         this.game.destroyPhaserGame();
@@ -75,16 +88,16 @@ export default class EndScreen extends Phaser.Scene {
     this.createText(300, 160, "playerText", this.game.username);
 
     this.time.delayedCall(
-      1000,
+      500,
       this.createText,
-      [300, 280, "youScoredText", "you scored"],
+      [300, 230, "youScoredText", "you scored"],
       this
     );
 
     this.time.delayedCall(
-      2000,
+      1000,
       this.createText,
-      [300, 400, "scoreText", 0],
+      [300, 350, "scoreText", 0],
       this
     );
   };
@@ -102,7 +115,7 @@ export default class EndScreen extends Phaser.Scene {
     }
 
     if (this.scoreCounter === this.score) {
-      this.time.delayedCall(1000, this.createBadges, [], this);
+      this.time.delayedCall(500, this.createBadges, [], this);
     }
 
     if (this.badgesCreated) {
