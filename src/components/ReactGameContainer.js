@@ -27,7 +27,6 @@ function ReactGameContainer({
       await patchUserScores(userUid, newLevelScores, levelChoice)
         .then(async () => {
           console.log("New high score was updated!")
-          await postNewActivity(userInformation.username, null, newScore, levelChoice);
         })
 
       // set local user state
@@ -54,6 +53,7 @@ function ReactGameContainer({
         await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
           .then(() => {
             console.log("New global high score was achieved!")
+            await postNewActivity(userInformation.username, null, newScore, levelChoice);
           })
 
       } else {
@@ -69,7 +69,7 @@ function ReactGameContainer({
     
     // sequentially updates toPatchBadgesObj badges based on game score
     const isUpdatedObj = {};
-    if (newScore > 50000 && !userInformation.badges[levelChoice].bronze) {
+    if (newScore > 50 && !userInformation.badges[levelChoice].bronze) {
       toPatchBadgesObj[levelChoice].bronze = true;
       isUpdatedObj.bronze = true;
     } else {
