@@ -3,7 +3,6 @@ import { db } from './firebase';
 
 const getUserDoc = async (uid) => {
     if (uid === undefined) {
-        console.log("User Unique ID is undefined")
     } else {
         const userDocRef = doc(db, "users", uid);
         try {
@@ -104,7 +103,6 @@ const getActivities = async () => {
     try {
      const querySnapshot = await getDocs(q)
      querySnapshot.forEach((doc) => {
-         console.log(doc.id, " => ", doc.data(), "This is an activity doc")
          activityDocuments.push({[doc.id]: doc.data()})
      })
 
@@ -116,7 +114,6 @@ const getActivities = async () => {
 
 
 const postCommentToActivity = async (activityRef, commentToAdd) => {
-    console.log("making a post request to activity comments", activityRef, commentToAdd)
     const docRef = doc(db,"activities", activityRef);
     try {
      return await updateDoc(docRef, {

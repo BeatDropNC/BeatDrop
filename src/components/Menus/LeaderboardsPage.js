@@ -29,22 +29,18 @@ const LeaderboardsPage = () => {
     //want to see. It will pull information from the state/context by default and make a
     //call to firebase if the global scores are not already in state.
     useEffect(() => {
-        console.log("useeffect triggered, ", leaderboardToShow, userInformation)
         if (leaderboardToShow === 'personal' && userInformation !== null && userInformation){
-            console.log("fetching personal scores from context")
             const userScoresForLevel = userInformation.userScores[levelToShow]
             const sortedScores = userScoresForLevel.sort((a, b) => {return b.score - a.score})
             setScoreObjects(sortedScores)
         } else if (leaderboardToShow === 'global' && Object.keys(globalScores).length === 0){
             getGlobalLeaderboard().then((response) => {
-                console.log("Got globlal scores from firebase")
                 setGlobalScores(response)
                 const scoresForLevel = response[levelToShow]['scoresList']
                 const sortedScores = scoresForLevel.sort((a, b) => {return b.score - a.score})
                 setScoreObjects(sortedScores)
             })
         } else if (leaderboardToShow === 'global'){
-            console.log("We already have the global scores")
             const scoresForLevel = globalScores[levelToShow]['scoresList']
             const sortedScores = scoresForLevel.sort((a, b) => {return b.score - a.score})
             setScoreObjects(sortedScores)

@@ -25,9 +25,6 @@ function ReactGameContainer({
      
       // patch new highscore to 'users' collection on firestore
       await patchUserScores(userUid, newLevelScores, levelChoice)
-        .then(async () => {
-          console.log("New high score was updated!")
-        })
 
       // set local user state
       setUserInformation(currentUserInformation => {
@@ -44,7 +41,6 @@ function ReactGameContainer({
 
       if (newScore > currentGlobalLevelScores[currentGlobalLevelScores.length - 1].score) {
         const newGlobalLevelScores = [...currentGlobalLevelScores];
-        console.log(newGlobalLevelScores)
         newGlobalLevelScores.push({ score: newScore, username: userInformation.username, timeCompletedAt: Timestamp.fromDate(new Date()) })
         newGlobalLevelScores.sort((a, b) => b.score - a.score);
         newGlobalLevelScores.pop();
@@ -52,17 +48,10 @@ function ReactGameContainer({
         //patch new global highscore to global leaderboard
         await patchGlobalLeaderboardScore(levelChoice, newGlobalLevelScores)
           .then(async () => {
-            console.log("New global high score was achieved!")
             await postNewActivity(userInformation.username, null, newScore, levelChoice, userInformation.avatar_url);
           })
-
-      } else {
-        console.log("Not a global high score.")
-      }
-    } else {
-      console.log("Not a high score.")
-    }
-
+        }
+        } 
 
 
     // copies existing user badges from user context, and assigns to toPatchBadgesObj variable.
@@ -98,7 +87,7 @@ function ReactGameContainer({
     const isUpdatedArray = Object.values(isUpdatedObj);
     if (isUpdatedArray.includes(true)) {
       await patchUserBadges(userUid, toPatchBadgesObj)
-        .then(() => console.log("Send user badges patch"))
+
       
       // then updates local state
       setUserInformation(currentUserInformation => {
@@ -111,9 +100,6 @@ function ReactGameContainer({
       const newBadges = Object.entries(isUpdatedObj).filter(badgeEntry => badgeEntry[1] === true).map(badgeEntry => badgeEntry[0])
 
       await postNewActivity(userInformation.username, newBadges, null, levelChoice, userInformation.avatar_url)
-      .then(() => console.log("create new activity post"))
-    } else {
-      console.log("No new badges were earned")
     }
     
 
@@ -137,8 +123,6 @@ function ReactGameContainer({
     return () => {
       setGameTime(Math.round(document.game.getPlayTime() / 1000));
       document.game.destroy(true);
-
-      console.log(userInformation)
       
     };
   }, []);

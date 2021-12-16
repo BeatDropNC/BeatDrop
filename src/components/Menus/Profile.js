@@ -31,7 +31,6 @@ const Profile = () => {
     const defaultAvatar = userInformation !== null ? {avatarName: userInformation.avatar, avatarSrc: userInformation.avatar_url} : {avatarName: "fox", avatarSrc: fox}
     const [currentAvatar, setCurrentAvatar] = useState(defaultAvatar);
 
-    console.log(currentAvatar)
 
     const updateUserAvatarInFirebase = async () => {
 
@@ -43,9 +42,6 @@ const Profile = () => {
                 return newUserInformation
             })
             await patchUserAvatar(userUid, currentAvatar.avatarName, currentAvatar.avatarSrc)
-            .then(()=>{
-                console.log("Patched")
-            })
             .catch((err)=>{
                 console.log(err)
             })
@@ -82,9 +78,6 @@ const Profile = () => {
         silver,
         gold
     ]
-
-    console.log(levelToShow)
-    console.log(userInformation)
 
     if(!userInformation) {
         return (

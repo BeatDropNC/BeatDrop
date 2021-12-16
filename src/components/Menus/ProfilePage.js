@@ -45,9 +45,6 @@ const ProfilePage = () => {
                 return newUserInformation
             })
             await patchUserAvatar(userUid, currentAvatar.avatarName, currentAvatar.avatarSrc)
-            .then(()=>{
-                console.log("Patched")
-            })
             .catch((err)=>{
                 console.log(err)
             })
