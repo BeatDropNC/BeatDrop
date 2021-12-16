@@ -34,7 +34,6 @@ export const setFrontendErrorMessage = ({ message }, setErrorMessage) => {
             break
         default:
             frontendErrorMessage = message
-            console.log([message])
             break
     }
 

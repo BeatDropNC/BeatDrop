@@ -541,7 +541,6 @@ export default class PhaserScene extends Phaser.Scene {
 
   endLevel = () => {
     if (!this.gameOver) {
-      console.log("End of game");
       this.gameOver = true;
       this.physics.pause();
     }

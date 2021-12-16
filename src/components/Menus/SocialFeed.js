@@ -16,7 +16,6 @@ const SocialFeed = () => {
 
 
     useEffect(() => {
-        console.log("Request made to get activities")
        getActivities().then((activities) => {
         setSocialData(activities)
        })

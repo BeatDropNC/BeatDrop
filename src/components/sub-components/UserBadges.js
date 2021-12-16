@@ -11,8 +11,6 @@ const {  userInformation} = useContext(UserUidContext);
 const [badgesEarned, setBadgesEarned] = useState({bronze: false, silver: false, gold:false})
 
 useEffect(() => {
-
-    console.log(userInformation)
     if (userInformation && userInformation !== null){
         setBadgesEarned(userInformation.badges[levelToShow])
     }
