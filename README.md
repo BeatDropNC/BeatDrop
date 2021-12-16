@@ -14,7 +14,8 @@ To install, clone this repository then in the root folder, type in a terminal:
 `npm install`
 You'll need an extra file called `firebaseConfig.json` with your Firebase credentials for the back-end of your instance to run in the `src/firebase` folder.
 The file should have the following format:
-`{
+```
+{
     "apiKey": "yourKey",
     "authDomain": "domain",
     "projectId": "yourProjectId",
@@ -22,7 +23,8 @@ The file should have the following format:
     "messagingSenderId": "message",
     "appId": "yourAppId",
     "measurementId": "yourMeasurementId"
-}`
+}
+```
 You can find this information upon creating a new project on your [Firebase console](https://console.firebase.google.com/).
 
 ## Usage
