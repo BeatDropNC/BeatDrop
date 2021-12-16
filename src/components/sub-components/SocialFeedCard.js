@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { UserUidContext } from "../../contexts/UserUidContext";
+import React, { useState } from "react";
 import commentImage from '../../assets/comment.png'
 import '../../styles/SocialFeedCard.css'
 import SocialFeedCommentsContainer from "./SocialFeedCommentsContainer";
 import { createBadgeActivityBody } from "../../utils";
 const SocialFeedCard = ({postData, postKey}) => {
   const [commentsVisibility, setCommentsVisibility] = useState(false)
-  const [commentsForPost, setCommentsForPost] = useState(postData.comments)
+  const [ commentsForPost ] = useState(postData.comments)
 
  
   const timestamp = new Date(postData.timestamp.seconds * 1000).toUTCString()
@@ -22,7 +21,7 @@ const SocialFeedCard = ({postData, postKey}) => {
   return (
     <div className="SocialFeedCard">
       <div className="social-card-container">
-        <img className="social-card-image" src={postData.avatar_url}></img>
+        <img className="social-card-image" src={postData.avatar_url} alt='social card'></img>
         <div className="social-card-user-info-container">
           <h3 className="social-card-username">{postData.username}</h3>
           <h4 className="social-card-timestamp">{timestamp}</h4>
@@ -30,7 +29,7 @@ const SocialFeedCard = ({postData, postKey}) => {
         <h2 className="social-card-description">{postDescription}</h2>
         <img onClick={() => {setCommentsVisibility((previousState) => {
           return !previousState
-        })}} id={`show-comments-image`} src={commentImage} className="social-card-show-comments"></img>
+        })}} id={`show-comments-image`} src={commentImage} alt='comment' className="social-card-show-comments"></img>
       </div>
       <SocialFeedCommentsContainer commentsVisibility={commentsVisibility} setCommentsVisibility={setCommentsVisibility} commentsForPost={commentsForPost} postKey={postKey}></SocialFeedCommentsContainer>
     </div>

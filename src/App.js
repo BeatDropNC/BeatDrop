@@ -2,7 +2,6 @@ import './App.css';
 import ReactGameContainer from './components/ReactGameContainer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Menu from './components/Menus/LevelSelect';
 import LoginPage from './components/UserAuthentication/LoginPage';
 import SignupPage from './components/UserAuthentication/SignupPage';
 import ResetPasswordPage from './components/UserAuthentication/ResetPasswordPage';
@@ -11,8 +10,6 @@ import Homepage from './components/Menus/Homepage';
 import MainMenu from './components/Menus/MainMenu';
 import SocialFeed from './components/Menus/SocialFeed';
 import ProfilePage from './components/Menus/ProfilePage';
-import PersonalLeaderboard from './components/Menus/PersonalLeaderboard';
-import GlobalLeaderboard from './components/Menus/GlobalLeaderboard';
 import LevelSelect from './components/Menus/LevelSelect';
 import LeaderboardsPage from './components/Menus/LeaderboardsPage';
 

@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserUidContext } from "../contexts/UserUidContext";
 import { getGlobalLeaderboard, patchGlobalLeaderboardScore, patchUserBadges, patchUserScores, postNewActivity } from "../firebase/firebase.api";
 import CreateGame from "../phaser/CreateGame";
@@ -10,7 +10,6 @@ function ReactGameContainer({
   setGameTime,
 }) {
   const { userInformation, setUserInformation, userUid } = useContext(UserUidContext);
-  const [gameEnd, setGameEnd] = useState(false);
 
   const submitScore = async (newScore) => {
 

@@ -28,16 +28,16 @@ const Homepage = () => {
                 <h1 className='drop'>DROP</h1>
                 <div className='img_container'>
                     <div className='fox_container'>
-                        <img src={fox} className='fox_img'/>
+                        <img src={fox} alt='fox' className='fox_img'/>
                     </div>
                     <div className='penguin_container'>
-                        <img src={penguin} className='penguin_img'/>
+                        <img src={penguin} alt="penguin" className='penguin_img'/>
                     </div>
                 </div>
             </div>
             <div className='homepage_buttons'>
-                <img src={signup} className={`signup-button homepage-button`} onClick={() => navigate('/signup')}/>
-                <img src={login} className={`login-button homepage-buttonTwo`} onClick={() => navigate('/login')}/>
+                <img src={signup} alt='signup' className={`signup-button homepage-button`} onClick={() => navigate('/signup')}/>
+                <img src={login} alt='login' className={`login-button homepage-buttonTwo`} onClick={() => navigate('/login')}/>
             </div>
         </main>
     )

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { UserUidContext } from '../../contexts/UserUidContext';
 import '../../styles/SocialFeed.css'
 import SocialFeedCard from '../sub-components/SocialFeedCard';
 import { auth } from '../../firebase/firebase';
@@ -9,10 +8,9 @@ import { getActivities } from '../../firebase/firebase.api';
 import returnButton from '../../assets/buttons/Return.png';
 
 const SocialFeed = () => {
-    const { userUid } = useContext(UserUidContext);
+    
     const navigate = useNavigate();
     const [socialData, setSocialData] = useState([])
-
 
 
     useEffect(() => {
@@ -57,7 +55,7 @@ const SocialFeed = () => {
                 
             </div>
             <div className='return_button'>
-                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton} alt='return button'/></Link>
             </div>
             
         </div>

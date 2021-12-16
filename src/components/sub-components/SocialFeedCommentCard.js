@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserUidContext } from "../../contexts/UserUidContext";
+import React from "react";
 import "../../styles/SocialFeedCommentCard.css";
 
 const SocialFeedCommentCard = ({commentObject}) => {

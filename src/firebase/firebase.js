@@ -11,7 +11,6 @@ import {
     getFirestore,
     setDoc,
     doc,
-    Timestamp,
 } from 'firebase/firestore'
 import { setFrontendErrorMessage } from './errors'
 

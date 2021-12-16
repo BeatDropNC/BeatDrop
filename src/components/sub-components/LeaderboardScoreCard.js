@@ -6,21 +6,8 @@ const LeaderboardScoreCard = ({scoreInformation, rank, leaderboardToShow}) => {
     const {  userInformation } = useContext(UserUidContext)
 
     const username = leaderboardToShow === 'personal' ? userInformation.username : scoreInformation.username
-    const timestamp = scoreInformation.timeCompletedAt != "" ? new Date(scoreInformation.timeCompletedAt.seconds * 1000).toDateString() : ""
+    const timestamp = scoreInformation.timeCompletedAt !== "" ? new Date(scoreInformation.timeCompletedAt.seconds * 1000).toDateString() : ""
 
-    // let topScoreColour = ""
-
-    // switch(rank){
-    //     case 1:
-    //         topScoreColour = 'gold';
-    //         break
-    //     case 2:
-    //         topScoreColour = 'silver'
-    //         break
-    //     case 3:
-    //         topScoreColour = 'bronze'
-    //         break
-    // }
     
     return (
     <div className={`LeaderboardScoreCard `}>

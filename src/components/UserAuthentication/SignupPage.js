@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { signUpUserByEmail } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
@@ -70,9 +70,9 @@ const SignupPage = () => {
                 <p className="auth-error-message">
                     {errorMessage ? errorMessage : null}
                 </p>
-                <img src={signup} className={`auth-submit-btn`} onClick={handleSubmitSignup}/>
+                <img src={signup} alt='sign up' className={`auth-submit-btn`} onClick={handleSubmitSignup}/>
             </form>
-            <img src={login} className={`login_link`} onClick={() => navigate('/login')}/>
+            <img src={login} alt='login' className={`login_link`} onClick={() => navigate('/login')}/>
         </main>
     )
 }

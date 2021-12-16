@@ -25,11 +25,11 @@ const MainMenu = () => {
     }
     return (
         <main className="main-menu">
-            <Link to="/level-select"><img className='main-menu-pixel-buttons-play' src={play}/></Link>
-            <Link to="/social"><img className='pixel-buttons-social' src={social}/></Link>
-            <Link to="/profile"><img className='pixel-buttons-profile' src={profile}/></Link>
-            <Link to="/leaderboards"><img className='pixel-buttons-leaderboards' src={leaderboards}/></Link>
-            <img className='pixel-buttons-signout' src={signout} onClick={onClickSignOut}/>
+            <Link to="/level-select"><img className='main-menu-pixel-buttons-play' src={play} alt='level select'/></Link>
+            <Link to="/social"><img className='pixel-buttons-social' src={social} alt='social button'/></Link>
+            <Link to="/profile"><img className='pixel-buttons-profile' src={profile} alt='profile button'/></Link>
+            <Link to="/leaderboards"><img className='pixel-buttons-leaderboards' src={leaderboards} alt='leaderboard button'/></Link>
+            <img className='pixel-buttons-signout' src={signout} onClick={onClickSignOut} alt='sign out button'/>
         </main>
     )
 }

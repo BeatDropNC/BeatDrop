@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { loginUserByEmail } from '../../firebase/firebase'
 import '../../styles/UserAuthentication.css'
 import { UserUidContext } from '../../contexts/UserUidContext'
@@ -66,9 +66,9 @@ const LoginPage = () => {
 
                 <div className='buttonWholeContainer'>
                     <div className='buttonContainer'>
-                        <img src={login} className={`login-button homepage-buttonTwo`} id='loginButton' onClick={handleSubmitLogin}/>
-                        <img src={signup} className={`login-button homepage-buttonFour`} onClick={() => navigate('/signup')}/>
-                        <img src={forgot} className={`login-button homepage-buttonThree`} onClick={() => navigate('/reset-password')}/>
+                        <img src={login} alt='login' className={`login-button homepage-buttonTwo`} id='loginButton' onClick={handleSubmitLogin}/>
+                        <img src={signup} alt='sign up' className={`login-button homepage-buttonFour`} onClick={() => navigate('/signup')}/>
+                        <img src={forgot} alt='forgot' className={`login-button homepage-buttonThree`} onClick={() => navigate('/reset-password')}/>
                     </div>
                 </div>
 

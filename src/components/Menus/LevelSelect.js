@@ -51,7 +51,7 @@ function LevelSelect({ setLevelChoice }) {
 
       <div className='level-select-level-choice-container'>
 
-         <img className={`level-select-arrow arrow-left ${currentLevel === 0 ? 'disabled-button' : ""}`} src={arrowLeft} onClick={()=>{
+         <img className={`level-select-arrow arrow-left ${currentLevel === 0 ? 'disabled-button' : ""}`} alt='arrowLeft' src={arrowLeft} onClick={()=>{
           setCurrentLevel((prevValue)=>{
             let newLevel = prevValue
             newLevel--
@@ -60,10 +60,10 @@ function LevelSelect({ setLevelChoice }) {
         }}/>
       
       
-        <img className='level-select-level-image' src={levelInfo[currentLevel].img}/>
+        <img className='level-select-level-image' src={levelInfo[currentLevel].img} alt='levelImage'/>
 
    
-        <img className={`level-select-arrow arrow-right ${currentLevel === 4 ? 'disabled-button' : ""}`} src={arrowRight} onClick={()=>{
+        <img className={`level-select-arrow arrow-right ${currentLevel === 4 ? 'disabled-button' : ""}`} alt='arrowRight' src={arrowRight} onClick={()=>{
           setCurrentLevel((prevValue)=>{
             let newLevel = prevValue
             newLevel++
@@ -73,12 +73,12 @@ function LevelSelect({ setLevelChoice }) {
     
         
       </div>
-      <Link id={'start-button'} className={"play-button"} to={"/newgame"}><img className='level-select-play-button' src={play} 
+      <Link id={'start-button'} className={"play-button"} to={"/newgame"}><img className='level-select-play-button' src={play} alt='new game' 
       onClick={() => {setLevelChoice(`level${currentLevel+1}`)}}
       />
       </Link>
 
-      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='level-select-return-button' src={returnButton}/></Link>
+      <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='level-select-return-button' src={returnButton} alt='returnButton'/></Link>
       </div>
     </div>
   );

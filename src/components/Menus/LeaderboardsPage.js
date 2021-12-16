@@ -4,8 +4,6 @@ import { UserUidContext } from '../../contexts/UserUidContext';
 import '../../styles/LeaderboardsPage.css'
 import Leaderboard from '../../components/sub-components/Leaderboard'
 import { getGlobalLeaderboard } from '../../firebase/firebase.api';
-import { onAuthStateChanged } from '@firebase/auth';
-import { auth } from '../../firebase/firebase';
 import returnButton from '../../assets/buttons/Return.png';
 
 const LeaderboardsPage = () => {
@@ -46,8 +44,10 @@ const LeaderboardsPage = () => {
             setScoreObjects(sortedScores)
         }
 
-    }, [leaderboardToShow, levelToShow, globalScores])
+    }, [leaderboardToShow, levelToShow, globalScores, userInformation])
     
+    
+
     return (
         <main className='LeaderboardsPage'>
             <h1 id='leaderboards-title' className="leaderboards-title">Leaderboards</h1>
@@ -59,7 +59,7 @@ const LeaderboardsPage = () => {
             <Leaderboard scoreObjects={scoreObjects} levelToShow={levelToShow} setLevelToShow={setLevelToShow} leaderboardToShow={leaderboardToShow}></Leaderboard>
             </div>
             <div className='return-container'>
-                <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+                <Link id={'main_menu'} className={'main_menu'} to='/main-menu'><img className='pixel-buttons-return' alt='pixelButtonReturn' src={returnButton}/></Link>
             </div>
             
         </main>

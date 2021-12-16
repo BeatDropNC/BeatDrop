@@ -9,18 +9,13 @@ import robot_1 from '../../assets/sprites/robot_1.png'
 import robot_2 from '../../assets/sprites/robot_2.png'
 import robot_3 from '../../assets/sprites/robot_3.png'
 import robot_4 from '../../assets/sprites/robot_4.png'
-import bronze from '../../assets/medals/18.png'
-import silver from '../../assets/medals/19.png'
-import gold from '../../assets/medals/20.png'
 import returnButton from '../../assets/buttons/Return.png';
 import UserBadges from '../sub-components/UserBadges';
-const data = require('../../dummy-data.json');
 
 
 const ProfilePage = () => {
 
     const { userUid, userInformation, setUserInformation } = useContext(UserUidContext);
-    const [levelToShow, setLevelToShow] = useState(0);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -109,7 +104,7 @@ const ProfilePage = () => {
                 <UserBadges></UserBadges>
 
             <div className='main_menu_link'>
-                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton}/></Link>
+                <Link to='/main-menu'><img className='pixel-buttons-return' src={returnButton} alt='return button'/></Link>
             </div>
             </div>
         </div>
