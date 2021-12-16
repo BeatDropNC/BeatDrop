@@ -110,7 +110,7 @@ function ReactGameContainer({
       // sends a post request to create a new social feed entry featuring the new badges that have been earned
       const newBadges = Object.entries(isUpdatedObj).filter(badgeEntry => badgeEntry[1] === true).map(badgeEntry => badgeEntry[0])
 
-      await postNewActivity(userInformation.username, newBadges, null, levelChoice)
+      await postNewActivity(userInformation.username, newBadges, null, levelChoice, userInformation.avatar_url)
       .then(() => console.log("create new activity post"))
     } else {
       console.log("No new badges were earned")
