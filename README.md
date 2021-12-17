@@ -28,4 +28,6 @@ The file should have the following format:
 You can find this information upon creating a new project on your [Firebase console](https://console.firebase.google.com/).
 
 ## Usage
-Please note that the game assets currently aren't in the repository. Please contact a member of the team if you'd like them so you can run a local instance. To run a local instance of the app, type `npm start` in the terminal while in the root project folder.
+Please note that the game assets currently aren't in the repository. Please contact a member of the team if you'd like them to run your own local instance. In the meantime, why not play on [our hosted version](https://beatdrop.netlify.app/)?
+
+To run a local instance of the app, type `npm start` in the terminal while in the root project folder.
