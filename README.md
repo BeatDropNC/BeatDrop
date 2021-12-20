@@ -1,9 +1,9 @@
 # BeatDrop
 BeatDrop is a vertical scrolling video game created by [Atlas Sproson](https://www.linkedin.com/in/asproson/), [Alex Evans](https://github.com/alevans99), [Jack Marsden](https://github.com/marsj96), [James Jinks](https://www.linkedin.com/in/jamesajinks/), and [Sachin Naranji](https://github.com/snaranji01). 
 
-You play the full game [here] (https://beatdrop.netlify.app/)
+You play the full game [here](https://beatdrop.netlify.app/).
 
-It uses [PhaserJS](https://phaser.io) and [React](https://reactjs.org) to bundle, render, and serve the application, and [Firebase](https://firebase.google.com) to keep track of user's activities, accounts, and scores.
+It uses [PhaserJS](https://phaser.io) and [React](https://reactjs.org) to bundle, render, and serve the application, and [Firebase](https://firebase.google.com) to keep track of users' activities, accounts, and scores.
 
 You have to dodge platforms, collect power ups, and avoid power downs to get a high score. You can keep track of your personal bests in the leaderboards and compare yourself to the all time records. Interact with other players and congratulate them on their high scores and achievements in the social feed and customise your game with a variety of levels and characters.
 
@@ -14,7 +14,9 @@ You have to dodge platforms, collect power ups, and avoid power downs to get a h
 ## Installation
 To install, clone this repository then in the root folder, type in a terminal:
 `npm install`
+
 You'll need an extra file called `firebaseConfig.json` with your Firebase credentials for the back-end of your instance to run in the `src/firebase` folder.
+
 The file should have the following format:
 ```
 {
