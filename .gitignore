@@ -27,7 +27,7 @@ yarn-error.log*
 
 # large asset files
 /public/assets/
-/src/assets/
+#/src/assets/
 
 # dummy data for building out components
 src/dummy-data.json
