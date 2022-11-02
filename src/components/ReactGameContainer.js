@@ -124,7 +124,9 @@ function ReactGameContainer({
       document.game.destroy(true);
       
     };
+  // eslint-disable-next-line   
   }, []);
+
 
   if (!userInformation) {
     return <p>Loading...</p>
