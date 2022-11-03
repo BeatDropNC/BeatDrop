@@ -34,7 +34,7 @@ function LevelSelect({ setLevelChoice }) {
     {levelName: "level5", img: level5}, 
   ]
 
-  const [currentLevel, setCurrentLevel] = useState(0)
+  const [currentLevel, setCurrentLevel] = useState(0);
 
   // 01: ruaHERO  		  === lets_go_60_sec
   // 02: kazaCHOK		    === partying_in_russia_60_sec
