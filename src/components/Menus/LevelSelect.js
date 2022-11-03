@@ -11,7 +11,8 @@ import level2 from '../../assets/levelSelect/level2.png'
 import level3 from '../../assets/levelSelect/level3.png'
 import level4 from '../../assets/levelSelect/level4.png'
 import level5 from '../../assets/levelSelect/level5.png'
-import { useState } from 'react/cjs/react.development';
+//import { useState } from 'react/cjs/react.development';
+import { useState } from "react";
 
 
 function LevelSelect({ setLevelChoice }) {
